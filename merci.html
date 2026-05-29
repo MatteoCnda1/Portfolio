@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message envoyé - Mattéo Canada</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="success-page">
+    <div class="success-container">
+      <div class="success-icon">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+          <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+      </div>
+      
+      <h1 class="success-title">Message envoyé !</h1>
+      
+      <p class="success-message">
+        <span class="lang-fr">Merci pour votre message. Je vous répondrai dans les plus brefs délais, généralement sous 24 à 48 heures.</span>
+        <span class="lang-en">Thank you for your message. I will reply as soon as possible, usually within 24 to 48 hours.</span>
+      </p>
+      
+      <div class="success-actions">
+        <a href="index.html" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span class="lang-fr">Retour à l'accueil</span>
+          <span class="lang-en">Back to home</span>
+        </a>
+        
+        <a href="project.html" class="btn-secondary">
+          <span class="lang-fr">Voir mes projets</span>
+          <span class="lang-en">View my projects</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+      
+      <div class="contact-info-grid">
+        <div class="info-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span>m.canada13960@gmail.com</span>
+        </div>
+        
+        <div class="info-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="lang-fr">Réponse sous 24-48h</span>
+          <span class="lang-en">Reply within 24-48h</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="animated-bg">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+  </div>
+
+  <script>
+    // Animation du checkmark
+    window.addEventListener('DOMContentLoaded', function() {
+      const checkmark = document.querySelector('.checkmark');
+      setTimeout(() => {
+        checkmark.classList.add('animate');
+      }, 100);
+    });
+
+    // Gestion de la langue
+    function toggleLanguage() {
+      const currentLang = document.body.getAttribute('lang');
+      const newLang = currentLang === 'fr' ? 'en' : 'fr';
+      document.body.setAttribute('lang', newLang);
+    }
+    
+    let savedLang = 'fr';
+    try {
+      savedLang = localStorage.getItem('preferredLang') || 'fr';
+    } catch (e) {}
+    document.body.setAttribute('lang', savedLang);
+  </script>
+  
+  <style>
+    .lang-fr { display: block; }
+    .lang-en { display: none; }
+    body[lang="en"] .lang-fr { display: none; }
+    body[lang="en"] .lang-en { display: block; }
+  </style>
+</body>
+</html>

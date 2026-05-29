@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À propos - Mattéo Canada</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">MC</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="lang-fr">Accueil</a><a href="index.html" class="lang-en">Home</a></li>
+        <li><a href="aboutme.html" class="lang-fr">À propos</a><a href="aboutme.html" class="lang-en">About</a></li>
+        <li><a href="project.html" class="lang-fr">Projets</a><a href="project.html" class="lang-en">Projects</a></li>
+        <li><a href="contact.html" class="lang-fr">Contact</a><a href="contact.html" class="lang-en">Contact</a></li>
+        <li>
+          <button class="lang-toggle" onclick="toggleLanguage()">
+            <span class="lang-fr">EN</span>
+            <span class="lang-en">FR</span>
+          </button>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/matt%C3%A9o-canada-a46074335/" target="_blank" class="linkedin-btn">
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <section>
+      <h1 class="section-title">
+        <span class="lang-fr">À propos de moi</span>
+        <span class="lang-en">About Me</span>
+      </h1>
+
+      <div class="about-container">
+        <!-- Bio -->
+        <div class="bio-section">
+          <p class="lang-fr">
+            Je m'appelle Mattéo Canada, étudiant en première année de BUT Réseaux et Télécommunications. 
+            Passionné par l'informatique, les réseaux et les nouvelles technologies, je combine rigueur, 
+            créativité et esprit d'analyse pour mener à bien mes projets. J'accorde une importance particulière 
+            à l'innovation et à la résolution de problèmes, valeurs que je partage avec des domaines comme la 
+            Formule 1, qui m'inspire au quotidien.
+          </p>
+          <p class="lang-en">
+            My name is Mattéo Canada, a first-year student in Networks and Telecommunications. Passionate about 
+            IT, networks, and new technologies, I combine rigor, creativity, and analytical thinking to carry out 
+            my projects. I place great importance on innovation and problem-solving, values that I share with 
+            fields like Formula 1, which inspires me daily.
+          </p>
+        </div>
+
+        <!-- Compétences -->
+        <h2 class="section-title">
+          <span class="lang-fr">Compétences techniques</span>
+          <span class="lang-en">Technical Skills</span>
+        </h2>
+
+        <div class="skills-grid">
+          <div class="skill-item">
+            <strong><span class="lang-fr">Réseaux</span><span class="lang-en">Networks</span></strong>
+            <span class="lang-fr">Configuration d'infrastructure réseau, maîtrise des protocoles IPv4, IPv6, TCP/IP, mise en œuvre de NAT et PAT, routage dynamique avec OSPF et RIP et gestion des flux avec les ACL.</span>
+            <span class="lang-en">Network infrastructure configuration, proficient in IPv4, IPv6, TCP/IP protocols; implementation of NAT and PAT; dynamic routing with OSPF and RIP; traffic management using ACLs.</span>
+          </div>
+          <div class="skill-item">
+            <strong><span class="lang-fr">Systèmes</span><span class="lang-en">Systems</span></strong>
+            <span class="lang-fr">Administration de systèmes sous Linux, gestion des utilisateurs, services réseaux, sécurité de base.</span>
+            <span class="lang-en">System administration under Linux, user management, network services, basic security.</span>
+          </div>
+          <div class="skill-item">
+            <strong><span class="lang-fr">Programmation</span><span class="lang-en">Programming</span></strong>
+            <span class="lang-fr">Langages C, Python, HTML/CSS/JavaScript (Web), SQL (bases de données), développement d'applications Android.</span>
+            <span class="lang-en">Languages: C, Python, HTML/CSS/JavaScript (Web), SQL (databases), Android app development.</span>
+          </div>
+          <div class="skill-item">
+            <strong><span class="lang-fr">Électronique</span><span class="lang-en">Electronics</span></strong>
+            <span class="lang-fr">Bases solides en électronique, utilisation de microcontrôleurs (Arduino), intégration de capteurs et modules de communication (GPS, capteurs de température/humidité, modules LTE).</span>
+            <span class="lang-en">Strong foundation in electronics, use of microcontrollers (Arduino), integration of sensors and communication modules (GPS, temperature/humidity sensors, LTE modules).</span>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <h2 class="section-title">
+          <span class="lang-fr">Certifications</span>
+          <span class="lang-en">Certifications</span>
+        </h2>
+
+        <ul class="certifications-list">
+          <li>
+            <span class="lang-fr">Certification ANSSI – SECNUMACADEMIE (Cybersécurité)</span>
+            <span class="lang-en">ANSSI Certification – SECNUMACADEMIE (Cybersecurity)</span>
+          </li>
+          <li>
+            <span class="lang-fr">Obtention du <strong>CCNA 1 – Cisco Certified Network Associate</strong> lors de ma 1ère année de BUT</span>
+            <span class="lang-en">Obtaining the <strong>CCNA 1 – Cisco Certified Network Associate</strong> during my first year in BUT</span>
+          </li>
+          <li>
+            <span class="lang-fr">Préparation du <strong>CCNA 2 – Switching, Routing and Wireless Essentials</strong> en cours d'obtention...</span>
+            <span class="lang-en">Preparation of the <strong>CCNA 2 – Switching, Routing and Wireless Essentials</strong> in progress...</span>
+          </li>
+        </ul>
+
+        <!-- Expériences -->
+        <h2 class="section-title">
+          <span class="lang-fr">Expériences marquantes</span>
+          <span class="lang-en">Significant Experiences</span>
+        </h2>
+
+        <div class="bio-section">
+          <p class="lang-fr">
+            Dès mes 11 ans, j'ai initié un projet personnel de convertisseur de langage de programmation avec un ami, 
+            posant les bases de ma passion pour la tech. Plus récemment, j'ai dirigé un projet de ruche connectée pour 
+            un apiculteur afin de lui faire gagner en efficacité et en économie. Ce projet IoT, mêlant électronique, 
+            programmation embarquée et réseau, m'a permis d'exploiter pleinement mes compétences techniques et humaines.
+          </p>
+          <p class="lang-en">
+            Since I was 11, I started a personal project to create a programming language converter with a friend, 
+            laying the foundations of my passion for tech. More recently, I led a project to create a connected beehive 
+            for a beekeeper, helping him increase efficiency and reduce costs. This IoT project, combining electronics, 
+            embedded programming, and networking, allowed me to fully leverage my technical and interpersonal skills.
+          </p>
+        </div>
+
+        <!-- Vision -->
+        <h2 class="section-title">
+          <span class="lang-fr">Vision et ambitions</span>
+          <span class="lang-en">Vision and Ambitions</span>
+        </h2>
+
+        <div class="bio-section">
+          <p class="lang-fr">
+            Mon objectif est de devenir un professionnel complet, capable de concevoir et de sécuriser des infrastructures 
+            réseaux tout en intégrant des technologies intelligentes dans des solutions réelles. J'aime l'approche "hands-on" 
+            et je cherche constamment à approfondir mes connaissances et à repousser mes limites.
+          </p>
+          <p class="lang-en">
+            My goal is to become a well-rounded professional, capable of designing and securing network infrastructures 
+            while integrating smart technologies into real-world solutions. I love a hands-on approach and I constantly 
+            strive to deepen my knowledge and push my limits.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mattéo Canada - <span class="lang-fr">Tous droits réservés</span><span class="lang-en">All rights reserved</span></p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
