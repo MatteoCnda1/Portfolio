@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mattéo Canada - Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">MC</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="lang-fr">Accueil</a><a href="index.html" class="lang-en">Home</a></li>
+        <li><a href="aboutme.html" class="lang-fr">À propos</a><a href="aboutme.html" class="lang-en">About</a></li>
+        <li><a href="project.html" class="lang-fr">Projets</a><a href="project.html" class="lang-en">Projects</a></li>
+        <li><a href="contact.html" class="lang-fr">Contact</a><a href="contact.html" class="lang-en">Contact</a></li>
+        <li>
+          <button class="lang-toggle" onclick="toggleLanguage()">
+            <span class="lang-fr">EN</span>
+            <span class="lang-en">FR</span>
+          </button>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/matt%C3%A9o-canada-a46074335/" target="_blank" class="linkedin-btn">
+            LinkedIn
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-wrapper">
+    <div class="hero-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
+    
+    <main class="hero-main">
+      <div class="hero-grid">
+        <!-- Image -->
+        <div class="hero-image-section">
+          <div class="image-wrapper">
+            <img src="assets/matteo.png" alt="Mattéo Canada" class="profile-image">
+            <div class="image-glow"></div>
+          </div>
+        </div>
+        
+        <!-- Contenu -->
+        <div class="hero-content-section">
+          <div class="hero-badge">
+            <span class="lang-fr"> Bienvenue sur mon portfolio</span>
+            <span class="lang-en"> Welcome to my portfolio</span>
+          </div>
+          
+          <h1 class="hero-title">
+            <span class="title-line">MATTÉO</span>
+            <span class="title-line gradient-text">CANADA</span>
+          </h1>
+          
+          <p class="hero-role">
+            <span class="lang-fr">Étudiant en BUT Réseaux et Télécoms</span>
+            <span class="lang-en">Student in Networks &amp; Telecommunications</span>
+          </p>
+          
+          <p class="hero-tagline">
+            <span class="lang-fr">Passionné par l'innovation technologique et les infrastructures réseaux</span>
+            <span class="lang-en">Passionate about technological innovation and network infrastructures</span>
+          </p>
+          
+          <div class="hero-cta">
+            <a href="project.html" class="cta-button primary">
+              <span class="lang-fr">Voir mes projets</span>
+              <span class="lang-en">View my projects</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="contact.html" class="cta-button secondary">
+              <span class="lang-fr">Me contacter</span>
+              <span class="lang-en">Contact me</span>
+            </a>
+          </div>
+          
+          <!-- Stats -->
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">5+</div>
+              <div class="stat-label lang-fr">Projets</div>
+              <div class="stat-label lang-en">Projects</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">2</div>
+              <div class="stat-label lang-fr">Certifications</div>
+              <div class="stat-label lang-en">Certifications</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">1+</div>
+              <div class="stat-label lang-fr">Année d'études</div>
+              <div class="stat-label lang-en">Year of study</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Mattéo Canada - <span class="lang-fr">Tous droits réservés</span><span class="lang-en">All rights reserved</span></p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
