@@ -7,51 +7,153 @@
   <title>Projets - Mattéo Canada</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Gestion des langues - inline par défaut */
+    /* ============================================================
+       PAGE PROJETS — version épurée
+       Cartes propres + panneau de détail qui s'ouvre en douceur.
+       Plus de gros modals lourds : tout est léger et fluide.
+    ============================================================ */
+
+    /* --- Gestion langue --- */
     .lang-fr { display: inline; }
     .lang-en { display: none; }
     body[lang="en"] .lang-fr { display: none; }
     body[lang="en"] .lang-en { display: inline; }
-    
-    /* Pour les éléments block (p, h1, h2, h3, li, div) */
-    p.lang-fr, p.lang-en,
-    h1.lang-fr, h1.lang-en,
-    h2.lang-fr, h2.lang-en,
-    h3.lang-fr, h3.lang-en,
-    div.lang-fr, div.lang-en,
-    li.lang-fr, li.lang-en,
-    strong.lang-fr, strong.lang-en {
-      display: block !important;
+    p.lang-fr, p.lang-en, h1.lang-fr, h1.lang-en, h2.lang-fr, h2.lang-en,
+    h3.lang-fr, h3.lang-en, div.lang-fr, div.lang-en, li.lang-fr, li.lang-en {
+      display: block;
     }
-    
-    body[lang="fr"] p.lang-en,
-    body[lang="fr"] h1.lang-en,
-    body[lang="fr"] h2.lang-en,
-    body[lang="fr"] h3.lang-en,
-    body[lang="fr"] div.lang-en,
-    body[lang="fr"] li.lang-en,
-    body[lang="fr"] strong.lang-en {
-      display: none !important;
+    body[lang="fr"] p.lang-en, body[lang="fr"] h1.lang-en, body[lang="fr"] h2.lang-en,
+    body[lang="fr"] h3.lang-en, body[lang="fr"] div.lang-en, body[lang="fr"] li.lang-en { display: none; }
+    body[lang="en"] p.lang-fr, body[lang="en"] h1.lang-fr, body[lang="en"] h2.lang-fr,
+    body[lang="en"] h3.lang-fr, body[lang="en"] div.lang-fr, body[lang="en"] li.lang-fr { display: none; }
+
+    /* --- En-tête --- */
+    .pp { max-width: 1100px; margin: 0 auto; padding: 120px 24px 80px; position: relative; z-index: 1; }
+    .pp-head { text-align: center; margin-bottom: 56px; }
+    .pp-badge {
+      display: inline-block; padding: 7px 16px; border-radius: 999px;
+      font-size: .82rem; letter-spacing: .3px; color: var(--accent);
+      background: rgba(0,217,255,.08); border: 1px solid rgba(0,217,255,.2);
+      margin-bottom: 18px;
     }
-    
-    body[lang="en"] p.lang-fr,
-    body[lang="en"] h1.lang-fr,
-    body[lang="en"] h2.lang-fr,
-    body[lang="en"] h3.lang-fr,
-    body[lang="en"] div.lang-fr,
-    body[lang="en"] li.lang-fr,
-    body[lang="en"] strong.lang-fr {
-      display: none !important;
+    .pp-title {
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; line-height: 1.1;
+      margin-bottom: 16px;
+      background: var(--gradient-neon); -webkit-background-clip: text;
+      background-clip: text; -webkit-text-fill-color: transparent;
     }
-    
-    body[lang="en"] p.lang-en,
-    body[lang="en"] h1.lang-en,
-    body[lang="en"] h2.lang-en,
-    body[lang="en"] h3.lang-en,
-    body[lang="en"] div.lang-en,
-    body[lang="en"] li.lang-en,
-    body[lang="en"] strong.lang-en {
-      display: block !important;
+    .pp-sub { max-width: 620px; margin: 0 auto; color: var(--text-dim); font-size: 1.02rem; }
+
+    /* --- Filtres --- */
+    .pp-filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 44px; }
+    .pp-filter {
+      padding: 8px 18px; border-radius: 999px; cursor: pointer;
+      font-size: .88rem; font-family: inherit; color: var(--text-dim);
+      background: transparent; border: 1px solid rgba(255,255,255,.12);
+      transition: all .25s ease;
+    }
+    .pp-filter:hover { color: var(--text); border-color: rgba(0,217,255,.4); }
+    .pp-filter.active {
+      color: #0a0a0f; font-weight: 600; border-color: transparent;
+      background: var(--gradient-neon);
+    }
+
+    /* --- Grille --- */
+    .pp-grid {
+      display: grid; gap: 22px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+
+    /* --- Carte --- */
+    .pc {
+      position: relative; border-radius: 18px; overflow: hidden;
+      background: rgba(26,26,46,.55); border: 1px solid rgba(255,255,255,.07);
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+      display: flex; flex-direction: column;
+    }
+    .pc:hover {
+      transform: translateY(-4px); border-color: rgba(0,217,255,.35);
+      box-shadow: 0 18px 40px -20px rgba(0,217,255,.4);
+    }
+    .pc.hidden { display: none; }
+
+    .pc-thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+    .pc-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .pc:hover .pc-thumb img { transform: scale(1.05); }
+    .pc-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10,10,15,.85) 100%);
+    }
+    .pc-cat {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      padding: 5px 12px; border-radius: 999px; font-size: .74rem; font-weight: 600;
+      color: #fff; background: rgba(10,10,15,.6); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .pc-status {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      padding: 5px 11px; border-radius: 999px; font-size: .72rem; font-weight: 600;
+      color: #ffd166; background: rgba(255,209,102,.12);
+      border: 1px solid rgba(255,209,102,.35);
+    }
+
+    .pc-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+    .pc-title { font-size: 1.18rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .pc-desc { color: var(--text-dim); font-size: .92rem; line-height: 1.55; margin-bottom: 16px; flex: 1; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+    .pc-tags .tag {
+      font-size: .74rem; padding: 4px 10px; border-radius: 7px;
+      color: var(--accent); background: rgba(0,217,255,.08);
+      border: 1px solid rgba(0,217,255,.18);
+    }
+    .pc-toggle {
+      display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
+      padding: 9px 16px; border-radius: 10px; cursor: pointer;
+      font-family: inherit; font-size: .86rem; font-weight: 600;
+      color: var(--accent); background: transparent;
+      border: 1px solid rgba(0,217,255,.3); transition: all .25s ease;
+    }
+    .pc-toggle:hover { background: rgba(0,217,255,.1); }
+    .pc-toggle svg { transition: transform .3s ease; }
+    .pc.open .pc-toggle svg { transform: rotate(90deg); }
+
+    /* --- Détail dépliable (remplace les modals) --- */
+    .pc-detail {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .4s ease;
+    }
+    .pc.open .pc-detail { grid-template-rows: 1fr; }
+    .pc-detail-inner { overflow: hidden; }
+    .pc.open .pc-detail-inner { padding-top: 20px; }
+    .pc-detail-inner > * { margin-top: 18px; }
+    .pc-detail-inner > *:first-child { margin-top: 0; }
+
+    .pc-sec h4 {
+      font-size: .82rem; text-transform: uppercase; letter-spacing: .6px;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .pc-sec p { color: var(--text-dim); font-size: .9rem; line-height: 1.6; }
+    .pc-sec p strong, .pc-sec li strong { color: var(--text); font-weight: 600; }
+    .pc-sec ul { list-style: none; margin-top: 6px; }
+    .pc-sec ul li {
+      position: relative; padding-left: 18px; margin-bottom: 7px;
+      color: var(--text-dim); font-size: .9rem; line-height: 1.55;
+    }
+    .pc-sec ul li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    }
+    .pc-skills { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); }
+    .pc-skill {
+      padding: 12px 14px; border-radius: 12px;
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    }
+    .pc-skill strong { display: block; color: var(--text); font-size: .88rem; margin-bottom: 3px; }
+    .pc-skill span { color: var(--text-dim); font-size: .8rem; line-height: 1.45; }
+
+    @media (max-width: 520px) {
+      .pp { padding: 100px 16px 60px; }
+      .pp-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -71,215 +173,242 @@
           </button>
         </li>
         <li>
-          <a href="https://www.linkedin.com/in/matt%C3%A9o-canada-a46074335/" target="_blank" class="linkedin-btn">
-            LinkedIn
-          </a>
+          <a href="https://www.linkedin.com/in/matt%C3%A9o-canada-a46074335/" target="_blank" class="linkedin-btn">LinkedIn</a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <main class="projects-page">
-    <div class="projects-header">
-      <span class="projects-badge">
-        <span class="lang-fr">&#128188; Portfolio</span>
-        <span class="lang-en">&#128188; Portfolio</span>
-      </span>
-      <h1 class="page-title">
+  <main class="pp">
+    <header class="pp-head">
+      <span class="pp-badge">Portfolio</span>
+      <h1 class="pp-title">
         <span class="lang-fr">Mes Projets</span>
         <span class="lang-en">My Projects</span>
       </h1>
-      <p class="page-subtitle">
-        <span class="lang-fr">Découvrez mes réalisations académiques et personnelles dans les domaines des réseaux, de la cybersécurité et du développement.</span>
-        <span class="lang-en">Discover my academic and personal achievements in networking, cybersecurity and development.</span>
+      <p class="pp-sub">
+        <span class="lang-fr">Réalisations académiques et personnelles en réseaux, cybersécurité, IoT et développement.</span>
+        <span class="lang-en">Academic and personal work in networking, cybersecurity, IoT and development.</span>
       </p>
+    </header>
+
+    <div class="pp-filters" id="filters">
+      <button class="pp-filter active" data-filter="all"><span class="lang-fr">Tous</span><span class="lang-en">All</span></button>
+      <button class="pp-filter" data-filter="iot">IoT</button>
+      <button class="pp-filter" data-filter="data">Data</button>
+      <button class="pp-filter" data-filter="cyber"><span class="lang-fr">Cybersécurité</span><span class="lang-en">Cybersecurity</span></button>
+      <button class="pp-filter" data-filter="ai"><span class="lang-fr">IA & Vision</span><span class="lang-en">AI & Vision</span></button>
+      <button class="pp-filter" data-filter="net"><span class="lang-fr">Réseaux</span><span class="lang-en">Networking</span></button>
     </div>
 
-    <div class="projects-grid-modern">
-      <!-- Projet 1 -->
-      <article class="project-card-image">
-        <div class="project-image">
+    <div class="pp-grid" id="grid">
+
+      <!-- ===== Projet 1 : Ruche ===== -->
+      <article class="pc" data-cat="iot">
+        <div class="pc-thumb">
+          <span class="pc-cat lang-fr">IoT & Électronique</span><span class="pc-cat lang-en">IoT & Electronics</span>
           <img src="assets/projects/ruche.png" alt="Ruche Connectée" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/00d9ff?text=Ruche+IoT'">
-          <div class="project-overlay">
-            <span class="project-category lang-fr">IoT & Électronique</span>
-            <span class="project-category lang-en">IoT & Electronics</span>
-          </div>
         </div>
-        <div class="project-content">
-          <h3 class="project-title-modern">
-            <span class="lang-fr">Ruche Connectée</span>
-            <span class="lang-en">Connected Beehive</span>
-          </h3>
-          <p class="project-description">
-            <span class="lang-fr">Système IoT avec Arduino, capteurs multiples et application Android pour surveillance en temps réel.</span>
-            <span class="lang-en">IoT system with Arduino, multiple sensors and Android app for real-time monitoring.</span>
-          </p>
-          <div class="project-tags">
-            <span class="tag">Arduino</span>
-            <span class="tag">MQTT</span>
-            <span class="tag">Android</span>
-            <span class="tag">IoT</span>
-          </div>
-          <button class="project-btn" onclick="openModal('modal1')">
-            <span class="lang-fr">Voir les détails</span>
-            <span class="lang-en">View details</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+        <div class="pc-body">
+          <h3 class="pc-title"><span class="lang-fr">🐝 Ruche Connectée</span><span class="lang-en">🐝 Connected Beehive</span></h3>
+          <p class="pc-desc"><span class="lang-fr">Système IoT complet avec Arduino, capteurs et application Android pour surveiller les ruches en temps réel.</span><span class="lang-en">Complete IoT system with Arduino, sensors and Android app to monitor beehives in real-time.</span></p>
+          <div class="pc-tags"><span class="tag">Arduino</span><span class="tag">MQTT</span><span class="tag">Android</span><span class="tag">LTE</span></div>
+          <button class="pc-toggle" onclick="toggleCard(this)">
+            <span class="lang-fr">Détails</span><span class="lang-en">Details</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
+          <div class="pc-detail"><div class="pc-detail-inner">
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Contexte</span><span class="lang-en">Context</span></h4>
+              <p class="lang-fr">Projet de fin d'année au lycée répondant à une problématique réelle d'un apiculteur local : <strong>réduire les déplacements</strong> et <strong>améliorer l'efficacité</strong> de la surveillance de ses ruches via une <strong>ruche connectée</strong> adaptée au terrain.</p>
+              <p class="lang-en">Final year high-school project addressing a real issue for a local beekeeper: <strong>reducing travel</strong> and <strong>improving efficiency</strong> in hive monitoring with a field-ready <strong>connected beehive</strong>.</p>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Technologies</span><span class="lang-en">Technologies</span></h4>
+              <p class="lang-fr">Dispositif embarqué sur <strong>carte Arduino</strong> couplée à plusieurs capteurs :</p>
+              <p class="lang-en">Embedded system on an <strong>Arduino board</strong> with several sensors:</p>
+              <ul>
+                <li class="lang-fr">Température et humidité (intérieur / extérieur)</li><li class="lang-en">Temperature and humidity (indoor / outdoor)</li>
+                <li class="lang-fr">Capteur de poids pour suivre la production de miel</li><li class="lang-en">Weight sensor to track honey production</li>
+                <li class="lang-fr">Module GPS pour géolocalisation et anti-vol</li><li class="lang-en">GPS module for geolocation and theft prevention</li>
+              </ul>
+              <p class="lang-fr">Données transmises en temps réel via <strong>LTE</strong> vers une <strong>app Android</strong> maison, avec le protocole <strong>MQTT</strong> et le broker <strong>Mosquitto</strong>.</p>
+              <p class="lang-en">Real-time data sent over <strong>LTE</strong> to a custom <strong>Android app</strong>, using <strong>MQTT</strong> and the <strong>Mosquitto</strong> broker.</p>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Compétences acquises</span><span class="lang-en">Skills Acquired</span></h4>
+              <div class="pc-skills">
+                <div class="pc-skill"><strong class="lang-fr">Électronique de base</strong><strong class="lang-en">Basic Electronics</strong><span class="lang-fr">Montage de circuits, capteurs analogiques/numériques, Arduino</span><span class="lang-en">Circuit assembly, analog/digital sensors, Arduino</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Programmation C</strong><strong class="lang-en">C Programming</strong><span class="lang-fr">Embarqué, communication série, interruptions</span><span class="lang-en">Embedded dev, serial comms, interrupts</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Développement mobile</strong><strong class="lang-en">Mobile Development</strong><span class="lang-fr">App Android en Java/Kotlin</span><span class="lang-en">Android app in Java/Kotlin</span></div>
+                <div class="pc-skill"><strong class="lang-fr">IoT</strong><strong class="lang-en">IoT</strong><span class="lang-fr">LTE, MQTT, architecture client/broker</span><span class="lang-en">LTE, MQTT, client/broker architecture</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Travail en équipe</strong><strong class="lang-en">Teamwork</strong><span class="lang-fr">Gestion de projet, répartition des tâches</span><span class="lang-en">Project management, task distribution</span></div>
+              </div>
+            </div>
+          </div></div>
         </div>
       </article>
 
-      <!-- Projet 2 -->
-      <article class="project-card-image">
-        <div class="project-image">
-          <img src="assets/projects/twitter.png" alt="Traitement de données" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/9d4edd?text=Data+Analysis'">
-          <div class="project-overlay">
-            <span class="project-category lang-fr">Data Science</span>
-            <span class="project-category lang-en">Data Science</span>
-          </div>
+      <!-- ===== Projet 2 : Twitter ===== -->
+      <article class="pc" data-cat="data">
+        <div class="pc-thumb">
+          <span class="pc-cat">Data Science</span>
+          <img src="assets/projects/twitter.png" alt="Analyse Twitter" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/9d4edd?text=Data+Analysis'">
         </div>
-        <div class="project-content">
-          <h3 class="project-title-modern">
-            <span class="lang-fr">Analyse de Données Twitter</span>
-            <span class="lang-en">Twitter Data Analysis</span>
-          </h3>
-          <p class="project-description">
-            <span class="lang-fr">Collecte, nettoyage et analyse de tweets pour identifier les tendances temporelles.</span>
-            <span class="lang-en">Collection, cleaning and analysis of tweets to identify temporal trends.</span>
-          </p>
-          <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Pandas</span>
-            <span class="tag">Matplotlib</span>
-          </div>
-          <button class="project-btn" onclick="openModal('modal2')">
-            <span class="lang-fr">Voir les détails</span>
-            <span class="lang-en">View details</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+        <div class="pc-body">
+          <h3 class="pc-title"><span class="lang-fr">📊 Traitement de données Twitter</span><span class="lang-en">📊 Twitter Data Processing</span></h3>
+          <p class="pc-desc"><span class="lang-fr">SAE BUT 1 — collecte, traitement et analyse de tweets en Python pour dégager des tendances temporelles.</span><span class="lang-en">SAE Year 1 — collecting, processing and analyzing tweets in Python to surface time-based trends.</span></p>
+          <div class="pc-tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span></div>
+          <button class="pc-toggle" onclick="toggleCard(this)">
+            <span class="lang-fr">Détails</span><span class="lang-en">Details</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
+          <div class="pc-detail"><div class="pc-detail-inner">
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Objectif</span><span class="lang-en">Objective</span></h4>
+              <p class="lang-fr"><strong>Collecter, traiter et analyser des tweets</strong> pour <strong>déterminer les tendances par période</strong> en relevant les occurrences de mots-clés, puis les visualiser graphiquement.</p>
+              <p class="lang-en"><strong>Collect, process and analyze tweets</strong> to <strong>determine trends by period</strong> from keyword occurrences, then visualize them with graphs.</p>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Étapes</span><span class="lang-en">Steps</span></h4>
+              <ul>
+                <li class="lang-fr"><strong>Récupération</strong> : jeux de données CSV, JSON, TXT</li><li class="lang-en"><strong>Retrieval</strong>: CSV, JSON, TXT datasets</li>
+                <li class="lang-fr"><strong>Parsage</strong> : lecture/écriture de fichiers en Python</li><li class="lang-en"><strong>Parsing</strong>: file I/O in Python across formats</li>
+                <li class="lang-fr"><strong>Nettoyage</strong> : doublons, orthographe, filtrage</li><li class="lang-en"><strong>Cleaning</strong>: duplicates, spelling, filtering</li>
+                <li class="lang-fr"><strong>Taux d'apparition</strong> : comptage par période</li><li class="lang-en"><strong>Occurrence rate</strong>: counting per period</li>
+                <li class="lang-fr"><strong>Visualisation</strong> : courbes, histogrammes, nuages de points (Matplotlib)</li><li class="lang-en"><strong>Visualization</strong>: curves, histograms, scatter plots (Matplotlib)</li>
+              </ul>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Compétences acquises</span><span class="lang-en">Skills Acquired</span></h4>
+              <div class="pc-skills">
+                <div class="pc-skill"><strong class="lang-fr">Manipulation de données</strong><strong class="lang-en">Data Manipulation</strong><span class="lang-fr">Pandas : nettoyage et transformation</span><span class="lang-en">Pandas: cleaning and transformation</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Lecture/écriture de fichiers</strong><strong class="lang-en">File I/O</strong><span class="lang-fr">CSV, JSON, TXT en Python</span><span class="lang-en">CSV, JSON, TXT in Python</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Analyse statistique</strong><strong class="lang-en">Statistical Analysis</strong><span class="lang-fr">Fréquences et corrélations</span><span class="lang-en">Frequencies and correlations</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Visualisation</strong><strong class="lang-en">Visualization</strong><span class="lang-fr">Storytelling graphique avec Matplotlib</span><span class="lang-en">Graphical storytelling with Matplotlib</span></div>
+              </div>
+            </div>
+          </div></div>
         </div>
       </article>
 
-      <!-- Projet 3 -->
-      <article class="project-card-image">
-        <div class="project-image">
-          <img src="assets/projects/ctf.jpg" alt="Cybersécurité" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/ff6b6b?text=Cybersecurity'">
-          <div class="project-overlay">
-            <span class="project-category lang-fr">Cybersécurité</span>
-            <span class="project-category lang-en">Cybersecurity</span>
-          </div>
+      <!-- ===== Projet 3 : CTF ===== -->
+      <article class="pc" data-cat="cyber">
+        <div class="pc-thumb">
+          <span class="pc-cat lang-fr">Cybersécurité</span><span class="pc-cat lang-en">Cybersecurity</span>
+          <img src="assets/projects/ctf.jpg" alt="Cybersécurité CTF" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/ff6b6b?text=Cybersecurity'">
         </div>
-        <div class="project-content">
-          <h3 class="project-title-modern">
-            <span class="lang-fr">Capture The Flag</span>
-            <span class="lang-en">Capture The Flag</span>
-          </h3>
-          <p class="project-description">
-            <span class="lang-fr">Découverte des vulnérabilités courantes et utilisation d'outils de pentesting.</span>
-            <span class="lang-en">Discovery of common vulnerabilities and use of pentesting tools.</span>
-          </p>
-          <div class="project-tags">
-            <span class="tag">Burp Suite</span>
-            <span class="tag">Nmap</span>
-            <span class="tag">SQL Injection</span>
-          </div>
-          <button class="project-btn" onclick="openModal('modal3')">
-            <span class="lang-fr">Voir les détails</span>
-            <span class="lang-en">View details</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+        <div class="pc-body">
+          <h3 class="pc-title"><span class="lang-fr">🔐 Capture The Flag</span><span class="lang-en">🔐 Capture The Flag</span></h3>
+          <p class="pc-desc"><span class="lang-fr">SAE BUT 1 — sensibilisation à l'hygiène informatique : découverte et exploitation éthique des failles courantes.</span><span class="lang-en">SAE Year 1 — cyber hygiene awareness: discovering and ethically exploiting common flaws.</span></p>
+          <div class="pc-tags"><span class="tag">Burp Suite</span><span class="tag">Nmap</span><span class="tag">SQLi</span></div>
+          <button class="pc-toggle" onclick="toggleCard(this)">
+            <span class="lang-fr">Détails</span><span class="lang-en">Details</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
+          <div class="pc-detail"><div class="pc-detail-inner">
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Contexte</span><span class="lang-en">Context</span></h4>
+              <p class="lang-fr">Introduction aux <strong>risques</strong> des <strong>systèmes d'information</strong> via un <strong>Capture The Flag</strong> conçu par notre professeur de Réseaux, autour des failles les plus courantes.</p>
+              <p class="lang-en">Introduction to the <strong>risks</strong> of <strong>information systems</strong> through a <strong>Capture The Flag</strong> built by our Networks teacher, around the most common flaws.</p>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Catégories explorées</span><span class="lang-en">Categories Explored</span></h4>
+              <ul>
+                <li><span class="lang-fr"><strong>Stéganographie</strong> : messages cachés dans images et fichiers</span><span class="lang-en"><strong>Steganography</strong>: hidden messages in images and files</span></li>
+                <li><span class="lang-fr"><strong>Cryptographie (Hash)</strong> : cassage MD5, SHA1…</span><span class="lang-en"><strong>Cryptography (Hash)</strong>: cracking MD5, SHA1…</span></li>
+                <li><span class="lang-fr"><strong>Injection SQL</strong> : accès aux bases de données</span><span class="lang-en"><strong>SQL Injection</strong>: database access</span></li>
+                <li><span class="lang-fr"><strong>BruteForce</strong> : attaques pour trouver des identifiants</span><span class="lang-en"><strong>BruteForce</strong>: credential-finding attacks</span></li>
+              </ul>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Outils utilisés</span><span class="lang-en">Tools Used</span></h4>
+              <div class="pc-skills">
+                <div class="pc-skill"><strong>Burp Suite</strong><span class="lang-fr">Proxy d'interception HTTP</span><span class="lang-en">HTTP interception proxy</span></div>
+                <div class="pc-skill"><strong>Nmap</strong><span class="lang-fr">Scan de ports et services</span><span class="lang-en">Port & service scanning</span></div>
+                <div class="pc-skill"><strong>John the Ripper</strong><span class="lang-fr">Cassage de mots de passe</span><span class="lang-en">Password cracking</span></div>
+                <div class="pc-skill"><strong>Hashcat</strong><span class="lang-fr">Cassage de hash (GPU)</span><span class="lang-en">GPU hash cracking</span></div>
+                <div class="pc-skill"><strong>Dirb</strong><span class="lang-fr">Découverte de répertoires cachés</span><span class="lang-en">Hidden directory discovery</span></div>
+                <div class="pc-skill"><strong>Metasploit</strong><span class="lang-fr">Framework d'exploitation</span><span class="lang-en">Exploitation framework</span></div>
+              </div>
+            </div>
+          </div></div>
         </div>
       </article>
 
-      <!-- Projet 4 -->
-      <article class="project-card-image">
-        <div class="project-image">
+      <!-- ===== Projet 4 : Computer Vision ===== -->
+      <article class="pc" data-cat="ai">
+        <div class="pc-thumb">
+          <span class="pc-cat lang-fr">IA & Vision</span><span class="pc-cat lang-en">AI & Vision</span>
           <img src="assets/projects/computer_vision.png" alt="Vision par ordinateur" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/00d9ff?text=Computer+Vision'">
-          <div class="project-overlay">
-            <span class="project-category lang-fr">IA & Vision</span>
-            <span class="project-category lang-en">AI & Vision</span>
-          </div>
         </div>
-        <div class="project-content">
-          <h3 class="project-title-modern">
-            <span class="lang-fr">Détection de Silhouettes</span>
-            <span class="lang-en">Silhouette Detection</span>
-          </h3>
-          <p class="project-description">
-            <span class="lang-fr">Système de vision par ordinateur pour détecter les intrusions et vérifier les équipements de sécurité.</span>
-            <span class="lang-en">Computer vision system to detect intrusions and verify safety equipment.</span>
-          </p>
-          <div class="project-tags">
-            <span class="tag">OpenCV</span>
-            <span class="tag">Python</span>
-            <span class="tag">HOG</span>
-          </div>
-          <button class="project-btn" onclick="openModal('modal4')">
-            <span class="lang-fr">Voir les détails</span>
-            <span class="lang-en">View details</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+        <div class="pc-body">
+          <h3 class="pc-title"><span class="lang-fr">👁️ Détection de Silhouettes</span><span class="lang-en">👁️ Silhouette Detection</span></h3>
+          <p class="pc-desc"><span class="lang-fr">SAE — vision par ordinateur pour détecter une silhouette et vérifier le port d'un gilet de sécurité.</span><span class="lang-en">SAE — computer vision to detect a silhouette and check for a safety vest.</span></p>
+          <div class="pc-tags"><span class="tag">OpenCV</span><span class="tag">Python</span><span class="tag">HOG</span></div>
+          <button class="pc-toggle" onclick="toggleCard(this)">
+            <span class="lang-fr">Détails</span><span class="lang-en">Details</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
+          <div class="pc-detail"><div class="pc-detail-inner">
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Contexte</span><span class="lang-en">Context</span></h4>
+              <p class="lang-fr"><strong>Vision par ordinateur</strong> pour la détection de silhouettes et la gestion d'alertes. L'objectif : <strong>détecter une silhouette</strong> et vérifier si elle porte un <strong>gilet jaune</strong> (personnel autorisé) ; sinon une <strong>intrusion est signalée</strong>.</p>
+              <p class="lang-en"><strong>Computer vision</strong> for silhouette detection and alert management. The goal: <strong>detect a silhouette</strong> and check for a <strong>yellow vest</strong> (authorized staff); otherwise an <strong>intrusion is reported</strong>.</p>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Méthodes & composants</span><span class="lang-en">Methods & Components</span></h4>
+              <ul>
+                <li><span class="lang-fr"><strong>Python + OpenCV</strong> pour le traitement d'image</span><span class="lang-en"><strong>Python + OpenCV</strong> for image processing</span></li>
+                <li><span class="lang-fr"><strong>HOG</strong> (Histogram of Oriented Gradients) + filtrage & morphologie</span><span class="lang-en"><strong>HOG</strong> descriptor + filtering & morphology</span></li>
+                <li><span class="lang-fr"><strong>MOG2</strong> pour la soustraction de fond</span><span class="lang-en"><strong>MOG2</strong> for background subtraction</span></li>
+                <li><span class="lang-fr"><strong>HSV</strong> pour repérer les gilets jaunes</span><span class="lang-en"><strong>HSV</strong> color space to spot yellow vests</span></li>
+                <li><span class="lang-fr"><strong>Gestion d'états</strong> pour décider d'une alerte</span><span class="lang-en"><strong>State management</strong> to decide on alerts</span></li>
+                <li><span class="lang-fr"><strong>Journalisation distante</strong> vers une VM serveur de logs</span><span class="lang-en"><strong>Remote logging</strong> to a log-server VM</span></li>
+              </ul>
+            </div>
+            <div class="pc-sec">
+              <h4><span class="lang-fr">Compétences acquises</span><span class="lang-en">Skills Acquired</span></h4>
+              <div class="pc-skills">
+                <div class="pc-skill"><strong class="lang-fr">OpenCV</strong><strong class="lang-en">OpenCV</strong><span class="lang-fr">Pipeline de traitement d'image</span><span class="lang-en">Image processing pipeline</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Soustraction de fond</strong><strong class="lang-en">Background Subtraction</strong><span class="lang-fr">Paramétrage de MOG2</span><span class="lang-en">Tuning MOG2</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Descripteurs HOG</strong><strong class="lang-en">HOG Descriptors</strong><span class="lang-fr">Filtrage et morphologie</span><span class="lang-en">Filtering and morphology</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Détection HSV</strong><strong class="lang-en">HSV Detection</strong><span class="lang-fr">Identification d'équipements</span><span class="lang-en">Equipment identification</span></div>
+                <div class="pc-skill"><strong class="lang-fr">Logging distant</strong><strong class="lang-en">Remote Logging</strong><span class="lang-fr">Communication réseau vers une VM</span><span class="lang-en">Network comms to a VM</span></div>
+              </div>
+            </div>
+          </div></div>
         </div>
       </article>
 
-      <!-- Projet 5 -->
-      <article class="project-card-image">
-        <div class="project-image">
+      <!-- ===== Projet 5 : DHCP (WIP) ===== -->
+      <article class="pc" data-cat="net">
+        <div class="pc-thumb">
+          <span class="pc-cat lang-fr">Réseaux</span><span class="pc-cat lang-en">Networking</span>
+          <span class="pc-status lang-fr">En cours</span><span class="pc-status lang-en">WIP</span>
           <img src="assets/projects/network.jpg" alt="Réseaux" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/4ade80?text=Network'">
-          <div class="project-overlay">
-            <span class="project-category lang-fr">Réseaux</span>
-            <span class="project-category lang-en">Networking</span>
-          </div>
         </div>
-        <div class="project-content">
-          <h3 class="project-title-modern">
-            <span class="lang-fr">Supervision DHCP</span>
-            <span class="lang-en">DHCP Monitoring</span>
-          </h3>
-          <p class="project-description">
-            <span class="lang-fr">En cours de développement - Système de supervision et monitoring de serveurs DHCP.</span>
-            <span class="lang-en">Under development - DHCP server monitoring and supervision system.</span>
-          </p>
-          <div class="project-tags">
-            <span class="tag">DHCP</span>
-            <span class="tag">Monitoring</span>
-            <span class="tag lang-fr">En cours</span>
-            <span class="tag lang-en">WIP</span>
-          </div>
+        <div class="pc-body">
+          <h3 class="pc-title"><span class="lang-fr">Supervision DHCP</span><span class="lang-en">DHCP Monitoring</span></h3>
+          <p class="pc-desc"><span class="lang-fr">Système de supervision et monitoring de serveurs DHCP — en cours de développement.</span><span class="lang-en">DHCP server supervision and monitoring system — under development.</span></p>
+          <div class="pc-tags"><span class="tag">DHCP</span><span class="tag">Monitoring</span></div>
         </div>
       </article>
 
-      <!-- Projet 6 -->
-      <article class="project-card-image">
-        <div class="project-image">
+      <!-- ===== Projet 6 : Intégratif (à venir) ===== -->
+      <article class="pc" data-cat="all">
+        <div class="pc-thumb">
+          <span class="pc-cat lang-fr">Intégration</span><span class="pc-cat lang-en">Integration</span>
+          <span class="pc-status lang-fr">À venir</span><span class="pc-status lang-en">Soon</span>
           <img src="assets/projects/integratif.jpg" alt="Projet intégratif" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/9d4edd?text=Integration'">
-          <div class="project-overlay">
-            <span class="project-category lang-fr">Intégration</span>
-            <span class="project-category lang-en">Integration</span>
-          </div>
         </div>
-        <div class="project-content">
-          <h3 class="project-title-modern">
-            <span class="lang-fr">Projet Intégratif</span>
-            <span class="lang-en">Integrative Project</span>
-          </h3>
-          <p class="project-description">
-            <span class="lang-fr">En cours de développement - Projet combinant plusieurs technologies étudiées.</span>
-            <span class="lang-en">Under development - Project combining multiple studied technologies.</span>
-          </p>
-          <div class="project-tags">
-            <span class="tag lang-fr">À venir</span>
-            <span class="tag lang-en">Coming soon</span>
-          </div>
+        <div class="pc-body">
+          <h3 class="pc-title"><span class="lang-fr">Projet Intégratif</span><span class="lang-en">Integrative Project</span></h3>
+          <p class="pc-desc"><span class="lang-fr">Projet combinant plusieurs technologies étudiées — à venir.</span><span class="lang-en">Project combining multiple studied technologies — coming soon.</span></p>
+          <div class="pc-tags"><span class="tag lang-fr">À venir</span><span class="tag lang-en">Coming soon</span></div>
         </div>
       </article>
+
     </div>
   </main>
 
@@ -287,695 +416,28 @@
     <p>&copy; 2025 Mattéo Canada - <span class="lang-fr">Tous droits réservés</span><span class="lang-en">All rights reserved</span></p>
   </footer>
 
-  <!-- Modals ici... (je vais les ajouter dans le prochain message car limité en taille) -->
-  <!-- Modal 1: Ruche Connectée -->
-  <div id="modal1" class="modal">
-    <div class="modal-overlay" onclick="closeModal('modal1')"></div>
-    <div class="modal-container">
-      <button class="modal-close" onclick="closeModal('modal1')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-category lang-fr">IoT & Électronique</span>
-          <span class="modal-category lang-en">IoT & Electronics</span>
-          <h2 class="modal-title">
-            <span class="lang-fr">🐝 Ruche Connectée – Projet de Terminale</span>
-            <span class="lang-en">🐝 Connected Beehive – Final Year Project</span>
-          </h2>
-          <p class="modal-subtitle">
-            <span class="lang-fr">Système IoT complet avec Arduino, capteurs et application Android pour surveiller les ruches en temps réel.</span>
-            <span class="lang-en">Complete IoT system with Arduino, sensors and Android app to monitor beehives in real-time.</span>
-          </p>
-        </div>
-
-        <div class="modal-image">
-          <img src="assets/projects/ruche.png" alt="Ruche Connectée" onerror="this.src='https://via.placeholder.com/800x400/1a1a2e/00d9ff?text=Ruche+IoT'">
-        </div>
-
-        <div class="modal-body">
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
-              <span class="lang-fr">Contexte du projet</span>
-              <span class="lang-en">Project Context</span>
-            </h3>
-            <p class="lang-fr">
-              Dans le cadre de notre projet de fin d'année au lycée, nous avons répondu à une problématique réelle rencontrée 
-              par un apiculteur local : <strong>réduire les déplacements</strong> sur son site et <strong>améliorer l'efficacité</strong> 
-              de la surveillance de ses ruches. Pour cela, nous avons conçu et déployé une <strong>ruche connectée</strong> 
-              totalement adaptée à une utilisation sur le terrain.
-            </p>
-            <p class="lang-en">
-              As part of our final year project in high school, we addressed a real issue faced by a local beekeeper: 
-              <strong>reducing travel</strong> to his site and <strong>improving efficiency</strong> in monitoring his hives. 
-              To achieve this, we designed and deployed a <strong>connected beehive</strong> fully adapted for field use.
-            </p>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-              </svg>
-              <span class="lang-fr">Technologies utilisées</span>
-              <span class="lang-en">Technologies Used</span>
-            </h3>
-            <p class="lang-fr">
-              Le dispositif embarqué repose sur une <strong>carte Arduino</strong> couplée à plusieurs <strong>capteurs intelligents</strong> :
-            </p>
-            <p class="lang-en">
-              The embedded system is based on an <strong>Arduino board</strong> connected to several <strong>smart sensors</strong>:
-            </p>
-            <ul class="modal-list">
-              <li class="lang-fr">Capteurs de température et d'humidité (intérieur/extérieur)</li>
-              <li class="lang-en">Temperature and humidity sensors (indoor and outdoor)</li>
-              <li class="lang-fr">Capteur de poids pour suivre la production de miel</li>
-              <li class="lang-en">Weight sensor to monitor honey production</li>
-              <li class="lang-fr">Module GPS pour la géolocalisation et la lutte contre le vol</li>
-              <li class="lang-en">GPS module for geolocation and theft prevention</li>
-            </ul>
-            <p class="lang-fr">
-              Ces données, récoltées en temps réel, étaient transmises via une <strong>connexion LTE</strong> vers une 
-              <strong>application Android</strong> que nous avons développée. Nous avons utilisé le protocole léger <strong>MQTT</strong> 
-              avec le broker <strong>Mosquitto</strong> pour une communication rapide et fiable avec l'application.
-            </p>
-            <p class="lang-en">
-              These real-time data were transmitted via an <strong>LTE connection</strong> to a custom <strong>Android application</strong> 
-              we developed. We used the lightweight <strong>MQTT</strong> protocol with the <strong>Mosquitto</strong> broker for fast 
-              and reliable communication with the app.
-            </p>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-              <span class="lang-fr">Compétences acquises</span>
-              <span class="lang-en">Skills Acquired</span>
-            </h3>
-            <div class="skills-grid-modal">
-              <div class="skill-badge">
-                <strong class="lang-fr">Électronique de base</strong>
-                <strong class="lang-en">Basic Electronics</strong>
-                <span class="lang-fr">Montage de circuits, manipulation de capteurs analogiques/numériques, intégration Arduino</span>
-                <span class="lang-en">Circuit assembly, analog/digital sensor handling, Arduino integration</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Programmation en C</strong>
-                <strong class="lang-en">C Programming</strong>
-                <span class="lang-fr">Développement embarqué sur microcontrôleur, communication série, gestion des interruptions</span>
-                <span class="lang-en">Embedded development on microcontrollers, serial communication, interrupt handling</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Développement mobile</strong>
-                <strong class="lang-en">Mobile Development</strong>
-                <span class="lang-fr">Création d'une application Android en Java/Kotlin</span>
-                <span class="lang-en">Building an Android app in Java/Kotlin</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Internet des objets (IoT)</strong>
-                <strong class="lang-en">Internet of Things (IoT)</strong>
-                <span class="lang-fr">Communication sans fil via LTE, usage du protocole MQTT, architecture client/broker</span>
-                <span class="lang-en">Wireless communication via LTE, MQTT protocol, client/broker architecture</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Travail en équipe</strong>
-                <strong class="lang-en">Teamwork</strong>
-                <span class="lang-fr">Gestion de projet, répartition des tâches, communication technique</span>
-                <span class="lang-en">Project management, task distribution, technical communication</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-tags">
-            <span class="tag">Arduino</span>
-            <span class="tag">C</span>
-            <span class="tag">Android</span>
-            <span class="tag">Java/Kotlin</span>
-            <span class="tag">MQTT</span>
-            <span class="tag">Mosquitto</span>
-            <span class="tag">LTE</span>
-            <span class="tag">IoT</span>
-            <span class="tag">GPS</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 2: Analyse Twitter -->
-  <div id="modal2" class="modal">
-    <div class="modal-overlay" onclick="closeModal('modal2')"></div>
-    <div class="modal-container">
-      <button class="modal-close" onclick="closeModal('modal2')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-category lang-fr">Data Science</span>
-          <span class="modal-category lang-en">Data Science</span>
-          <h2 class="modal-title">
-            <span class="lang-fr">📊 SAE – Traitement de données Twitter (BUT 1)</span>
-            <span class="lang-en">📊 SAE – Twitter Data Processing (BUT Year 1)</span>
-          </h2>
-          <p class="modal-subtitle">
-            <span class="lang-fr">Collecte, traitement et analyse de tweets avec Python pour identifier les tendances par périodes temporelles.</span>
-            <span class="lang-en">Collection, processing and analysis of tweets using Python to identify trends by time periods.</span>
-          </p>
-        </div>
-
-        <div class="modal-image">
-          <img src="assets/projects/twitter.png" alt="Analyse Twitter" onerror="this.src='https://via.placeholder.com/800x400/1a1a2e/9d4edd?text=Data+Analysis'">
-        </div>
-
-        <div class="modal-body">
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
-              <span class="lang-fr">Objectif du projet</span>
-              <span class="lang-en">Project Objective</span>
-            </h3>
-            <p class="lang-fr">
-              Dans le cadre de cette SAE, nous avons été amenés à <strong>collecter, traiter et analyser des Tweets</strong> à l'aide 
-              de plusieurs outils informatiques. Notre objectif était de <strong>décréter les tendances selon les périodes</strong> en 
-              relevant les occurrences de certains mots clés et d'afficher ces tendances de manière visuelle avec des graphiques.
-            </p>
-            <p class="lang-en">
-              As part of this SAE, we were tasked with <strong>collecting, processing and analyzing Tweets</strong> using various digital 
-              tools. Our goal was to <strong>determine trends by periods</strong> based on the occurrences of keywords and display these 
-              trends visually with graphs.
-            </p>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-              <span class="lang-fr">Étapes du projet</span>
-              <span class="lang-en">Project Steps</span>
-            </h3>
-            <ul class="modal-list">
-              <li class="lang-fr"><strong>Récupération des jeux de données</strong> : Collecte de tweets au format CSV, JSON et TXT</li>
-              <li class="lang-en"><strong>Dataset retrieval</strong>: Collection of tweets in CSV, JSON and TXT formats</li>
-              <li class="lang-fr"><strong>Parsage de fichiers</strong> : Apprentissage de la lecture et écriture de fichiers en Python, manipulation de différents formats de données</li>
-              <li class="lang-en"><strong>File parsing</strong>: Learning to read and write files in Python, handling different data formats</li>
-              <li class="lang-fr"><strong>Nettoyage des données</strong> : Suppression des doublons, correction des fautes d'orthographe, filtrage du contenu pertinent</li>
-              <li class="lang-en"><strong>Data cleaning</strong>: Duplicate removal, spelling correction, filtering relevant content</li>
-              <li class="lang-fr"><strong>Calcul du taux d'apparition</strong> : Comptage des occurrences de mots clés spécifiques sur différentes périodes temporelles</li>
-              <li class="lang-en"><strong>Occurrence rate calculation</strong>: Counting specific keyword occurrences across different time periods</li>
-              <li class="lang-fr"><strong>Analyse statistique</strong> : Identification des tendances et corrélations entre les données</li>
-              <li class="lang-en"><strong>Statistical analysis</strong>: Identifying trends and correlations in the data</li>
-              <li class="lang-fr"><strong>Visualisation avec Matplotlib</strong> : Création de graphiques (courbes, histogrammes, nuages de points) pour afficher les trends de manière claire et impactante</li>
-              <li class="lang-en"><strong>Visualization with Matplotlib</strong>: Creating graphs (curves, histograms, scatter plots) to display trends clearly and impactfully</li>
-            </ul>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-              </svg>
-              <span class="lang-fr">Technologies & Outils utilisés</span>
-              <span class="lang-en">Technologies & Tools Used</span>
-            </h3>
-            <div class="skills-grid-modal">
-              <div class="skill-badge">
-                <strong>Python</strong>
-                <span class="lang-fr">Langage principal pour le traitement et l'analyse</span>
-                <span class="lang-en">Main language for processing and analysis</span>
-              </div>
-              <div class="skill-badge">
-                <strong>Pandas</strong>
-                <span class="lang-fr">Manipulation et nettoyage de données structurées</span>
-                <span class="lang-en">Structured data manipulation and cleaning</span>
-              </div>
-              <div class="skill-badge">
-                <strong>Matplotlib</strong>
-                <span class="lang-fr">Création de visualisations graphiques des tendances</span>
-                <span class="lang-en">Creating graphical visualizations of trends</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Fichiers CSV/JSON/TXT</strong>
-                <strong class="lang-en">CSV/JSON/TXT Files</strong>
-                <span class="lang-fr">Parsage et traitement de multiples formats</span>
-                <span class="lang-en">Parsing and processing multiple formats</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-              <span class="lang-fr">Compétences acquises</span>
-              <span class="lang-en">Skills Acquired</span>
-            </h3>
-            <div class="skills-grid-modal">
-              <div class="skill-badge">
-                <strong class="lang-fr">Manipulation de données avec Python</strong>
-                <strong class="lang-en">Data Manipulation with Python</strong>
-                <span class="lang-fr">Maîtrise de Pandas pour le nettoyage et la transformation de grandes quantités de données</span>
-                <span class="lang-en">Proficiency with Pandas for cleaning and transforming large amounts of data</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Lecture/Écriture de fichiers</strong>
-                <strong class="lang-en">File I/O Operations</strong>
-                <span class="lang-fr">Parsage de fichiers CSV, JSON et TXT en Python</span>
-                <span class="lang-en">Parsing CSV, JSON and TXT files in Python</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Analyse statistique</strong>
-                <strong class="lang-en">Statistical Analysis</strong>
-                <span class="lang-fr">Calcul de taux d'apparition, fréquences et corrélations</span>
-                <span class="lang-en">Calculation of occurrence rates, frequencies and correlations</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Visualisation de données</strong>
-                <strong class="lang-en">Data Visualization</strong>
-                <span class="lang-fr">Storytelling graphique avec Matplotlib pour présenter les tendances de manière impactante</span>
-                <span class="lang-en">Graphical storytelling with Matplotlib to present trends impactfully</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Nettoyage de données</strong>
-                <strong class="lang-en">Data Cleaning</strong>
-                <span class="lang-fr">Traitement des doublons, correction d'erreurs et préparation des données</span>
-                <span class="lang-en">Handling duplicates, error correction and data preparation</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-tags">
-            <span class="tag">Python</span>
-            <span class="tag">Pandas</span>
-            <span class="tag">Matplotlib</span>
-            <span class="tag">Data Analysis</span>
-            <span class="tag">CSV</span>
-            <span class="tag">JSON</span>
-            <span class="tag">Statistics</span>
-            <span class="tag">Visualization</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>  
-
-  <!-- Modal 3: CTF Cybersécurité -->
-  <div id="modal3" class="modal">
-    <div class="modal-overlay" onclick="closeModal('modal3')"></div>
-    <div class="modal-container">
-      <button class="modal-close" onclick="closeModal('modal3')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-category lang-fr">Cybersécurité</span>
-          <span class="modal-category lang-en">Cybersecurity</span>
-          <h2 class="modal-title">
-            <span class="lang-fr">🔐 SAE – Sensibilisation à l'hygiène informatique (BUT 1)</span>
-            <span class="lang-en">🔐 SAE – Raising Awareness of Cyber Hygiene (BUT Year 1)</span>
-          </h2>
-          <p class="modal-subtitle">
-            <span class="lang-fr">Capture The Flag pour découvrir les failles de sécurité les plus récurrentes et apprendre à les exploiter de manière éthique.</span>
-            <span class="lang-en">Capture The Flag to discover the most common security flaws and learn to exploit them ethically.</span>
-          </p>
-        </div>
-
-        <div class="modal-image">
-          <img src="assets/projects/ctf.jpg" alt="Cybersécurité CTF" onerror="this.src='https://via.placeholder.com/800x400/1a1a2e/ff6b6b?text=Cybersecurity'">
-        </div>
-
-        <div class="modal-body">
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
-              <span class="lang-fr">Contexte du projet</span>
-              <span class="lang-en">Project Context</span>
-            </h3>
-            <p class="lang-fr">
-              Le but de cette SAE était de nous introduire aux <strong>risques potentiels</strong> liés à l'informatique et plus 
-              spécifiquement aux <strong>systèmes d'information</strong>. Notre professeur de Réseaux nous a concocté un 
-              <strong>Capture The Flag</strong> pour découvrir les failles de sécurité les plus récurrentes dans le monde réel.
-            </p>
-            <p class="lang-en">
-              The goal of this SAE was to introduce us to <strong>potential risks</strong> related to computing and more specifically 
-              to <strong>information systems</strong>. Our Networks teacher created a <strong>Capture The Flag</strong> to discover 
-              the most common security flaws in the real world.
-            </p>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              <span class="lang-fr">Contenu du CTF</span>
-              <span class="lang-en">CTF Content</span>
-            </h3>
-            <p class="lang-fr">
-              Le CTF nous a permis d'explorer différentes catégories de vulnérabilités :
-            </p>
-            <p class="lang-en">
-              The CTF allowed us to explore different categories of vulnerabilities:
-            </p>
-            <ul class="modal-list">
-              <li>
-                <span class="lang-fr"><strong>Stéganographie</strong> : Découverte de messages cachés dans des images et fichiers</span>
-                <span class="lang-en"><strong>Steganography</strong>: Discovering hidden messages in images and files</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Cryptographie (Hash)</strong> : Cassage de mots de passe hashés avec différents algorithmes (MD5, SHA1, etc.)</span>
-                <span class="lang-en"><strong>Cryptography (Hash)</strong>: Cracking hashed passwords with different algorithms (MD5, SHA1, etc.)</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Injection SQL</strong> : Exploitation de failles d'injection pour accéder à des bases de données</span>
-                <span class="lang-en"><strong>SQL Injection</strong>: Exploiting injection flaws to access databases</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>BruteForce</strong> : Attaques par force brute pour trouver des identifiants</span>
-                <span class="lang-en"><strong>BruteForce</strong>: Brute force attacks to find credentials</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-              </svg>
-              <span class="lang-fr">Outils utilisés</span>
-              <span class="lang-en">Tools Used</span>
-            </h3>
-            <p class="lang-fr">
-              Nous avons utilisé plusieurs outils professionnels de pentesting pour mener ce CTF à bien :
-            </p>
-            <p class="lang-en">
-              We used several professional pentesting tools to complete this CTF:
-            </p>
-            <div class="skills-grid-modal">
-              <div class="skill-badge">
-                <strong>Burp Suite</strong>
-                <span class="lang-fr">Proxy d'interception pour analyser et modifier le trafic HTTP</span>
-                <span class="lang-en">Interception proxy to analyze and modify HTTP traffic</span>
-              </div>
-              <div class="skill-badge">
-                <strong>Nmap</strong>
-                <span class="lang-fr">Scanner de ports et découverte de services réseau</span>
-                <span class="lang-en">Port scanner and network service discovery</span>
-              </div>
-              <div class="skill-badge">
-                <strong>John the Ripper</strong>
-                <span class="lang-fr">Outil de cassage de mots de passe</span>
-                <span class="lang-en">Password cracking tool</span>
-              </div>
-              <div class="skill-badge">
-                <strong>Hashcat</strong>
-                <span class="lang-fr">Cassage de hash avec accélération GPU</span>
-                <span class="lang-en">Hash cracking with GPU acceleration</span>
-              </div>
-              <div class="skill-badge">
-                <strong>Dirb</strong>
-                <span class="lang-fr">Découverte de répertoires et fichiers cachés sur serveurs web</span>
-                <span class="lang-en">Directory and hidden file discovery on web servers</span>
-              </div>
-              <div class="skill-badge">
-                <strong>Metasploit</strong>
-                <span class="lang-fr">Framework d'exploitation de vulnérabilités</span>
-                <span class="lang-en">Vulnerability exploitation framework</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-              <span class="lang-fr">Compétences acquises</span>
-              <span class="lang-en">Skills Acquired</span>
-            </h3>
-            <div class="skills-grid-modal">
-              <div class="skill-badge">
-                <strong class="lang-fr">Sensibilisation aux risques</strong>
-                <strong class="lang-en">Risk Awareness</strong>
-                <span class="lang-fr">Compréhension des menaces pesant sur les systèmes d'information</span>
-                <span class="lang-en">Understanding threats to information systems</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Découverte de failles</strong>
-                <strong class="lang-en">Vulnerability Discovery</strong>
-                <span class="lang-fr">SQLi, BruteForce, stéganographie, hash cracking</span>
-                <span class="lang-en">SQLi, BruteForce, steganography, hash cracking</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Utilisation d'outils de pentesting</strong>
-                <strong class="lang-en">Pentesting Tools Usage</strong>
-                <span class="lang-fr">Maîtrise de Burp Suite, Nmap, John, Hashcat, Metasploit</span>
-                <span class="lang-en">Proficiency with Burp Suite, Nmap, John, Hashcat, Metasploit</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Résolution de CTF</strong>
-                <strong class="lang-en">CTF Solving</strong>
-                <span class="lang-fr">Logique, investigation, esprit d'analyse et persévérance</span>
-                <span class="lang-en">Logic, investigation, analytical thinking and perseverance</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-tags">
-            <span class="tag">Cybersecurity</span>
-            <span class="tag">CTF</span>
-            <span class="tag">Burp Suite</span>
-            <span class="tag">Nmap</span>
-            <span class="tag">SQL Injection</span>
-            <span class="tag">Pentesting</span>
-            <span class="tag">John the Ripper</span>
-            <span class="tag">Hashcat</span>
-            <span class="tag">Metasploit</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 4: Vision par ordinateur -->
-  <div id="modal4" class="modal">
-    <div class="modal-overlay" onclick="closeModal('modal4')"></div>
-    <div class="modal-container">
-      <button class="modal-close" onclick="closeModal('modal4')">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-category lang-fr">IA & Vision</span>
-          <span class="modal-category lang-en">AI & Vision</span>
-          <h2 class="modal-title">
-            <span class="lang-fr">👁️ SAE – Vision par ordinateur</span>
-            <span class="lang-en">👁️ SAE – Computer Vision</span>
-          </h2>
-          <p class="modal-subtitle">
-            <span class="lang-fr">Système de vision par ordinateur pour détecter les silhouettes humaines et vérifier le port d'équipements de sécurité.</span>
-            <span class="lang-en">Computer vision system to detect human silhouettes and verify safety equipment wear.</span>
-          </p>
-        </div>
-
-        <div class="modal-image">
-          <img src="assets/projects/computer_vision.png" alt="Vision par ordinateur" onerror="this.src='https://via.placeholder.com/800x400/1a1a2e/00d9ff?text=Computer+Vision'">
-        </div>
-
-        <div class="modal-body">
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
-              <span class="lang-fr">Contexte du projet</span>
-              <span class="lang-en">Project Context</span>
-            </h3>
-            <p class="lang-fr">
-              Ce projet porte sur la <strong>vision par ordinateur</strong> pour la détection de silhouettes humaines et la 
-              gestion d'alertes de sécurité. L'objectif principal n'était pas la reconnaissance faciale complète, mais de 
-              <strong>détecter la présence d'une silhouette</strong> et de vérifier si elle porte un <strong>gilet jaune</strong> 
-              (personnel autorisé). Si une silhouette sans gilet jaune est détectée, une <strong>intrusion est signalée</strong>.
-            </p>
-            <p class="lang-en">
-              This project focuses on <strong>computer vision</strong> for human silhouette detection and security alert management. 
-              The main goal was not full facial recognition, but to <strong>detect a silhouette's presence</strong> and check whether 
-              it wears a <strong>yellow safety vest</strong> (authorized staff). If a silhouette without a yellow vest is detected, 
-              an <strong>intrusion is reported</strong>.
-            </p>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-              </svg>
-              <span class="lang-fr">Méthodes & Composants</span>
-              <span class="lang-en">Methods & Components</span>
-            </h3>
-            <ul class="modal-list">
-              <li>
-                <span class="lang-fr"><strong>Langage Python</strong> avec la bibliothèque <strong>OpenCV</strong> pour le traitement d'image et la détection</span>
-                <span class="lang-en"><strong>Python language</strong> with <strong>OpenCV</strong> library for image processing and detection</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Détection de silhouettes</strong> : Utilisation du descripteur <strong>HOG</strong> (Histogram of Oriented Gradients) combiné avec filtrage et morphologie</span>
-                <span class="lang-en"><strong>Silhouette detection</strong>: Using <strong>HOG</strong> (Histogram of Oriented Gradients) descriptor combined with filtering and morphology</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Soustraction de fond</strong> : Algorithme <strong>MOG2</strong> pour isoler les mouvements et objets en avant-plan</span>
-                <span class="lang-en"><strong>Background subtraction</strong>: <strong>MOG2</strong> algorithm to isolate foreground movement and objects</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Détection de couleur</strong> : Utilisation de l'espace colorimétrique <strong>HSV</strong> pour repérer les gilets jaunes dans la zone de la silhouette</span>
-                <span class="lang-en"><strong>Color detection</strong>: Using <strong>HSV</strong> color space to spot yellow vests within the silhouette area</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Gestion d'états</strong> : Logique applicative pour suivre les états (silhouette détectée → présence d'un gilet → pas d'alerte / sinon alerte)</span>
-                <span class="lang-en"><strong>State management</strong>: Application logic to track states (silhouette detected → vest present → no alert / otherwise alert)</span>
-              </li>
-              <li>
-                <span class="lang-fr"><strong>Journalisation distante</strong> : En cas d'intrusion, envoi d'un log vers une machine virtuelle distante servant de serveur de logs</span>
-                <span class="lang-en"><strong>Remote logging</strong>: Upon intrusion, sending a log to a remote virtual machine acting as a log server</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="modal-section">
-            <h3>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-              <span class="lang-fr">Compétences acquises</span>
-              <span class="lang-en">Skills Acquired</span>
-            </h3>
-            <div class="skills-grid-modal">
-              <div class="skill-badge">
-                <strong class="lang-fr">Maîtrise d'OpenCV</strong>
-                <strong class="lang-en">OpenCV Proficiency</strong>
-                <span class="lang-fr">Pipeline de traitement d'image en Python</span>
-                <span class="lang-en">Image processing pipeline in Python</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Soustraction de fond</strong>
-                <strong class="lang-en">Background Subtraction</strong>
-                <span class="lang-fr">Implémentation et paramétrage de MOG2 pour la détection de mouvement</span>
-                <span class="lang-en">Implementation and tuning of MOG2 for motion detection</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Descripteurs HOG</strong>
-                <strong class="lang-en">HOG Descriptors</strong>
-                <span class="lang-fr">Utilisation de techniques de filtrage et morphologie pour robustifier la détection</span>
-                <span class="lang-en">Using filtering and morphological techniques to robustify detection</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Détection de couleur HSV</strong>
-                <strong class="lang-en">HSV Color Detection</strong>
-                <span class="lang-fr">Classification simple pour identifier les équipements de sécurité</span>
-                <span class="lang-en">Simple classification to identify safety equipment</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Gestion d'états</strong>
-                <strong class="lang-en">State Management</strong>
-                <span class="lang-fr">Conception de logique pour décider quand générer une alerte</span>
-                <span class="lang-en">Designing logic to decide when to raise an alert</span>
-              </div>
-              <div class="skill-badge">
-                <strong class="lang-fr">Logging distant</strong>
-                <strong class="lang-en">Remote Logging</strong>
-                <span class="lang-fr">Communication réseau et format de logs vers une VM distante</span>
-                <span class="lang-en">Network communication and log format to a remote VM</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-tags">
-            <span class="tag">OpenCV</span>
-            <span class="tag">Python</span>
-            <span class="tag">Computer Vision</span>
-            <span class="tag">HOG</span>
-            <span class="tag">MOG2</span>
-            <span class="tag">HSV</span>
-            <span class="tag">Image Processing</span>
-            <span class="tag">AI</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
   <script src="js/main.js"></script>
   <script>
-    function openModal(modalId) {
-      document.getElementById(modalId).classList.add('active');
-      document.body.style.overflow = 'hidden';
+    // Déplier / replier une carte (un seul détail ouvert à la fois)
+    function toggleCard(btn) {
+      const card = btn.closest('.pc');
+      const wasOpen = card.classList.contains('open');
+      document.querySelectorAll('.pc.open').forEach(c => c.classList.remove('open'));
+      if (!wasOpen) card.classList.add('open');
     }
-    
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-    
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal.active').forEach(modal => {
-          modal.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        });
-      }
+
+    // Filtres par catégorie
+    document.getElementById('filters').addEventListener('click', function (e) {
+      const btn = e.target.closest('.pp-filter');
+      if (!btn) return;
+      document.querySelectorAll('.pp-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.pc').forEach(card => {
+        const show = f === 'all' || card.dataset.cat === f;
+        card.classList.toggle('hidden', !show);
+        if (!show) card.classList.remove('open');
+      });
     });
   </script>
 </body>
