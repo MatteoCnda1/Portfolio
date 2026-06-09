@@ -54,7 +54,7 @@
             <span class="lang-fr">Informations</span>
             <span class="lang-en">Information</span>
           </h2>
-          
+
           <div class="info-items">
             <div class="info-item">
               <div class="info-icon">
@@ -143,7 +143,7 @@
       </aside>
 
       <div class="contact-form-section">
-        <form action="php/mail.php" method="post" class="modern-form">
+        <form id="contactForm" class="modern-form">
           <div class="form-row">
             <div class="form-field">
               <label for="name">
@@ -197,12 +197,12 @@
   <script>
     const messageField = document.getElementById('message');
     const charCount = document.getElementById('charCount');
-    
+
     if (messageField && charCount) {
       messageField.addEventListener('input', function() {
         const count = this.value.length;
         charCount.textContent = count;
-        
+
         if (count > 1800) {
           charCount.style.color = '#ff6b6b';
         } else {

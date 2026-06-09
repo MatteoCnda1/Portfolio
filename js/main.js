@@ -28,19 +28,46 @@ window.addEventListener('DOMContentLoaded', function () {
     if (link.getAttribute('href') === page) link.style.color = 'var(--ink)';
   });
 
-  // Validation formulaire contact
+  // Validation + envoi formulaire contact (via /api/contact)
   const form = document.querySelector('.modern-form, .contact-form form');
   if (form) {
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
       const name = document.getElementById('name');
       const email = document.getElementById('email');
       const message = document.getElementById('message');
       const fr = document.body.getAttribute('lang') === 'fr';
+
       let err = '';
       if (name && name.value.trim().length < 2) err = fr ? 'Veuillez entrer un nom valide.' : 'Please enter a valid name.';
       else if (email && !email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) err = fr ? 'Veuillez entrer un email valide.' : 'Please enter a valid email.';
       else if (message && message.value.trim().length < 10) err = fr ? 'Le message doit faire au moins 10 caractères.' : 'Message must be at least 10 characters.';
-      if (err) { e.preventDefault(); alert(err); }
+      if (err) { alert(err); return; }
+
+      const btn = form.querySelector('.submit-btn');
+      const original = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.textContent = fr ? 'Envoi…' : 'Sending…'; }
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name.value.trim(),
+            email: email.value.trim(),
+            message: message.value.trim(),
+          }),
+        });
+        if (res.ok) {
+          window.location.href = 'merci.html';
+        } else {
+          alert(fr ? "Une erreur est survenue. Réessayez plus tard." : 'An error occurred. Please try again later.');
+          if (btn) { btn.disabled = false; btn.innerHTML = original; }
+        }
+      } catch (e2) {
+        alert(fr ? "Impossible d'envoyer le message." : 'Unable to send the message.');
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
+      }
     });
   }
 
