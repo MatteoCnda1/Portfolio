@@ -295,6 +295,40 @@
           </button>
         </div>
       </article>
+
+      <!-- Projet 8 : Lab Ansible / Bastion / Teleport -->
+      <article class="project-card-image">
+        <div class="project-image">
+          <img src="assets/projects/ansible-lab/architecture.png" alt="Lab KVM Ansible Bastion" onerror="this.src='https://via.placeholder.com/600x400/1a1a2e/60a5fa?text=Lab+Ansible'">
+          <div class="project-overlay">
+            <span class="project-category lang-fr">Réseaux & Sécurité</span>
+            <span class="project-category lang-en">Networking & Security</span>
+          </div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title-modern">
+            <span class="lang-fr">Lab KVM — Bastion isolé, Ansible & Teleport</span>
+            <span class="lang-en">KVM Lab — Isolated Bastion, Ansible & Teleport</span>
+          </h3>
+          <p class="project-description">
+            <span class="lang-fr">Infrastructure virtualisée (KVM/Libvirt) avec réseau isolé par topologie, déploiement automatisé via Ansible, accès SSH centralisé et audité avec Teleport, et sortie Internet contrôlée via un proxy.</span>
+            <span class="lang-en">Virtualised infrastructure (KVM/Libvirt) with a topology-based isolated network, automated deployment via Ansible, centralised and audited SSH access with Teleport, and controlled outbound internet through a proxy.</span>
+          </p>
+          <div class="project-tags">
+            <span class="tag">Ansible</span>
+            <span class="tag">KVM/Libvirt</span>
+            <span class="tag">Teleport</span>
+            <span class="tag">Debian</span>
+          </div>
+          <button class="project-btn" onclick="openModal('modal8')">
+            <span class="lang-fr">Voir les détails</span>
+            <span class="lang-en">View details</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </article>
     </div>
   </main>
 
@@ -1488,6 +1522,156 @@
             <span class="tag">Dijkstra</span>
             <span class="tag">OLED</span>
             <span class="tag">Git</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 8 : Lab Ansible / Bastion / Teleport -->
+  <div id="modal8" class="modal">
+    <div class="modal-overlay" onclick="closeModal('modal8')"></div>
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeModal('modal8')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="modal-content">
+        <div class="modal-image">
+          <img src="assets/projects/ansible-lab/architecture.png" alt="Architecture du lab" onerror="this.src='https://via.placeholder.com/800x400/cfc9bb/16140f?text=Lab+Ansible'">
+        </div>
+        <div class="modal-header">
+          <span class="modal-category lang-fr">Réseaux & Sécurité</span>
+          <span class="modal-category lang-en">Networking & Security</span>
+          <h2 class="modal-title">
+            <span class="lang-fr">🔒 Lab KVM — Bastion isolé, Ansible & Teleport</span>
+            <span class="lang-en">🔒 KVM Lab — Isolated Bastion, Ansible & Teleport</span>
+          </h2>
+          <p class="modal-subtitle">
+            <span class="lang-fr">Un labo personnel de virtualisation reproduisant une architecture d'entreprise réaliste : machines virtuelles KVM/Libvirt, déploiement automatisé par Ansible, isolation réseau stricte via un bastion, accès SSH centralisé et audité avec Teleport, et sortie Internet tracée via un proxy.</span>
+            <span class="lang-en">A personal virtualisation lab reproducing a realistic enterprise setup: KVM/Libvirt virtual machines, automated deployment with Ansible, strict network isolation through a bastion, centralised and audited SSH access with Teleport, and traced outbound internet through a proxy.</span>
+          </p>
+        </div>
+        <div class="modal-body">
+
+          <div class="modal-section">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+              <span class="lang-fr">Contexte & objectif</span>
+              <span class="lang-en">Context & Goal</span>
+            </h3>
+            <p class="lang-fr">Objectif : monter, sur une machine Debian personnelle, un <strong>labo de virtualisation complet</strong> (KVM/Libvirt) reproduisant une topologie d'entreprise réaliste — un contrôleur d'automatisation, un bastion et trois serveurs de rôles différents (web, application, base de données) — puis <strong>automatiser leur déploiement</strong> et <strong>sécuriser les accès</strong> comme sur une vraie infrastructure.</p>
+            <p class="lang-en">Goal: build, on a personal Debian machine, a <strong>full virtualisation lab</strong> (KVM/Libvirt) reproducing a realistic enterprise topology — an automation controller, a bastion, and three role-specific servers (web, application, database) — then <strong>automate their deployment</strong> and <strong>secure access</strong> the way a real infrastructure would.</p>
+          </div>
+
+          <div class="modal-section">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+              <span class="lang-fr">Architecture & isolation réseau</span>
+              <span class="lang-en">Architecture & Network Isolation</span>
+            </h3>
+            <p class="lang-fr">Cinq VM Debian sur un hôte KVM/Libvirt : <strong>ansible-controller</strong> (orchestration), <strong>bastion01</strong> (accès sécurisé), <strong>web01</strong> (nginx), <strong>app01</strong> (Docker) et <strong>db01</strong> (MariaDB). Le bastion est la seule machine bi-domiciliée : d'un côté le réseau <strong>default</strong> (NAT, 192.168.122.0/24), de l'autre un réseau <strong>isolated</strong> (10.10.10.0/24) <strong>sans NAT ni adresse côté hôte</strong> — aucune route n'existe entre l'hôte et les VM isolées. Aucun pare-feu n'est utilisé : c'est la <strong>topologie elle-même</strong> qui impose que tout accès passe par le bastion.</p>
+            <p class="lang-en">Five Debian VMs on a KVM/Libvirt host: <strong>ansible-controller</strong> (orchestration), <strong>bastion01</strong> (secure access), <strong>web01</strong> (nginx), <strong>app01</strong> (Docker) and <strong>db01</strong> (MariaDB). The bastion is the only dual-homed machine: on one side the <strong>default</strong> network (NAT, 192.168.122.0/24), on the other an <strong>isolated</strong> network (10.10.10.0/24) with <strong>no NAT and no host-side address</strong> — no route exists between the host and the isolated VMs. No firewall is used: the <strong>topology itself</strong> forces every access through the bastion.</p>
+          </div>
+
+          <div class="modal-section">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span class="lang-fr">Déploiement automatisé avec Ansible</span>
+              <span class="lang-en">Automated Deployment with Ansible</span>
+            </h3>
+            <p class="lang-fr">Le contrôleur pilote les trois serveurs de rôles via des <strong>playbooks Ansible</strong>, en rebondissant sur le réseau isolé grâce à un <strong>ProxyJump SSH</strong> à travers le bastion. Chaque service est installé, configuré et activé de façon idempotente.</p>
+            <p class="lang-en">The controller drives the three role servers via <strong>Ansible playbooks</strong>, reaching the isolated network through an SSH <strong>ProxyJump</strong> via the bastion. Each service is installed, configured and enabled idempotently.</p>
+            <ul class="modal-list">
+              <li class="lang-fr">Inventaire avec <code>ProxyJump</code> pour joindre web/app/db sans route directe depuis le contrôleur</li>
+              <li class="lang-en">Inventory using <code>ProxyJump</code> to reach web/app/db with no direct route from the controller</li>
+              <li class="lang-fr">Playbooks dédiés : Nginx (web01), Docker (app01), MariaDB (db01)</li>
+              <li class="lang-en">Dedicated playbooks: Nginx (web01), Docker (app01), MariaDB (db01)</li>
+              <li class="lang-fr">Sur Debian 13, clé GPG Docker déposée dans <code>/etc/apt/keyrings/</code> et référencée via <code>signed-by</code> (<code>apt-key</code> n'existe plus)</li>
+              <li class="lang-en">On Debian 13, the Docker GPG key is stored in <code>/etc/apt/keyrings/</code> and referenced via <code>signed-by</code> (<code>apt-key</code> no longer exists)</li>
+            </ul>
+          </div>
+
+          <div class="modal-section">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span class="lang-fr">Accès centralisé & audité — Teleport</span>
+              <span class="lang-en">Centralised & Audited Access — Teleport</span>
+            </h3>
+            <p class="lang-fr"><strong>Teleport</strong> est déployé en cluster sur le bastion (authentification, proxy, audit) et joué par un <strong>utilisateur nommé avec MFA (OTP)</strong> plutôt que par des accès SSH bruts. Les VM isolées (web/app/db) rejoignent le cluster en <strong>tunnel inversé</strong> vers le bastion, sans avoir besoin d'être joignables directement — chaque agent initie la connexion sortante lui-même.</p>
+            <p class="lang-en"><strong>Teleport</strong> runs as a cluster on the bastion (auth, proxy, audit), accessed through a <strong>named user with MFA (OTP)</strong> rather than raw SSH access. The isolated VMs (web/app/db) join the cluster via a <strong>reverse tunnel</strong> to the bastion without needing to be directly reachable — each agent initiates the outbound connection itself.</p>
+            <div class="skills-grid-modal">
+              <div class="skill-badge">
+                <strong class="lang-fr">Authentification</strong><strong class="lang-en">Authentication</strong>
+                <span class="lang-fr">Utilisateur nommé + MFA, plus de compte SSH partagé</span>
+                <span class="lang-en">Named user + MFA, no more shared SSH accounts</span>
+              </div>
+              <div class="skill-badge">
+                <strong class="lang-fr">Sessions enregistrées</strong><strong class="lang-en">Recorded Sessions</strong>
+                <span class="lang-fr">Chaque connexion <code>tsh ssh</code> est journalisée et rejouable</span>
+                <span class="lang-en">Every <code>tsh ssh</code> connection is logged and replayable</span>
+              </div>
+              <div class="skill-badge">
+                <strong class="lang-fr">Enrôlement par token</strong><strong class="lang-en">Token-Based Enrollment</strong>
+                <span class="lang-fr">Playbook Ansible dédié, token + CA pin à durée de vie limitée</span>
+                <span class="lang-en">Dedicated Ansible playbook, short-lived token + CA pin</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-section">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span class="lang-fr">Sortie Internet contrôlée — Tinyproxy</span>
+              <span class="lang-en">Controlled Outbound Internet — Tinyproxy</span>
+            </h3>
+            <p class="lang-fr">Les VM isolées n'ayant <strong>aucune route sortante</strong>, un proxy HTTP <strong>Tinyproxy</strong> est installé sur le bastion : il n'écoute que sur la patte isolée et relaie vers Internet via la patte NAT de l'hôte. Chaque requête <code>apt</code> des VM isolées passe ainsi par un <strong>point unique, tracé et auditable</strong>, plutôt que par un NAT transparent invisible.</p>
+            <p class="lang-en">Since the isolated VMs have <strong>no outbound route</strong>, an HTTP proxy (<strong>Tinyproxy</strong>) is installed on the bastion: it only listens on the isolated leg and relays to the internet through the host's NAT leg. Every <code>apt</code> request from the isolated VMs thus goes through a <strong>single, traced and auditable</strong> point, instead of an invisible transparent NAT.</p>
+          </div>
+
+          <div class="modal-section">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span class="lang-fr">Compétences acquises</span>
+              <span class="lang-en">Skills Acquired</span>
+            </h3>
+            <div class="skills-grid-modal">
+              <div class="skill-badge">
+                <strong class="lang-fr">Virtualisation KVM/Libvirt</strong><strong class="lang-en">KVM/Libvirt Virtualisation</strong>
+                <span class="lang-fr">Création, gestion et mise en réseau de VM via virsh/virt-install</span>
+                <span class="lang-en">Creating, managing and networking VMs with virsh/virt-install</span>
+              </div>
+              <div class="skill-badge">
+                <strong class="lang-fr">Automatisation Ansible</strong><strong class="lang-en">Ansible Automation</strong>
+                <span class="lang-fr">Playbooks idempotents, inventaire avec ProxyJump</span>
+                <span class="lang-en">Idempotent playbooks, ProxyJump-based inventory</span>
+              </div>
+              <div class="skill-badge">
+                <strong class="lang-fr">Isolation réseau</strong><strong class="lang-en">Network Isolation</strong>
+                <span class="lang-fr">Conception d'une topologie sans route, bastion comme unique point d'entrée</span>
+                <span class="lang-en">Designing a routeless topology, bastion as the single entry point</span>
+              </div>
+              <div class="skill-badge">
+                <strong class="lang-fr">Accès sécurisé & audit</strong><strong class="lang-en">Secure Access & Audit</strong>
+                <span class="lang-fr">Teleport (MFA, tunnels inversés, sessions journalisées)</span>
+                <span class="lang-en">Teleport (MFA, reverse tunnels, logged sessions)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-tags">
+            <span class="tag">Ansible</span>
+            <span class="tag">KVM</span>
+            <span class="tag">Libvirt</span>
+            <span class="tag">Debian</span>
+            <span class="tag">Teleport</span>
+            <span class="tag">Tinyproxy</span>
+            <span class="tag">Nginx</span>
+            <span class="tag">Docker</span>
+            <span class="tag">MariaDB</span>
+            <span class="tag lang-fr">Isolation réseau</span>
+            <span class="tag lang-en">Network isolation</span>
           </div>
         </div>
       </div>
