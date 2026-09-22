@@ -551,9 +551,8 @@ body.modal-open { overflow: hidden; }
 /* =========================================================
    CONTACT
 ========================================================= */
-.contact-container-grid {
-  display: grid; grid-template-columns: 1.3fr 0.9fr;
-  gap: clamp(36px, 6vw, 72px); align-items: start;
+.contact-single {
+  max-width: 460px; margin: 0 auto;
 }
 .contact-info-card, .social-links-card, .response-card {
   background: var(--paper-2); border: 1px solid var(--line);
@@ -669,7 +668,6 @@ body.modal-open { overflow: hidden; }
   .hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .hero-content-section { order: 2; }
   .hero-image-section { order: 1; max-width: 340px; }
-  .contact-container-grid { grid-template-columns: 1fr; }
   .project-card-image,
   .project-card-image:nth-child(n) { grid-column: span 12 !important; }
 }
