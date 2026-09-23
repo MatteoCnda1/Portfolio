@@ -1,0 +1,16 @@
+---
+/* Motif signature : un filet de 1 px ponctué de nœuds, comme un chemin réseau. */
+interface Props { nodes?: number; live?: boolean; class?: string }
+const { nodes = 2, live = false, class: className } = Astro.props;
+const segments = Array.from({ length: nodes }, (_, i) => i);
+---
+
+<div class:list={['trace', className]} data-trace aria-hidden="true">
+  <span class="trace__node" />
+  {segments.map((i) => (
+    <>
+      <span class="trace__line" />
+      <span class:list={['trace__node', { 'trace__node--live': live && i === nodes - 1 }]} />
+    </>
+  ))}
+</div>

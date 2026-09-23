@@ -1,0 +1,1752 @@
+[
+  {
+    "card": {
+      "image": "assets/projects/ruche.png",
+      "category": {
+        "fr": "IoT & Électronique",
+        "en": "IoT & Electronics"
+      },
+      "title": {
+        "fr": "Ruche Connectée",
+        "en": "Connected Beehive"
+      },
+      "description": {
+        "fr": "Système IoT avec Arduino, capteurs multiples et application Android pour surveillance en temps réel.",
+        "en": "IoT system with Arduino, multiple sensors and Android app for real-time monitoring."
+      },
+      "modal": "modal1"
+    },
+    "category": {
+      "fr": "IoT & Électronique",
+      "en": "IoT & Electronics"
+    },
+    "title": {
+      "fr": "Ruche Connectée – Projet de Terminale",
+      "en": "Connected Beehive – Final Year Project"
+    },
+    "subtitle": {
+      "fr": "Système IoT complet avec Arduino, capteurs et application Android pour surveiller les ruches en temps réel.",
+      "en": "Complete IoT system with Arduino, sensors and Android app to monitor beehives in real-time."
+    },
+    "cover": "assets/projects/ruche.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte du projet",
+          "en": "Project Context"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Dans le cadre de notre projet de fin d'année au lycée, nous avons répondu à une problématique réelle rencontrée par un apiculteur local : <strong>réduire les déplacements</strong> sur son site et <strong>améliorer l'efficacité</strong> de la surveillance de ses ruches. Pour cela, nous avons conçu et déployé une <strong>ruche connectée</strong> totalement adaptée à une utilisation sur le terrain.",
+            "en": "As part of our final year project in high school, we addressed a real issue faced by a local beekeeper: <strong>reducing travel</strong> to his site and <strong>improving efficiency</strong> in monitoring his hives. To achieve this, we designed and deployed a <strong>connected beehive</strong> fully adapted for field use."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Technologies utilisées",
+          "en": "Technologies Used"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Le dispositif embarqué repose sur une <strong>carte Arduino</strong> couplée à plusieurs <strong>capteurs intelligents</strong> :",
+            "en": "The embedded system is based on an <strong>Arduino board</strong> connected to several <strong>smart sensors</strong>:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "Capteurs de température et d'humidité (intérieur/extérieur)",
+                "en": "Temperature and humidity sensors (indoor and outdoor)"
+              },
+              {
+                "fr": "Capteur de poids pour suivre la production de miel",
+                "en": "Weight sensor to monitor honey production"
+              },
+              {
+                "fr": "Module GPS pour la géolocalisation et la lutte contre le vol",
+                "en": "GPS module for geolocation and theft prevention"
+              }
+            ]
+          },
+          {
+            "type": "p",
+            "fr": "Ces données, récoltées en temps réel, étaient transmises via une <strong>connexion LTE</strong> vers une <strong>application Android</strong> que nous avons développée. Nous avons utilisé le protocole léger <strong>MQTT</strong> avec le broker <strong>Mosquitto</strong> pour une communication rapide et fiable avec l'application.",
+            "en": "These real-time data were transmitted via an <strong>LTE connection</strong> to a custom <strong>Android application</strong> we developed. We used the lightweight <strong>MQTT</strong> protocol with the <strong>Mosquitto</strong> broker for fast and reliable communication with the app."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Électronique de base",
+                  "en": "Basic Electronics"
+                },
+                "text": {
+                  "fr": "Montage de circuits, manipulation de capteurs analogiques/numériques, intégration Arduino",
+                  "en": "Circuit assembly, analog/digital sensor handling, Arduino integration"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Programmation en C",
+                  "en": "C Programming"
+                },
+                "text": {
+                  "fr": "Développement embarqué sur microcontrôleur, communication série, gestion des interruptions",
+                  "en": "Embedded development on microcontrollers, serial communication, interrupt handling"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Développement mobile",
+                  "en": "Mobile Development"
+                },
+                "text": {
+                  "fr": "Création d'une application Android en Java/Kotlin",
+                  "en": "Building an Android app in Java/Kotlin"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Internet des objets (IoT)",
+                  "en": "Internet of Things (IoT)"
+                },
+                "text": {
+                  "fr": "Communication sans fil via LTE, usage du protocole MQTT, architecture client/broker",
+                  "en": "Wireless communication via LTE, MQTT protocol, client/broker architecture"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Travail en équipe",
+                  "en": "Teamwork"
+                },
+                "text": {
+                  "fr": "Gestion de projet, répartition des tâches, communication technique",
+                  "en": "Project management, task distribution, technical communication"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [],
+    "tags": [
+      "Arduino",
+      "C",
+      "Android",
+      "Java/Kotlin",
+      "MQTT",
+      "Mosquitto",
+      "LTE",
+      "IoT",
+      "GPS"
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/projects/twitter.png",
+      "category": {
+        "fr": "Data Science",
+        "en": "Data Science"
+      },
+      "title": {
+        "fr": "Analyse de Données Twitter",
+        "en": "Twitter Data Analysis"
+      },
+      "description": {
+        "fr": "Collecte, nettoyage et analyse de tweets pour identifier les tendances temporelles.",
+        "en": "Collection, cleaning and analysis of tweets to identify temporal trends."
+      },
+      "modal": "modal2"
+    },
+    "category": {
+      "fr": "Data Science",
+      "en": "Data Science"
+    },
+    "title": {
+      "fr": "SAE – Traitement de données Twitter (BUT 1)",
+      "en": "SAE – Twitter Data Processing (BUT Year 1)"
+    },
+    "subtitle": {
+      "fr": "Collecte, traitement et analyse de tweets avec Python pour identifier les tendances par périodes temporelles.",
+      "en": "Collection, processing and analysis of tweets using Python to identify trends by time periods."
+    },
+    "cover": "assets/projects/twitter.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Objectif du projet",
+          "en": "Project Objective"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Dans le cadre de cette SAE, nous avons été amenés à <strong>collecter, traiter et analyser des Tweets</strong> à l'aide de plusieurs outils informatiques. Notre objectif était de <strong>décréter les tendances selon les périodes</strong> en relevant les occurrences de certains mots clés et d'afficher ces tendances de manière visuelle avec des graphiques.",
+            "en": "As part of this SAE, we were tasked with <strong>collecting, processing and analyzing Tweets</strong> using various digital tools. Our goal was to <strong>determine trends by periods</strong> based on the occurrences of keywords and display these trends visually with graphs."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Étapes du projet",
+          "en": "Project Steps"
+        },
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Récupération des jeux de données</strong> : Collecte de tweets au format CSV, JSON et TXT",
+                "en": "<strong>Dataset retrieval</strong>: Collection of tweets in CSV, JSON and TXT formats"
+              },
+              {
+                "fr": "<strong>Parsage de fichiers</strong> : Apprentissage de la lecture et écriture de fichiers en Python, manipulation de différents formats de données",
+                "en": "<strong>File parsing</strong>: Learning to read and write files in Python, handling different data formats"
+              },
+              {
+                "fr": "<strong>Nettoyage des données</strong> : Suppression des doublons, correction des fautes d'orthographe, filtrage du contenu pertinent",
+                "en": "<strong>Data cleaning</strong>: Duplicate removal, spelling correction, filtering relevant content"
+              },
+              {
+                "fr": "<strong>Calcul du taux d'apparition</strong> : Comptage des occurrences de mots clés spécifiques sur différentes périodes temporelles",
+                "en": "<strong>Occurrence rate calculation</strong>: Counting specific keyword occurrences across different time periods"
+              },
+              {
+                "fr": "<strong>Analyse statistique</strong> : Identification des tendances et corrélations entre les données",
+                "en": "<strong>Statistical analysis</strong>: Identifying trends and correlations in the data"
+              },
+              {
+                "fr": "<strong>Visualisation avec Matplotlib</strong> : Création de graphiques (courbes, histogrammes, nuages de points) pour afficher les trends de manière claire et impactante",
+                "en": "<strong>Visualization with Matplotlib</strong>: Creating graphs (curves, histograms, scatter plots) to display trends clearly and impactfully"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Technologies & Outils utilisés",
+          "en": "Technologies & Tools Used"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Python",
+                  "en": "Python"
+                },
+                "text": {
+                  "fr": "Langage principal pour le traitement et l'analyse",
+                  "en": "Main language for processing and analysis"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Pandas",
+                  "en": "Pandas"
+                },
+                "text": {
+                  "fr": "Manipulation et nettoyage de données structurées",
+                  "en": "Structured data manipulation and cleaning"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Matplotlib",
+                  "en": "Matplotlib"
+                },
+                "text": {
+                  "fr": "Création de visualisations graphiques des tendances",
+                  "en": "Creating graphical visualizations of trends"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Fichiers CSV/JSON/TXT",
+                  "en": "CSV/JSON/TXT Files"
+                },
+                "text": {
+                  "fr": "Parsage et traitement de multiples formats",
+                  "en": "Parsing and processing multiple formats"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Manipulation de données avec Python",
+                  "en": "Data Manipulation with Python"
+                },
+                "text": {
+                  "fr": "Maîtrise de Pandas pour le nettoyage et la transformation de grandes quantités de données",
+                  "en": "Proficiency with Pandas for cleaning and transforming large amounts of data"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Lecture/Écriture de fichiers",
+                  "en": "File I/O Operations"
+                },
+                "text": {
+                  "fr": "Parsage de fichiers CSV, JSON et TXT en Python",
+                  "en": "Parsing CSV, JSON and TXT files in Python"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Analyse statistique",
+                  "en": "Statistical Analysis"
+                },
+                "text": {
+                  "fr": "Calcul de taux d'apparition, fréquences et corrélations",
+                  "en": "Calculation of occurrence rates, frequencies and correlations"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Visualisation de données",
+                  "en": "Data Visualization"
+                },
+                "text": {
+                  "fr": "Storytelling graphique avec Matplotlib pour présenter les tendances de manière impactante",
+                  "en": "Graphical storytelling with Matplotlib to present trends impactfully"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Nettoyage de données",
+                  "en": "Data Cleaning"
+                },
+                "text": {
+                  "fr": "Traitement des doublons, correction d'erreurs et préparation des données",
+                  "en": "Handling duplicates, error correction and data preparation"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [],
+    "tags": [
+      "Python",
+      "Pandas",
+      "Matplotlib",
+      "Data Analysis",
+      "CSV",
+      "JSON",
+      "Statistics",
+      "Visualization"
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/projects/ctf.jpg",
+      "category": {
+        "fr": "Cybersécurité",
+        "en": "Cybersecurity"
+      },
+      "title": {
+        "fr": "Capture The Flag",
+        "en": "Capture The Flag"
+      },
+      "description": {
+        "fr": "Découverte des vulnérabilités courantes et utilisation d'outils de pentesting.",
+        "en": "Discovery of common vulnerabilities and use of pentesting tools."
+      },
+      "modal": "modal3"
+    },
+    "category": {
+      "fr": "Cybersécurité",
+      "en": "Cybersecurity"
+    },
+    "title": {
+      "fr": "SAE – Sensibilisation à l'hygiène informatique (BUT 1)",
+      "en": "SAE – Raising Awareness of Cyber Hygiene (BUT Year 1)"
+    },
+    "subtitle": {
+      "fr": "Capture The Flag pour découvrir les failles de sécurité les plus récurrentes et apprendre à les exploiter de manière éthique.",
+      "en": "Capture The Flag to discover the most common security flaws and learn to exploit them ethically."
+    },
+    "cover": "assets/projects/ctf.jpg",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte du projet",
+          "en": "Project Context"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Le but de cette SAE était de nous introduire aux <strong>risques potentiels</strong> liés à l'informatique et plus spécifiquement aux <strong>systèmes d'information</strong>. Notre professeur de Réseaux nous a concocté un <strong>Capture The Flag</strong> pour découvrir les failles de sécurité les plus récurrentes dans le monde réel.",
+            "en": "The goal of this SAE was to introduce us to <strong>potential risks</strong> related to computing and more specifically to <strong>information systems</strong>. Our Networks teacher created a <strong>Capture The Flag</strong> to discover the most common security flaws in the real world."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Contenu du CTF",
+          "en": "CTF Content"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Le CTF nous a permis d'explorer différentes catégories de vulnérabilités :",
+            "en": "The CTF allowed us to explore different categories of vulnerabilities:"
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Stéganographie</strong> : Découverte de messages cachés dans des images et fichiers",
+                "en": "<strong>Steganography</strong>: Discovering hidden messages in images and files"
+              },
+              {
+                "fr": "<strong>Cryptographie (Hash)</strong> : Cassage de mots de passe hashés avec différents algorithmes (MD5, SHA1, etc.)",
+                "en": "<strong>Cryptography (Hash)</strong>: Cracking hashed passwords with different algorithms (MD5, SHA1, etc.)"
+              },
+              {
+                "fr": "<strong>Injection SQL</strong> : Exploitation de failles d'injection pour accéder à des bases de données",
+                "en": "<strong>SQL Injection</strong>: Exploiting injection flaws to access databases"
+              },
+              {
+                "fr": "<strong>BruteForce</strong> : Attaques par force brute pour trouver des identifiants",
+                "en": "<strong>BruteForce</strong>: Brute force attacks to find credentials"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Outils utilisés",
+          "en": "Tools Used"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Nous avons utilisé plusieurs outils professionnels de pentesting pour mener ce CTF à bien :",
+            "en": "We used several professional pentesting tools to complete this CTF:"
+          },
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Burp Suite",
+                  "en": "Burp Suite"
+                },
+                "text": {
+                  "fr": "Proxy d'interception pour analyser et modifier le trafic HTTP",
+                  "en": "Interception proxy to analyze and modify HTTP traffic"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Nmap",
+                  "en": "Nmap"
+                },
+                "text": {
+                  "fr": "Scanner de ports et découverte de services réseau",
+                  "en": "Port scanner and network service discovery"
+                }
+              },
+              {
+                "title": {
+                  "fr": "John the Ripper",
+                  "en": "John the Ripper"
+                },
+                "text": {
+                  "fr": "Outil de cassage de mots de passe",
+                  "en": "Password cracking tool"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Hashcat",
+                  "en": "Hashcat"
+                },
+                "text": {
+                  "fr": "Cassage de hash avec accélération GPU",
+                  "en": "Hash cracking with GPU acceleration"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Dirb",
+                  "en": "Dirb"
+                },
+                "text": {
+                  "fr": "Découverte de répertoires et fichiers cachés sur serveurs web",
+                  "en": "Directory and hidden file discovery on web servers"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Metasploit",
+                  "en": "Metasploit"
+                },
+                "text": {
+                  "fr": "Framework d'exploitation de vulnérabilités",
+                  "en": "Vulnerability exploitation framework"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Sensibilisation aux risques",
+                  "en": "Risk Awareness"
+                },
+                "text": {
+                  "fr": "Compréhension des menaces pesant sur les systèmes d'information",
+                  "en": "Understanding threats to information systems"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Découverte de failles",
+                  "en": "Vulnerability Discovery"
+                },
+                "text": {
+                  "fr": "SQLi, BruteForce, stéganographie, hash cracking",
+                  "en": "SQLi, BruteForce, steganography, hash cracking"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Utilisation d'outils de pentesting",
+                  "en": "Pentesting Tools Usage"
+                },
+                "text": {
+                  "fr": "Maîtrise de Burp Suite, Nmap, John, Hashcat, Metasploit",
+                  "en": "Proficiency with Burp Suite, Nmap, John, Hashcat, Metasploit"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Résolution de CTF",
+                  "en": "CTF Solving"
+                },
+                "text": {
+                  "fr": "Logique, investigation, esprit d'analyse et persévérance",
+                  "en": "Logic, investigation, analytical thinking and perseverance"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [],
+    "tags": [
+      "Cybersecurity",
+      "CTF",
+      "Burp Suite",
+      "Nmap",
+      "SQL Injection",
+      "Pentesting",
+      "John the Ripper",
+      "Hashcat",
+      "Metasploit"
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/projects/computer_vision.png",
+      "category": {
+        "fr": "IA & Vision",
+        "en": "AI & Vision"
+      },
+      "title": {
+        "fr": "Détection de Silhouettes",
+        "en": "Silhouette Detection"
+      },
+      "description": {
+        "fr": "Système de vision par ordinateur pour détecter les intrusions et vérifier les équipements de sécurité.",
+        "en": "Computer vision system to detect intrusions and verify safety equipment."
+      },
+      "modal": "modal4"
+    },
+    "category": {
+      "fr": "IA & Vision",
+      "en": "AI & Vision"
+    },
+    "title": {
+      "fr": "SAE – Vision par ordinateur",
+      "en": "SAE – Computer Vision"
+    },
+    "subtitle": {
+      "fr": "Système de vision par ordinateur pour détecter les silhouettes humaines et vérifier le port d'équipements de sécurité.",
+      "en": "Computer vision system to detect human silhouettes and verify safety equipment wear."
+    },
+    "cover": "assets/projects/computer_vision.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte du projet",
+          "en": "Project Context"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Ce projet porte sur la <strong>vision par ordinateur</strong> pour la détection de silhouettes humaines et la gestion d'alertes de sécurité. L'objectif principal n'était pas la reconnaissance faciale complète, mais de <strong>détecter la présence d'une silhouette</strong> et de vérifier si elle porte un <strong>gilet jaune</strong> (personnel autorisé). Si une silhouette sans gilet jaune est détectée, une <strong>intrusion est signalée</strong>.",
+            "en": "This project focuses on <strong>computer vision</strong> for human silhouette detection and security alert management. The main goal was not full facial recognition, but to <strong>detect a silhouette's presence</strong> and check whether it wears a <strong>yellow safety vest</strong> (authorized staff). If a silhouette without a yellow vest is detected, an <strong>intrusion is reported</strong>."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Méthodes & Composants",
+          "en": "Methods & Components"
+        },
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Langage Python</strong> avec la bibliothèque <strong>OpenCV</strong> pour le traitement d'image et la détection",
+                "en": "<strong>Python language</strong> with <strong>OpenCV</strong> library for image processing and detection"
+              },
+              {
+                "fr": "<strong>Détection de silhouettes</strong> : Utilisation du descripteur <strong>HOG</strong> (Histogram of Oriented Gradients) combiné avec filtrage et morphologie",
+                "en": "<strong>Silhouette detection</strong>: Using <strong>HOG</strong> (Histogram of Oriented Gradients) descriptor combined with filtering and morphology"
+              },
+              {
+                "fr": "<strong>Soustraction de fond</strong> : Algorithme <strong>MOG2</strong> pour isoler les mouvements et objets en avant-plan",
+                "en": "<strong>Background subtraction</strong>: <strong>MOG2</strong> algorithm to isolate foreground movement and objects"
+              },
+              {
+                "fr": "<strong>Détection de couleur</strong> : Utilisation de l'espace colorimétrique <strong>HSV</strong> pour repérer les gilets jaunes dans la zone de la silhouette",
+                "en": "<strong>Color detection</strong>: Using <strong>HSV</strong> color space to spot yellow vests within the silhouette area"
+              },
+              {
+                "fr": "<strong>Gestion d'états</strong> : Logique applicative pour suivre les états (silhouette détectée → présence d'un gilet → pas d'alerte / sinon alerte)",
+                "en": "<strong>State management</strong>: Application logic to track states (silhouette detected → vest present → no alert / otherwise alert)"
+              },
+              {
+                "fr": "<strong>Journalisation distante</strong> : En cas d'intrusion, envoi d'un log vers une machine virtuelle distante servant de serveur de logs",
+                "en": "<strong>Remote logging</strong>: Upon intrusion, sending a log to a remote virtual machine acting as a log server"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Maîtrise d'OpenCV",
+                  "en": "OpenCV Proficiency"
+                },
+                "text": {
+                  "fr": "Pipeline de traitement d'image en Python",
+                  "en": "Image processing pipeline in Python"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Soustraction de fond",
+                  "en": "Background Subtraction"
+                },
+                "text": {
+                  "fr": "Implémentation et paramétrage de MOG2 pour la détection de mouvement",
+                  "en": "Implementation and tuning of MOG2 for motion detection"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Descripteurs HOG",
+                  "en": "HOG Descriptors"
+                },
+                "text": {
+                  "fr": "Utilisation de techniques de filtrage et morphologie pour robustifier la détection",
+                  "en": "Using filtering and morphological techniques to robustify detection"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Détection de couleur HSV",
+                  "en": "HSV Color Detection"
+                },
+                "text": {
+                  "fr": "Classification simple pour identifier les équipements de sécurité",
+                  "en": "Simple classification to identify safety equipment"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Gestion d'états",
+                  "en": "State Management"
+                },
+                "text": {
+                  "fr": "Conception de logique pour décider quand générer une alerte",
+                  "en": "Designing logic to decide when to raise an alert"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Logging distant",
+                  "en": "Remote Logging"
+                },
+                "text": {
+                  "fr": "Communication réseau et format de logs vers une VM distante",
+                  "en": "Network communication and log format to a remote VM"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": {
+          "fr": "Documentation du projet",
+          "en": "Project documentation"
+        },
+        "text": {
+          "fr": "Rapport complet de la SAE Vision par ordinateur (PDF)",
+          "en": "Full Computer Vision SAE report (PDF)"
+        },
+        "href": "docs/sae_computer_vision.pdf"
+      }
+    ],
+    "tags": [
+      "OpenCV",
+      "Python",
+      "Computer Vision",
+      "HOG",
+      "MOG2",
+      "HSV",
+      "Image Processing",
+      "AI"
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/superv_pr.png",
+      "category": {
+        "fr": "Réseaux",
+        "en": "Networking"
+      },
+      "title": {
+        "fr": "Supervision DHCP",
+        "en": "DHCP Monitoring"
+      },
+      "description": {
+        "fr": "Application web tout-en-un, développée en Python, pour superviser un serveur DHCP et l'ensemble du parc machines à distance.",
+        "en": "All-in-one Python web application to supervise a DHCP server and the whole machine fleet remotely."
+      },
+      "modal": "modal5"
+    },
+    "category": {
+      "fr": "Réseaux & Développement",
+      "en": "Networking & Development"
+    },
+    "title": {
+      "fr": "Supervision DHCP & parc machines",
+      "en": "DHCP & Fleet Supervision"
+    },
+    "subtitle": {
+      "fr": "Une application web tout-en-un, développée en interne, pour superviser un serveur DHCP et l'ensemble des machines du parc à distance.",
+      "en": "An in-house all-in-one web application to supervise a DHCP server and the entire machine fleet remotely."
+    },
+    "cover": "assets/superv_pr.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte & objectif",
+          "en": "Context & Goal"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Ce projet de <strong>développement de solution logicielle</strong> répondait à un besoin d'entreprise : disposer d'un <strong>outil unique</strong> capable de superviser un <strong>serveur DHCP</strong> ainsi que toutes les <strong>machines du parc</strong>, depuis une seule interface centralisée. L'application embarque l'intégralité de la partie web (back et front) et a été développée en <strong>Python</strong>.",
+            "en": "This <strong>software solution</strong> project answered a company need: a <strong>single tool</strong> able to supervise a <strong>DHCP server</strong> and every <strong>machine in the fleet</strong> from one centralised interface. The app bundles the whole web stack (back and front) and was built in <strong>Python</strong>."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Architecture",
+          "en": "Architecture"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "L'architecture repose sur une <strong>machine superviseur</strong> centrale et un ensemble de <strong>machines supervisées</strong>. Le lien entre elles est assuré par des <strong>scripts Bash de wrapping SSH</strong> conçus selon le <strong>principe du moindre privilège</strong> : chaque connexion ne dispose que des droits strictement nécessaires à la collecte d'informations.",
+            "en": "The architecture relies on a central <strong>supervisor machine</strong> and a set of <strong>supervised machines</strong>. The link between them is handled by <strong>Bash SSH-wrapping scripts</strong> designed around the <strong>principle of least privilege</strong>: each connection only holds the rights strictly needed to gather information."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Consultation des logs à distance</strong> : récupération centralisée des journaux de toutes les machines supervisées",
+                "en": "<strong>Remote log access</strong>: centralised retrieval of logs from every supervised machine"
+              },
+              {
+                "fr": "<strong>Serveur web Apache</strong> : configuration de l'hébergement de l'application",
+                "en": "<strong>Apache web server</strong>: hosting configuration for the application"
+              },
+              {
+                "fr": "<strong>Scripts SSH sécurisés</strong> : automatisation des connexions inter-machines à moindre privilège",
+                "en": "<strong>Secured SSH scripts</strong>: least-privilege automation of inter-machine connections"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Gestion des accès",
+          "en": "Access Management"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "L'application intègre plusieurs <strong>niveaux de privilèges</strong> pour cloisonner les actions selon le rôle de l'utilisateur :",
+            "en": "The application implements several <strong>privilege levels</strong> to partition actions by user role:"
+          },
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Administrateur",
+                  "en": "Administrator"
+                },
+                "text": {
+                  "fr": "Contrôle total : gestion des comptes, configuration et supervision",
+                  "en": "Full control: account management, configuration and supervision"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Superviseur",
+                  "en": "Supervisor"
+                },
+                "text": {
+                  "fr": "Consultation et suivi des machines et des logs",
+                  "en": "Monitoring and review of machines and logs"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Compte de base",
+                  "en": "Basic account"
+                },
+                "text": {
+                  "fr": "Accès restreint, sans privilèges d'administration",
+                  "en": "Restricted access, no administration privileges"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Développement web Python",
+                  "en": "Python Web Development"
+                },
+                "text": {
+                  "fr": "Conception d'une application web complète, back et front",
+                  "en": "Building a complete web application, back and front"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Scripting Bash & SSH",
+                  "en": "Bash & SSH Scripting"
+                },
+                "text": {
+                  "fr": "Wrapping SSH et automatisation à moindre privilège",
+                  "en": "SSH wrapping and least-privilege automation"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Administration système",
+                  "en": "System Administration"
+                },
+                "text": {
+                  "fr": "Configuration Apache, gestion des logs et des accès",
+                  "en": "Apache configuration, log and access management"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Sécurité",
+                  "en": "Security"
+                },
+                "text": {
+                  "fr": "Application du principe du moindre privilège, gestion de rôles",
+                  "en": "Least-privilege principle, role-based management"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [],
+    "tags": [
+      "Python",
+      "Bash",
+      "SSH",
+      "Apache",
+      "DHCP",
+      "Supervision",
+      "Web",
+      {
+        "fr": "Moindre privilège",
+        "en": "Least privilege"
+      }
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/pr_integratif.png",
+      "category": {
+        "fr": "Intégration",
+        "en": "Integration"
+      },
+      "title": {
+        "fr": "Projet Intégratif",
+        "en": "Integrative Project"
+      },
+      "description": {
+        "fr": "Conception et déploiement d'un réseau d'entreprise complet : services réseau, base de données, supervision et téléphonie sur IP.",
+        "en": "Designing and deploying a full enterprise network: core services, database, monitoring and VoIP telephony."
+      },
+      "modal": "modal6"
+    },
+    "category": {
+      "fr": "Réseaux & Systèmes",
+      "en": "Networking & Systems"
+    },
+    "title": {
+      "fr": "Projet Intégratif — Réseau d'entreprise",
+      "en": "Integrative Project — Enterprise Network"
+    },
+    "subtitle": {
+      "fr": "Conception et déploiement de A à Z d'un réseau d'entreprise complet, des services d'infrastructure jusqu'à la téléphonie sur IP.",
+      "en": "End-to-end design and deployment of a complete enterprise network, from infrastructure services to IP telephony."
+    },
+    "cover": "assets/pr_integratif.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte du projet",
+          "en": "Project Context"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Ce projet intégratif consistait à <strong>créer le réseau complet d'une entreprise fictive</strong>, en partant d'une infrastructure vierge. L'objectif était de mettre en place une <strong>architecture cohérente et fonctionnelle</strong>, couvrant l'ensemble des services attendus dans un environnement professionnel : connectivité, services réseau, base de données, supervision et téléphonie.",
+            "en": "This integrative project consisted of <strong>building the complete network of a fictional company</strong> from a blank infrastructure. The goal was to set up a <strong>coherent, functional architecture</strong> covering all the services expected in a professional environment: connectivity, network services, database, monitoring and telephony."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Services réseau & infrastructure",
+          "en": "Network Services & Infrastructure"
+        },
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Configuration réseau de base</strong> : adressage, routage et interconnexion des équipements",
+                "en": "<strong>Core network configuration</strong>: addressing, routing and device interconnection"
+              },
+              {
+                "fr": "<strong>DNS</strong> : résolution de noms interne pour l'ensemble du domaine",
+                "en": "<strong>DNS</strong>: internal name resolution across the whole domain"
+              },
+              {
+                "fr": "<strong>DHCP</strong> : attribution dynamique des adresses IP du parc",
+                "en": "<strong>DHCP</strong>: dynamic IP address assignment for the fleet"
+              },
+              {
+                "fr": "<strong>Accès à distance</strong> : connexions sécurisées aux équipements",
+                "en": "<strong>Remote access</strong>: secured connections to the equipment"
+              },
+              {
+                "fr": "<strong>Base de données</strong> : stockage centralisé des données de l'entreprise",
+                "en": "<strong>Database</strong>: centralised storage of company data"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Supervision",
+          "en": "Monitoring"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "La supervision de l'infrastructure a été assurée avec <strong>Icinga2</strong>, permettant de surveiller en continu l'état des équipements et des services, de détecter les pannes et de remonter des alertes. Cette brique garantit la <strong>disponibilité</strong> et la <strong>fiabilité</strong> du réseau déployé.",
+            "en": "Infrastructure monitoring was handled with <strong>Icinga2</strong>, continuously watching the state of devices and services, detecting failures and raising alerts. This layer guarantees the <strong>availability</strong> and <strong>reliability</strong> of the deployed network."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Téléphonie sur IP",
+          "en": "IP Telephony"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Le volet téléphonie reposait sur le framework <strong>Asterisk</strong>, configuré comme <strong>PABX</strong> de l'entreprise. Des <strong>téléphones Grandstream</strong> et des <strong>softphones</strong> ont été déployés et raccordés, permettant des communications internes et la gestion des extensions sur l'ensemble du réseau.",
+            "en": "The telephony part was built on the <strong>Asterisk</strong> framework, configured as the company <strong>PABX</strong>. <strong>Grandstream phones</strong> and <strong>softphones</strong> were deployed and connected, enabling internal communications and extension management across the whole network."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Architecture réseau",
+                  "en": "Network Architecture"
+                },
+                "text": {
+                  "fr": "Conception globale d'une infrastructure d'entreprise cohérente",
+                  "en": "Overall design of a coherent enterprise infrastructure"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Services d'infrastructure",
+                  "en": "Infrastructure Services"
+                },
+                "text": {
+                  "fr": "Déploiement de DNS, DHCP et accès distant",
+                  "en": "Deploying DNS, DHCP and remote access"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Supervision Icinga2",
+                  "en": "Icinga2 Monitoring"
+                },
+                "text": {
+                  "fr": "Surveillance des services et gestion des alertes",
+                  "en": "Service monitoring and alert management"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Téléphonie Asterisk",
+                  "en": "Asterisk Telephony"
+                },
+                "text": {
+                  "fr": "Configuration d'un PABX et raccordement de postes",
+                  "en": "PABX configuration and phone provisioning"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Bases de données",
+                  "en": "Databases"
+                },
+                "text": {
+                  "fr": "Mise en place d'un stockage centralisé",
+                  "en": "Setting up centralised storage"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [],
+    "tags": [
+      "DNS",
+      "DHCP",
+      {
+        "fr": "Accès distant",
+        "en": "Remote access"
+      },
+      {
+        "fr": "Base de données",
+        "en": "Database"
+      },
+      "Icinga2",
+      "Asterisk",
+      "Grandstream",
+      "VoIP"
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/icone.png",
+      "category": {
+        "fr": "Stage · Embarqué BLE",
+        "en": "Internship · Embedded BLE"
+      },
+      "title": {
+        "fr": "Stage — Logiciel embarqué & carte STeaMi",
+        "en": "Internship — Embedded Software & STeaMi Board"
+      },
+      "description": {
+        "fr": "Stage de fin de 2ᵉ année au LAB d'Aix : développement BLE sur la carte STeaMi, système de localisation par trilatération, portage C++ et ressources pédagogiques.",
+        "en": "End-of-second-year internship at LAB Aix: BLE development on the STeaMi board, a trilateration positioning system, C++ porting and educational resources."
+      },
+      "modal": "modal7"
+    },
+    "category": {
+      "fr": "Stage · Développement embarqué",
+      "en": "Internship · Embedded Development"
+    },
+    "title": {
+      "fr": "Développement logiciel embarqué pour la carte STeaMi",
+      "en": "Embedded Software Development for the STeaMi Board"
+    },
+    "subtitle": {
+      "fr": "Stage de fin de 2ᵉ année de BUT R&amp;T (parcours cybersécurité) réalisé au LAB — Laboratoire d'Aix-périmentation et de Bidouille, autour de la carte embarquée STeaMi et de ses communications Bluetooth Low Energy.",
+      "en": "End-of-second-year BUT R&amp;T (cybersecurity track) internship at the LAB — Laboratoire d'Aix-périmentation et de Bidouille, focused on the STeaMi embedded board and its Bluetooth Low Energy communications."
+    },
+    "cover": "assets/icone.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte & structure d'accueil",
+          "en": "Context & Host Structure"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Le LAB est un <strong>Fab Lab</strong> (association loi 1901) basé à Aix-en-Provence, dédié à la culture maker, à la fabrication numérique et à la médiation scientifique. Le stage s'est déroulé dans un environnement <strong>open source</strong> : tout le code était hébergé sur les dépôts <strong>GitHub</strong> du LAB, mes contributions étant suivies via des <strong>issues</strong> et validées par <strong>Pull Requests</strong>.",
+            "en": "The LAB is a <strong>Fab Lab</strong> (non-profit) based in Aix-en-Provence, dedicated to maker culture, digital fabrication and science outreach. The internship took place in an <strong>open-source</strong> environment: all code was hosted on the LAB's <strong>GitHub</strong> repositories, with my contributions tracked through <strong>issues</strong> and validated via <strong>Pull Requests</strong>."
+          },
+          {
+            "type": "p",
+            "fr": "La <strong>mission principale</strong> portait sur le développement et l'optimisation des fonctionnalités <strong>Bluetooth Low Energy (BLE)</strong> de la STeaMi : concevoir des communications fiables entre plusieurs cartes, implémenter un système de <strong>localisation par trilatération</strong>, et optimiser les émissions/scans pour réduire la consommation et améliorer les performances réseau.",
+            "en": "The <strong>core mission</strong> was the development and optimisation of the STeaMi's <strong>Bluetooth Low Energy (BLE)</strong> features: building reliable multi-board communication, implementing a <strong>trilateration positioning</strong> system, and optimising advertising/scanning to cut power use and improve network performance."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "La carte STeaMi",
+          "en": "The STeaMi Board"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Carte de développement pédagogique conçue par le LAB, basée sur le microcontrôleur <strong>STM32WB55RG</strong>. Elle intègre un <strong>écran OLED circulaire 128×128</strong>, plusieurs capteurs (accéléromètre, gyroscope, capteurs environnementaux), des entrées tactiles et une connectivité <strong>BLE 5.2</strong>.",
+            "en": "A pedagogical development board designed by the LAB, built around the <strong>STM32WB55RG</strong> microcontroller. It features a <strong>circular 128×128 OLED display</strong>, several sensors (accelerometer, gyroscope, environmental sensors), touch inputs and <strong>BLE 5.2</strong> connectivity."
+          },
+          {
+            "type": "gallery",
+            "items": [
+              {
+                "src": "assets/projects/stage/steami_front.png",
+                "alt": "STeaMi de face",
+                "caption": {
+                  "fr": "STeaMi de face — écran OLED",
+                  "en": "STeaMi front — OLED screen"
+                }
+              },
+              {
+                "src": "assets/projects/stage/steami_back.png",
+                "alt": "STeaMi de dos",
+                "caption": {
+                  "fr": "STeaMi de dos — STM32WB55",
+                  "en": "STeaMi back — STM32WB55"
+                }
+              }
+            ]
+          },
+          {
+            "type": "p",
+            "fr": "Environnement logiciel : <strong>MicroPython</strong> (prototypage rapide, accès direct au matériel) et <strong>C++/Arduino</strong> pour les parties critiques. Outils : Thonny, mpremote (REPL), environnement virtuel Python, le tout sur une machine <strong>Debian</strong>.",
+            "en": "Software environment: <strong>MicroPython</strong> (fast prototyping, direct hardware access) and <strong>C++/Arduino</strong> for performance-critical parts. Tooling: Thonny, mpremote (REPL) and a Python virtual environment, all on a <strong>Debian</strong> machine."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Communications BLE multi-cartes",
+          "en": "Multi-Board BLE Communication"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Mise en place d'un <strong>réseau BLE maillé (mesh)</strong> composé de trois périphériques capteurs (P1–P3) et trois relais (R1–R3). Le fonctionnement repose sur un mode <strong>sans connexion</strong> : diffusion (advertising) et écoute (scan) de paquets, sans session GATT, pour une communication plus légère et une meilleure scalabilité.",
+            "en": "Building a <strong>BLE mesh network</strong> made of three sensor peripherals (P1–P3) and three relays (R1–R3). It works in a <strong>connectionless</strong> mode: packet advertising and scanning, without a GATT session, for lighter communication and better scalability."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "Données encapsulées en trames <strong>JSON</strong> (émetteur, destinataire, donnée, compteur de sauts)",
+                "en": "Data encapsulated in <strong>JSON</strong> frames (sender, recipient, payload, hop counter)"
+              },
+              {
+                "fr": "<strong>Retransmission multi-sauts</strong> entre relais avec anti-boucle (hop counter)",
+                "en": "<strong>Multi-hop retransmission</strong> between relays with loop avoidance (hop counter)"
+              },
+              {
+                "fr": "Chiffrement <strong>XOR</strong> pour une sécurisation minimale des échanges",
+                "en": "<strong>XOR</strong> encryption for minimal securing of the exchanges"
+              }
+            ]
+          },
+          {
+            "type": "gallery",
+            "items": [
+              {
+                "src": "assets/projects/stage/mesh_ble.png",
+                "alt": "Réseau mesh BLE",
+                "caption": {
+                  "fr": "Architecture du réseau mesh BLE (P1–P3 / R1–R3)",
+                  "en": "BLE mesh network architecture (P1–P3 / R1–R3)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Localisation par trilatération BLE",
+          "en": "BLE Trilateration Positioning"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Réalisation la plus aboutie du stage : un système de <strong>localisation intérieure</strong> estimant la position d'une carte mobile (<strong>STeaMi-Nomade</strong>) à partir du <strong>RSSI</strong> de trois ancres BLE fixes (M1, M2, M3).",
+            "en": "The most accomplished part of the internship: an <strong>indoor positioning</strong> system estimating the position of a mobile board (<strong>STeaMi-Nomade</strong>) from the <strong>RSSI</strong> of three fixed BLE anchors (M1, M2, M3)."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Modèle log-distance</strong> (path-loss) pour convertir le RSSI en distance, avec calibration manuelle de chaque balise",
+                "en": "<strong>Log-distance path-loss model</strong> to convert RSSI into distance, with manual calibration of each beacon"
+              },
+              {
+                "fr": "<strong>Trilatération 2D</strong> par intersection de trois cercles centrés sur les ancres",
+                "en": "<strong>2D trilateration</strong> via the intersection of three circles centred on the anchors"
+              },
+              {
+                "fr": "<strong>Filtrage du signal</strong> : moyenne glissante, filtrage exponentiel (retenu), filtre de Kalman et filtre particulaire testés",
+                "en": "<strong>Signal filtering</strong>: moving average, exponential filtering (chosen), Kalman and particle filters tested"
+              },
+              {
+                "fr": "<strong>Interface OLED</strong> affichant en temps réel les balises, les distances et la position estimée sur une carte 2D",
+                "en": "<strong>OLED interface</strong> showing beacons, distances and the estimated position on a 2D map in real time"
+              }
+            ]
+          },
+          {
+            "type": "gallery",
+            "items": [
+              {
+                "src": "assets/projects/stage/trilateration.png",
+                "alt": "Schéma de trilatération BLE",
+                "caption": {
+                  "fr": "Trilatération 2D : 3 ancres + carte nomade",
+                  "en": "2D trilateration: 3 anchors + roaming board"
+                }
+              },
+              {
+                "src": "assets/projects/stage/pathloss.png",
+                "alt": "Courbe RSSI / distance",
+                "caption": {
+                  "fr": "Modèle log-distance : impact de la calibration",
+                  "en": "Log-distance model: calibration impact"
+                }
+              }
+            ]
+          },
+          {
+            "type": "p",
+            "fr": "Précision moyenne d'environ <strong>20 cm</strong> en environnement contrôlé sous MicroPython, malgré la forte variabilité du RSSI et les limites du langage interprété.",
+            "en": "Average accuracy around <strong>20 cm</strong> in a controlled environment under MicroPython, despite high RSSI variability and the limits of an interpreted language."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Optimisation & portage en C++",
+          "en": "Optimisation & C++ Porting"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Pour gagner en réactivité et en stabilité temps réel, les briques critiques du système de localisation ont été <strong>portées de MicroPython vers le C++</strong> (langage compilé, contrôle bas niveau). Optimisations : réduction des traitements dans la boucle principale, limitation des allocations dynamiques, augmentation de la fréquence de calcul BLE et baisse de la latence acquisition → affichage.",
+            "en": "To gain responsiveness and real-time stability, the critical parts of the positioning system were <strong>ported from MicroPython to C++</strong> (compiled, low-level control). Optimisations: trimming the main loop, limiting dynamic allocations, raising the BLE computation rate and reducing acquisition-to-display latency."
+          },
+          {
+            "type": "p",
+            "fr": "Résultat : exécution nettement plus rapide et stable, précision de l'ordre de <strong>quelques centimètres</strong> en conditions contrôlées. L'affichage OLED reste pour l'instant en MicroPython (pas encore de driver SSD1327 en C++), les résultats C++ étant affichés via le terminal série.",
+            "en": "Result: much faster and more stable execution, with <strong>centimetre-level</strong> accuracy in controlled conditions. OLED display remains in MicroPython for now (no SSD1327 C++ driver yet), with C++ results shown over the serial terminal."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Projet ludique — Maze Game & Dijkstra",
+          "en": "Fun Project — Maze Game & Dijkstra"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Jeu de labyrinthe contrôlé en inclinant la carte (accéléromètre <strong>ISM330DL</strong>, écran <strong>SSD1327</strong>). Le labyrinthe est généré par <strong>DFS / Recursive Backtracker</strong> ; un algorithme de <strong>Dijkstra</strong> calcule le plus court chemin pour scorer la performance du joueur. Conçu comme support pédagogique pour l'enseignement des algorithmes en NSI.",
+            "en": "A maze game controlled by tilting the board (<strong>ISM330DL</strong> accelerometer, <strong>SSD1327</strong> screen). The maze is generated with <strong>DFS / Recursive Backtracker</strong>; a <strong>Dijkstra</strong> algorithm computes the shortest path to score the player. Designed as a teaching resource for algorithms in NSI."
+          },
+          {
+            "type": "gallery",
+            "items": [
+              {
+                "src": "assets/projects/stage/maze_game.png",
+                "alt": "Maze Game sur STeaMi",
+                "caption": {
+                  "fr": "Maze Game affiché sur l'écran OLED",
+                  "en": "Maze Game on the OLED screen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Activités pédagogiques",
+          "en": "Educational Activities"
+        },
+        "blocks": [
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "<strong>Ateliers scolaires CE2/CM1</strong> (école Marcel Pagnol) : Scratch déconnecté, bits de parité, Tours de Hanoï — vulgarisation de notions vues en BUT R&amp;T",
+                "en": "<strong>CE2/CM1 school workshops</strong> (Marcel Pagnol school): unplugged Scratch, parity bits, Towers of Hanoi — popularising concepts seen in BUT R&amp;T"
+              },
+              {
+                "fr": "<strong>Journée ITER Robots</strong> : co-animation d'un stand STeaMi au collège Marie Mauron de Pertuis",
+                "en": "<strong>ITER Robots day</strong>: co-running a STeaMi stand at the Marie Mauron school in Pertuis"
+              },
+              {
+                "fr": "<strong>Ressources pédagogiques</strong> (projet InnovMicro-EXAO #2) : fiches wiki progressives pour la prise en main de la STeaMi",
+                "en": "<strong>Educational resources</strong> (InnovMicro-EXAO #2 project): progressive wiki sheets to get started with the STeaMi"
+              }
+            ]
+          },
+          {
+            "type": "gallery",
+            "items": [
+              {
+                "src": "assets/projects/stage/iter_stand.jpg",
+                "alt": "Stand STeaMi à ITER Robots",
+                "caption": {
+                  "fr": "Stand STeaMi — journée ITER Robots",
+                  "en": "STeaMi stand — ITER Robots day"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Développement embarqué",
+                  "en": "Embedded Development"
+                },
+                "text": {
+                  "fr": "MicroPython et C++/Arduino sur STM32WB55, exploitation des capteurs",
+                  "en": "MicroPython and C++/Arduino on STM32WB55, sensor handling"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Communications BLE",
+                  "en": "BLE Communication"
+                },
+                "text": {
+                  "fr": "Advertising, scan, réseau mesh multi-sauts, trames JSON",
+                  "en": "Advertising, scanning, multi-hop mesh, JSON frames"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Algorithmique & traitement du signal",
+                  "en": "Algorithms & Signal Processing"
+                },
+                "text": {
+                  "fr": "Trilatération, modèle log-distance, filtrage exponentiel / Kalman",
+                  "en": "Trilateration, log-distance model, exponential / Kalman filtering"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Optimisation logicielle",
+                  "en": "Software Optimisation"
+                },
+                "text": {
+                  "fr": "Migration MicroPython → C++, gestion mémoire et temps réel",
+                  "en": "MicroPython → C++ migration, memory and real-time handling"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Travail open source",
+                  "en": "Open-Source Workflow"
+                },
+                "text": {
+                  "fr": "Git/GitHub, issues, Pull Requests, collaboration",
+                  "en": "Git/GitHub, issues, Pull Requests, collaboration"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Médiation & vulgarisation",
+                  "en": "Outreach & Teaching"
+                },
+                "text": {
+                  "fr": "Animation d'ateliers, adaptation du discours à différents publics",
+                  "en": "Running workshops, adapting to different audiences"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": {
+          "fr": "Rapport de stage complet",
+          "en": "Full internship report"
+        },
+        "text": {
+          "fr": "Rapport de stage de fin de 2ᵉ année — BUT R&amp;T 2026 (PDF)",
+          "en": "End-of-second-year internship report — BUT R&amp;T 2026 (PDF)"
+        },
+        "href": "docs/rapport_stage_2026.pdf"
+      },
+      {
+        "title": {
+          "fr": "Annexes du rapport",
+          "en": "Report annexes"
+        },
+        "text": {
+          "fr": "Compléments techniques au rapport de stage (PDF)",
+          "en": "Technical supplements to the internship report (PDF)"
+        },
+        "href": "docs/annexe_stage_2026.pdf"
+      }
+    ],
+    "tags": [
+      "MicroPython",
+      "C++",
+      "Arduino",
+      "BLE 5.2",
+      "STM32WB55",
+      "RSSI",
+      {
+        "fr": "Trilatération",
+        "en": "Trilateration"
+      },
+      "Dijkstra",
+      "OLED",
+      "Git"
+    ]
+  },
+  {
+    "card": {
+      "image": "assets/projects/ansible-lab/architecture.png",
+      "category": {
+        "fr": "Réseaux & Sécurité",
+        "en": "Networking & Security"
+      },
+      "title": {
+        "fr": "Lab KVM — Bastion isolé, Ansible & Teleport",
+        "en": "KVM Lab — Isolated Bastion, Ansible & Teleport"
+      },
+      "description": {
+        "fr": "Infrastructure virtualisée (KVM/Libvirt) avec réseau isolé par topologie, déploiement automatisé via Ansible, accès SSH centralisé et audité avec Teleport, et sortie Internet contrôlée via un proxy.",
+        "en": "Virtualised infrastructure (KVM/Libvirt) with a topology-based isolated network, automated deployment via Ansible, centralised and audited SSH access with Teleport, and controlled outbound internet through a proxy."
+      },
+      "modal": "modal8"
+    },
+    "category": {
+      "fr": "Réseaux & Sécurité",
+      "en": "Networking & Security"
+    },
+    "title": {
+      "fr": "Lab KVM — Bastion isolé, Ansible & Teleport",
+      "en": "KVM Lab — Isolated Bastion, Ansible & Teleport"
+    },
+    "subtitle": {
+      "fr": "Un labo personnel de virtualisation reproduisant une architecture d'entreprise réaliste : machines virtuelles KVM/Libvirt, déploiement automatisé par Ansible, isolation réseau stricte via un bastion, accès SSH centralisé et audité avec Teleport, et sortie Internet tracée via un proxy.",
+      "en": "A personal virtualisation lab reproducing a realistic enterprise setup: KVM/Libvirt virtual machines, automated deployment with Ansible, strict network isolation through a bastion, centralised and audited SSH access with Teleport, and traced outbound internet through a proxy."
+    },
+    "cover": "assets/projects/ansible-lab/architecture.png",
+    "sections": [
+      {
+        "title": {
+          "fr": "Contexte & objectif",
+          "en": "Context & Goal"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Objectif : monter, sur une machine Debian personnelle, un <strong>labo de virtualisation complet</strong> (KVM/Libvirt) reproduisant une topologie d'entreprise réaliste — un contrôleur d'automatisation, un bastion et trois serveurs de rôles différents (web, application, base de données) — puis <strong>automatiser leur déploiement</strong> et <strong>sécuriser les accès</strong> comme sur une vraie infrastructure.",
+            "en": "Goal: build, on a personal Debian machine, a <strong>full virtualisation lab</strong> (KVM/Libvirt) reproducing a realistic enterprise topology — an automation controller, a bastion, and three role-specific servers (web, application, database) — then <strong>automate their deployment</strong> and <strong>secure access</strong> the way a real infrastructure would."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Architecture & isolation réseau",
+          "en": "Architecture & Network Isolation"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Cinq VM Debian sur un hôte KVM/Libvirt : <strong>ansible-controller</strong> (orchestration), <strong>bastion01</strong> (accès sécurisé), <strong>web01</strong> (nginx), <strong>app01</strong> (Docker) et <strong>db01</strong> (MariaDB). Le bastion est la seule machine bi-domiciliée : d'un côté le réseau <strong>default</strong> (NAT, 192.168.122.0/24), de l'autre un réseau <strong>isolated</strong> (10.10.10.0/24) <strong>sans NAT ni adresse côté hôte</strong> — aucune route n'existe entre l'hôte et les VM isolées. Aucun pare-feu n'est utilisé : c'est la <strong>topologie elle-même</strong> qui impose que tout accès passe par le bastion.",
+            "en": "Five Debian VMs on a KVM/Libvirt host: <strong>ansible-controller</strong> (orchestration), <strong>bastion01</strong> (secure access), <strong>web01</strong> (nginx), <strong>app01</strong> (Docker) and <strong>db01</strong> (MariaDB). The bastion is the only dual-homed machine: on one side the <strong>default</strong> network (NAT, 192.168.122.0/24), on the other an <strong>isolated</strong> network (10.10.10.0/24) with <strong>no NAT and no host-side address</strong> — no route exists between the host and the isolated VMs. No firewall is used: the <strong>topology itself</strong> forces every access through the bastion."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Déploiement automatisé avec Ansible",
+          "en": "Automated Deployment with Ansible"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Le contrôleur pilote les trois serveurs de rôles via des <strong>playbooks Ansible</strong>, en rebondissant sur le réseau isolé grâce à un <strong>ProxyJump SSH</strong> à travers le bastion. Chaque service est installé, configuré et activé de façon idempotente.",
+            "en": "The controller drives the three role servers via <strong>Ansible playbooks</strong>, reaching the isolated network through an SSH <strong>ProxyJump</strong> via the bastion. Each service is installed, configured and enabled idempotently."
+          },
+          {
+            "type": "list",
+            "items": [
+              {
+                "fr": "Inventaire avec <code>ProxyJump</code> pour joindre web/app/db sans route directe depuis le contrôleur",
+                "en": "Inventory using <code>ProxyJump</code> to reach web/app/db with no direct route from the controller"
+              },
+              {
+                "fr": "Playbooks dédiés : Nginx (web01), Docker (app01), MariaDB (db01)",
+                "en": "Dedicated playbooks: Nginx (web01), Docker (app01), MariaDB (db01)"
+              },
+              {
+                "fr": "Sur Debian 13, clé GPG Docker déposée dans <code>/etc/apt/keyrings/</code> et référencée via <code>signed-by</code> (<code>apt-key</code> n'existe plus)",
+                "en": "On Debian 13, the Docker GPG key is stored in <code>/etc/apt/keyrings/</code> and referenced via <code>signed-by</code> (<code>apt-key</code> no longer exists)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Accès centralisé & audité — Teleport",
+          "en": "Centralised & Audited Access — Teleport"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "<strong>Teleport</strong> est déployé en cluster sur le bastion (authentification, proxy, audit) et joué par un <strong>utilisateur nommé avec MFA (OTP)</strong> plutôt que par des accès SSH bruts. Les VM isolées (web/app/db) rejoignent le cluster en <strong>tunnel inversé</strong> vers le bastion, sans avoir besoin d'être joignables directement — chaque agent initie la connexion sortante lui-même.",
+            "en": "<strong>Teleport</strong> runs as a cluster on the bastion (auth, proxy, audit), accessed through a <strong>named user with MFA (OTP)</strong> rather than raw SSH access. The isolated VMs (web/app/db) join the cluster via a <strong>reverse tunnel</strong> to the bastion without needing to be directly reachable — each agent initiates the outbound connection itself."
+          },
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Authentification",
+                  "en": "Authentication"
+                },
+                "text": {
+                  "fr": "Utilisateur nommé + MFA, plus de compte SSH partagé",
+                  "en": "Named user + MFA, no more shared SSH accounts"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Sessions enregistrées",
+                  "en": "Recorded Sessions"
+                },
+                "text": {
+                  "fr": "Chaque connexion <code>tsh ssh</code> est journalisée et rejouable",
+                  "en": "Every <code>tsh ssh</code> connection is logged and replayable"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Enrôlement par token",
+                  "en": "Token-Based Enrollment"
+                },
+                "text": {
+                  "fr": "Playbook Ansible dédié, token + CA pin à durée de vie limitée",
+                  "en": "Dedicated Ansible playbook, short-lived token + CA pin"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Sortie Internet contrôlée — Tinyproxy",
+          "en": "Controlled Outbound Internet — Tinyproxy"
+        },
+        "blocks": [
+          {
+            "type": "p",
+            "fr": "Les VM isolées n'ayant <strong>aucune route sortante</strong>, un proxy HTTP <strong>Tinyproxy</strong> est installé sur le bastion : il n'écoute que sur la patte isolée et relaie vers Internet via la patte NAT de l'hôte. Chaque requête <code>apt</code> des VM isolées passe ainsi par un <strong>point unique, tracé et auditable</strong>, plutôt que par un NAT transparent invisible.",
+            "en": "Since the isolated VMs have <strong>no outbound route</strong>, an HTTP proxy (<strong>Tinyproxy</strong>) is installed on the bastion: it only listens on the isolated leg and relays to the internet through the host's NAT leg. Every <code>apt</code> request from the isolated VMs thus goes through a <strong>single, traced and auditable</strong> point, instead of an invisible transparent NAT."
+          }
+        ]
+      },
+      {
+        "title": {
+          "fr": "Compétences acquises",
+          "en": "Skills Acquired"
+        },
+        "blocks": [
+          {
+            "type": "skills",
+            "items": [
+              {
+                "title": {
+                  "fr": "Virtualisation KVM/Libvirt",
+                  "en": "KVM/Libvirt Virtualisation"
+                },
+                "text": {
+                  "fr": "Création, gestion et mise en réseau de VM via virsh/virt-install",
+                  "en": "Creating, managing and networking VMs with virsh/virt-install"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Automatisation Ansible",
+                  "en": "Ansible Automation"
+                },
+                "text": {
+                  "fr": "Playbooks idempotents, inventaire avec ProxyJump",
+                  "en": "Idempotent playbooks, ProxyJump-based inventory"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Isolation réseau",
+                  "en": "Network Isolation"
+                },
+                "text": {
+                  "fr": "Conception d'une topologie sans route, bastion comme unique point d'entrée",
+                  "en": "Designing a routeless topology, bastion as the single entry point"
+                }
+              },
+              {
+                "title": {
+                  "fr": "Accès sécurisé & audit",
+                  "en": "Secure Access & Audit"
+                },
+                "text": {
+                  "fr": "Teleport (MFA, tunnels inversés, sessions journalisées)",
+                  "en": "Teleport (MFA, reverse tunnels, logged sessions)"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "docs": [],
+    "tags": [
+      "Ansible",
+      "KVM",
+      "Libvirt",
+      "Debian",
+      "Teleport",
+      "Tinyproxy",
+      "Nginx",
+      "Docker",
+      "MariaDB",
+      {
+        "fr": "Isolation réseau",
+        "en": "Network isolation"
+      }
+    ]
+  }
+]

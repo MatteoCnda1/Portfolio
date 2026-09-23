@@ -1,0 +1,332 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import Trace from '@/components/Trace.astro';
+import { beyond, bio, certifications, cup, origin, skills, vision, work } from '@/data/about';
+import { img, projects } from '@/data/projects';
+import { otherLang, path, projectPath, ui, type Lang } from '@/i18n';
+import { typo } from '@/lib/typo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const h = (s: string) => typo(s, lang);
+const cockpit = img('assets/cockpit_f1.jpg');
+const police = img('assets/police-nationale.png');
+const short = (slug: string) => projects.find((p) => p.slug === slug)!;
+
+const t = {
+  description: {
+    fr: 'Qui est Mattéo Canada : parcours, compétences réseau et sécurité, certifications Cisco et Stormshield, finale de la Cisco EMEA Cup et centres d’intérêt.',
+    en: 'Who Mattéo Canada is: background, networking and security skills, Cisco and Stormshield certifications, the Cisco EMEA Cup final and interests.',
+  },
+  statement: {
+    fr: ['J’aime comprendre comment', 'les choses', 'communiquent', '— et comment les sécuriser.'],
+    en: ['I like to understand how', 'things', 'talk to each other', '— and how to keep them safe.'],
+  },
+  cockpit: { fr: 'Sim racing sur iRacing — monoplace', en: 'Sim racing on iRacing — open-wheel' },
+  cupLabel: { fr: 'Compétition', en: 'Competition' },
+  cupTitle: { fr: 'Finale Cisco EMEA Cup', en: 'Cisco EMEA Cup final' },
+  workLabel: { fr: 'Expérience', en: 'Experience' },
+  workTitle: { fr: 'Alternance au D@TA-i', en: 'Work-study at D@TA-i' },
+  skillsLabel: { fr: 'Compétences', en: 'Skills' },
+  skillsTitle: { fr: ['Ce que je', 'sais faire'], en: ['What I', 'can do'] },
+  usedIn: { fr: 'Mis en œuvre dans', en: 'Put to work in' },
+  certLabel: { fr: 'Certifications', en: 'Certifications' },
+  certTitle: { fr: ['Validé', 'par l’industrie'], en: ['Backed', 'by industry'] },
+  done: { fr: 'Obtenue', en: 'Earned' },
+  prep: { fr: 'En préparation', en: 'In progress' },
+  visionLabel: { fr: 'Vision', en: 'Vision' },
+  beyondLabel: { fr: 'Au-delà de la technique', en: 'Beyond the technical side' },
+};
+---
+
+<Base lang={lang} title={ui.nav.about[lang]} description={t.description[lang]} current="about" altPath={path('about', otherLang(lang))}>
+  <header class="wrap about-head">
+    <p class="mono about-head__index" data-reveal>{ui.nav.about[lang]}</p>
+    <h1 class="about-head__title h1" data-reveal="line">
+      <span class="line"><span>{t.statement[lang][0]}</span></span>
+      <span class="line"><span>{t.statement[lang][1]} <span class="it">{t.statement[lang][2]}</span></span></span>
+      <span class="line about-head__tail"><span>{t.statement[lang][3]}</span></span>
+    </h1>
+  </header>
+
+  <section class="wrap intro" aria-label={lang === 'fr' ? 'Présentation' : 'Introduction'}>
+    <figure class="intro__media hover-color" data-reveal>
+      <div class="plate" data-parallax="-30">
+        <Image src={cockpit} alt={t.cockpit[lang]} widths={[480, 800, 1024]} sizes="(max-width: 760px) 100vw, 40vw" format="webp" quality={80} />
+      </div>
+      <figcaption class="mono muted">{t.cockpit[lang]}</figcaption>
+    </figure>
+    <div class="intro__text prose" data-reveal-group>
+      <p class="intro__first" data-reveal set:html={h(bio[lang])} />
+      <p data-reveal set:html={h(origin[lang])} />
+    </div>
+  </section>
+
+  <section class="wrap cup" aria-labelledby="cup-h">
+    <div class="block-head">
+      <p class="mono muted" data-reveal>{t.cupLabel[lang]}</p>
+      <h2 id="cup-h" class="block-head__title" data-reveal>{t.cupTitle[lang]}</h2>
+    </div>
+    <Trace nodes={3} live />
+    <ol class="cup__ranks" role="list" data-reveal-group>
+      {cup.ranks.map((r) => (
+        <li data-reveal>
+          <span class="cup__rank" set:html={h(r.rank[lang])} />
+          <span class="cup__scope mono">{r.scope[lang]}</span>
+        </li>
+      ))}
+    </ol>
+    <p class="cup__text prose" data-reveal set:html={h(cup.text[lang])} />
+  </section>
+
+  <section class="wrap work" aria-labelledby="work-h">
+    <div class="block-head">
+      <p class="mono muted" data-reveal>{t.workLabel[lang]}</p>
+      <h2 id="work-h" class="block-head__title" data-reveal set:html={h(t.workTitle[lang])} />
+    </div>
+    <p class="work__text prose" data-reveal set:html={h(work[lang])} />
+    <Image class="work__logo" src={police} alt="Logo D@TA-i — Police Nationale" width={200} format="webp" data-reveal />
+  </section>
+
+  <section class="wrap skills section" aria-labelledby="skills-h">
+    <header class="section-head">
+      <p class="section-head__index mono" data-reveal>{t.skillsLabel[lang]}</p>
+      <h2 id="skills-h" class="section-head__title h2" data-reveal="line">
+        <span class="line"><span>{t.skillsTitle[lang][0]} <span class="it">{t.skillsTitle[lang][1]}</span></span></span>
+      </h2>
+    </header>
+    <ol class="skills__list" role="list">
+      {skills.map((s, i) => (
+        <li class="skill" data-reveal>
+          <span class="skill__num mono">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="skill__name">{s.name[lang]}</h3>
+          <div class="skill__body">
+            <p set:html={h(s.text[lang])} />
+            <ul class="tags">{s.tools.map((tool) => <li class="tag">{tool}</li>)}</ul>
+          </div>
+          <div class="skill__used">
+            <p class="mono muted">{t.usedIn[lang]}</p>
+            <ul role="list">
+              {s.projects.map((slug) => (
+                <li><a class="link" href={projectPath(slug, lang)}>{short(slug).short[lang]}</a></li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="wrap certs" aria-labelledby="certs-h">
+    <header class="section-head">
+      <p class="section-head__index mono" data-reveal>{t.certLabel[lang]}</p>
+      <h2 id="certs-h" class="section-head__title h2" data-reveal="line">
+        <span class="line"><span>{t.certTitle[lang][0]} <span class="it">{t.certTitle[lang][1]}</span></span></span>
+      </h2>
+    </header>
+    <ul class="certs__list" role="list">
+      {certifications.map((c) => (
+        <li class:list={['cert', { 'cert--prep': c.status === 'prep' }]} data-reveal>
+          <span class="cert__name">{c.name}</span>
+          <span class="cert__detail">{c.detail[lang]}</span>
+          <span class="cert__issuer mono muted">{c.issuer}{c.when && ` · ${c.when[lang]}`}</span>
+          <span class="cert__status mono">{c.status === 'done' ? t.done[lang] : t.prep[lang]}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap vision section" aria-labelledby="vision-h">
+    <p id="vision-h" class="mono muted vision__label" data-reveal>{t.visionLabel[lang]}</p>
+    <blockquote class="vision__quote" data-reveal set:html={h(vision[0]![lang])} />
+    <p class="vision__text prose" data-reveal set:html={h(vision[1]![lang])} />
+  </section>
+
+  <section class="wrap beyond" aria-labelledby="beyond-h">
+    <header class="section-head">
+      <p class="section-head__index mono" data-reveal>{t.beyondLabel[lang]}</p>
+      <h2 id="beyond-h" class="section-head__title h2" data-reveal="line">
+        <span class="line"><span>{lang === 'fr' ? 'Hors' : 'Away from'} <span class="it">{lang === 'fr' ? 'du clavier' : 'the keyboard'}</span></span></span>
+      </h2>
+    </header>
+    <div class="beyond__grid" data-reveal-group>
+      {beyond.map((b, i) => (
+        <article class="beyond__item" data-reveal>
+          <p class="mono"><span class="muted">{String(i + 1).padStart(2, '0')}</span> {b.label[lang]}</p>
+          <p class="prose" set:html={h(b.text[lang])} />
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-head {
+    padding-top: calc(var(--nav-h) + clamp(48px, 9vw, 140px));
+    padding-bottom: clamp(56px, 9vw, 140px);
+  }
+  .about-head__index { color: var(--ink-3); margin-bottom: 24px; }
+  .about-head__title { font-size: clamp(2.5rem, 0.6rem + 5.4vw, 6.4rem); }
+  .about-head__tail { padding-left: calc((100% - 11 * var(--col-gap)) / 12 + var(--col-gap)); color: var(--ink-2); }
+
+  .intro {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    align-items: start;
+  }
+  .intro__media { grid-column: 1 / span 5; margin: 0; }
+  .intro__media .plate { aspect-ratio: 4 / 5; }
+  .intro__media figcaption { margin-top: 12px; }
+  .intro__text { grid-column: 7 / -1; padding-top: clamp(0px, 8vw, 120px); }
+  .intro__first { font-size: var(--fs-lead); line-height: 1.5; color: var(--ink); }
+
+  .block-head { display: grid; gap: 10px; margin-bottom: 28px; }
+  .block-head__title {
+    font-family: var(--f-display);
+    font-weight: 350;
+    font-size: var(--fs-h3);
+    letter-spacing: -0.022em;
+  }
+
+  .cup { padding-top: var(--section); }
+  .cup__ranks {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    margin: 18px 0 clamp(36px, 5vw, 64px);
+  }
+  .cup__ranks li { display: grid; gap: 6px; }
+  .cup__rank {
+    font-family: var(--f-display);
+    font-variation-settings: 'opsz' 144;
+    font-weight: 280;
+    font-size: clamp(4rem, 1rem + 11vw, 12rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+  }
+  .cup__ranks li:first-child .cup__rank { color: var(--accent); font-style: italic; }
+  .cup__scope { color: var(--ink-2); }
+  .cup__text { margin-left: auto; max-width: 60ch; }
+
+  .work {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    align-items: start;
+    padding-top: var(--section);
+  }
+  .work .block-head { grid-column: 1 / span 4; }
+  .work__text { grid-column: 5 / span 5; font-size: var(--fs-lead); line-height: 1.5; }
+  .work__logo { grid-column: 11 / -1; justify-self: end; width: 96px; mix-blend-mode: multiply; filter: grayscale(1); }
+
+  .skills__list { margin: 0; border-top: 1px solid var(--ink); }
+  .skill {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 16px;
+    padding-block: clamp(28px, 3.5vw, 48px);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .skill__num { grid-column: 1; color: var(--ink-3); padding-top: 0.8em; }
+  .skill__name {
+    grid-column: 2 / span 3;
+    font-family: var(--f-display);
+    font-variation-settings: 'opsz' 144;
+    font-weight: 330;
+    font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    transition: color var(--t-base) var(--ease-out);
+  }
+  .skill:hover .skill__name { color: var(--accent); font-style: italic; }
+  .skill__body { grid-column: 5 / span 5; display: grid; gap: 18px; color: var(--ink-2); }
+  .skill__used { grid-column: 10 / -1; display: grid; gap: 8px; align-content: start; font-size: var(--fs-sm); }
+  .skill__used ul { display: grid; gap: 6px; margin: 0; }
+  .skill__used a { width: fit-content; }
+
+  .certs__list { margin: 0; border-top: 1px solid var(--ink); }
+  .cert {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    align-items: baseline;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--line-2);
+  }
+  .cert__name {
+    grid-column: 1 / span 3;
+    font-family: var(--f-display);
+    font-size: var(--fs-h4);
+    letter-spacing: -0.015em;
+  }
+  .cert__detail { grid-column: 4 / span 5; color: var(--ink-2); }
+  .cert__issuer { grid-column: 9 / span 2; }
+  .cert__status {
+    grid-column: 11 / -1;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cert__status::before { content: ''; width: 7px; height: 7px; background: var(--ink); }
+  .cert--prep .cert__status { color: var(--ink-3); }
+  .cert--prep .cert__status::before { background: transparent; border: 1px solid var(--ink-3); }
+  .cert--prep .cert__name { color: var(--ink-2); }
+
+  .vision {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+  }
+  .vision__label { grid-column: 1 / span 2; padding-top: 0.8em; }
+  .vision__quote {
+    grid-column: 3 / span 9;
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 320;
+    font-size: clamp(1.6rem, 1rem + 2.1vw, 2.9rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+  .vision__text { grid-column: 7 / -1; margin-top: clamp(32px, 4vw, 56px); }
+
+  .beyond__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(40px, 5vw, 72px) var(--col-gap);
+  }
+  .beyond__item { display: grid; gap: 16px; align-content: start; padding-top: 18px; border-top: 1px solid var(--line-2); }
+  .beyond__item .prose { font-size: 1rem; }
+
+  @media (max-width: 900px) {
+    .intro__media { grid-column: 1 / span 6; }
+    .intro__text { grid-column: 7 / -1; padding-top: 0; }
+    .skill__num { display: none; }
+    .skill__name { grid-column: 1 / -1; }
+    .skill__body { grid-column: 1 / span 8; }
+    .skill__used { grid-column: 9 / -1; }
+    .work .block-head { grid-column: 1 / -1; }
+    .work__text { grid-column: 1 / span 9; }
+  }
+  @media (max-width: 760px) {
+    .about-head__tail { padding-left: 0; }
+    .intro__media, .intro__text { grid-column: 1 / -1; }
+    .intro__text { margin-top: 40px; }
+    .cup__ranks { grid-template-columns: 1fr 1fr 1fr; }
+    .cup__rank { font-size: 18vw; }
+    .skill__body, .skill__used { grid-column: 1 / -1; }
+    .cert { grid-template-columns: 1fr auto; row-gap: 4px; }
+    .cert__name { grid-column: 1; grid-row: 1; }
+    .cert__detail { grid-column: 1 / -1; grid-row: 2; }
+    .cert__issuer { grid-column: 1 / -1; grid-row: 3; }
+    .cert__status { grid-column: 2; grid-row: 1; }
+    .work__text { grid-column: 1 / -1; }
+    .work__logo { grid-column: 1 / -1; justify-self: start; margin-top: 24px; width: 72px; }
+    .vision__label, .vision__quote, .vision__text { grid-column: 1 / -1; }
+    .vision__label { padding: 0 0 16px; }
+    .beyond__grid { grid-template-columns: 1fr; }
+  }
+</style>

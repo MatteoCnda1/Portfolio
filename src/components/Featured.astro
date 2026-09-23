@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import { img, tagLabel, type Project } from '@/data/projects';
+import { projectPath, type Lang } from '@/i18n';
+
+interface Props { project: Project; lang: Lang; variant: 'a' | 'b' | 'c' }
+const { project: p, lang, variant } = Astro.props;
+const href = projectPath(p.slug, lang);
+const read = { fr: 'Lire l’étude de cas', en: 'Read the case study' };
+
+// Le stage a sa propre signature : une bande de trois visuels techniques.
+const strip = p.slug === 'stage-steami-ble'
+  ? ['assets/projects/stage/trilateration.png', 'assets/projects/stage/mesh_ble.png', 'assets/projects/stage/steami_front.png'].map(img)
+  : [];
+const sizes = variant === 'c' ? '(max-width: 760px) 100vw, 1320px' : '(max-width: 760px) 100vw, 60vw';
+---
+
+<article class:list={['feat', `feat--${variant}`, 'hover-color', 'hover-zoom']} data-reveal-group>
+  <div class:list={['feat__media', 'plate', { 'plate--contain': p.fit === 'contain' }]} data-reveal>
+    <Image
+      src={p.image}
+      alt=""
+      sizes={sizes}
+      widths={[480, 800, 1200, 1600]}
+      format="webp"
+      quality={78}
+      style={p.position ? `object-position:${p.position}` : undefined}
+    />
+  </div>
+
+  <div class="feat__body">
+    <p class="feat__meta mono" data-reveal>
+      <span>{p.number}</span>
+      <span>{p.category[lang]}</span>
+      <span class="muted">{p.context[lang]}</span>
+    </p>
+    <h3 class="feat__title h3" data-reveal>
+      <a href={href} class="feat__link">{p.short[lang]}</a>
+    </h3>
+    <p class="feat__summary" data-reveal>{p.summary[lang]}</p>
+    <ul class="tags" data-reveal>
+      {p.cardTags.map((t) => <li class="tag">{tagLabel(t, lang)}</li>)}
+    </ul>
+    <span class="arrow-link feat__cta" data-reveal aria-hidden="true"><span>{read[lang]}</span><span>→</span></span>
+    {strip.length > 0 && (
+      <div class="feat__strip" data-reveal aria-hidden="true">
+        {strip.map((s) => (
+          <div class="plate plate--contain"><Image src={s} alt="" width={240} format="webp" quality={70} /></div>
+        ))}
+      </div>
+    )}
+  </div>
+  <span class="feat__big" aria-hidden="true">{p.number}</span>
+</article>
+
+<style>
+  .feat {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 28px;
+  }
+  .feat + :global(.feat) { margin-top: clamp(96px, 13vw, 200px); }
+
+  /* Lien étendu : toute la carte est cliquable, un seul arrêt clavier */
+  .feat__link::after { content: ''; position: absolute; inset: 0; z-index: 2; }
+  .feat__link:focus-visible { outline: none; }
+  .feat:has(.feat__link:focus-visible) { outline: 2px solid var(--accent); outline-offset: 12px; }
+
+  .feat__media { aspect-ratio: 16 / 10; }
+  .feat__meta { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--ink-2); margin-bottom: 18px; }
+  .feat__title { margin-bottom: 16px; max-width: 18ch; transition: color var(--t-base) var(--ease-out); }
+  .feat:hover .feat__title { color: var(--accent); }
+  .feat__summary { color: var(--ink-2); max-width: 42ch; margin-bottom: 20px; }
+  .feat__cta { margin-top: 26px; }
+  .feat:hover .feat__cta span:last-child { transform: translateX(6px); }
+  .feat__big {
+    position: absolute;
+    font-family: var(--f-display);
+    font-variation-settings: 'opsz' 144;
+    font-weight: 250;
+    font-style: italic;
+    font-size: clamp(5rem, 2rem + 9vw, 11rem);
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    color: var(--line-2);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* A — schéma large à gauche, texte calé en bas à droite */
+  .feat--a .feat__media { grid-column: 1 / span 8; }
+  .feat--a .feat__body { grid-column: 9 / -1; align-self: end; }
+  .feat--a .feat__big { top: -0.62em; right: 0; }
+
+  /* B — texte en haut à gauche, photo décalée vers le bas à droite */
+  .feat--b .feat__body { grid-column: 1 / span 4; grid-row: 1; align-self: start; }
+  .feat--b .feat__media { grid-column: 6 / -1; grid-row: 1; aspect-ratio: 4 / 3; margin-top: clamp(40px, 8vw, 120px); }
+  .feat--b .feat__big { top: -0.55em; left: calc(41.66% + var(--col-gap)); }
+  .feat__strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 36px; }
+  .feat__strip .plate { aspect-ratio: 1; }
+
+  /* C — schéma panoramique pleine largeur, texte en deux colonnes dessous */
+  .feat--c .feat__media { grid-column: 1 / -1; aspect-ratio: 21 / 8; }
+  .feat--c .feat__body {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    padding-top: 8px;
+  }
+  .feat--c .feat__meta { grid-column: 1 / span 4; }
+  .feat--c .feat__title { grid-column: 1 / span 6; max-width: 20ch; }
+  .feat--c .feat__summary { grid-column: 8 / -1; grid-row: 2; }
+  .feat--c .tags, .feat--c .feat__cta { grid-column: 8 / -1; }
+  .feat--c .feat__big { bottom: -0.1em; right: 0; }
+
+  @media (max-width: 900px) {
+    .feat--a .feat__media, .feat--b .feat__media { grid-column: 1 / -1; grid-row: 1; margin-top: 0; }
+    .feat--a .feat__body, .feat--b .feat__body { grid-column: 1 / -1; grid-row: 2; }
+    .feat--c .feat__body > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
+    .feat__big { display: none; }
+    .feat--c .feat__media { aspect-ratio: 16 / 9; }
+    .feat__strip { max-width: 420px; }
+  }
+</style>

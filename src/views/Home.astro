@@ -1,0 +1,276 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import Featured from '@/components/Featured.astro';
+import Timeline from '@/components/Timeline.astro';
+import Trace from '@/components/Trace.astro';
+import ProjectIndex from '@/components/ProjectIndex';
+import { featured, img, projects } from '@/data/projects';
+import { indexItems } from '@/lib/index-items';
+import { path, ui, type Lang } from '@/i18n';
+import { person } from '@/data/site';
+import { typo } from '@/lib/typo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const portrait = img('assets/matteo.jpg');
+const items = await indexItems(lang);
+const total = String(projects.length).padStart(2, '0');
+
+const t = {
+  description: {
+    fr: 'Mattéo Canada — étudiant en BUT Réseaux & Télécoms, parcours cybersécurité, alternant au D@TA-i (Police Nationale). Infrastructures réseau, sécurité, automatisation et embarqué.',
+    en: 'Mattéo Canada — Networks & Telecoms student on the cybersecurity track, work-study at D@TA-i (French National Police). Network infrastructure, security, automation and embedded systems.',
+  },
+  statement: {
+    fr: 'Étudiant en 3ᵉ année de BUT Réseaux & Télécoms, parcours cybersécurité, et alternant au D@TA-i — Police Nationale. Je conçois, sécurise et automatise des infrastructures, du routage OSPF au bastion Teleport.',
+    en: 'Third-year Networks & Telecoms student on the cybersecurity track, and work-study apprentice at D@TA-i — French National Police. I design, secure and automate infrastructure, from OSPF routing to a Teleport bastion.',
+  },
+  seeWork: { fr: 'Voir les travaux', en: 'See the work' },
+  contact: { fr: 'Me contacter', en: 'Get in touch' },
+  status: { fr: 'Disponible pour collaborer', en: 'Open to collaborate' },
+  facts: { fr: ['BUT 3 — R&T Cyber', 'Alternant D@TA-i'], en: ['Year 3 — Networks & Security', 'Work-study at D@TA-i'] },
+  portraitAlt: { fr: 'Portrait de Mattéo Canada', en: 'Portrait of Mattéo Canada' },
+  selected: { fr: 'Travaux choisis', en: 'Selected work' },
+  selectedTitle: { fr: ['Travaux', 'choisis'], en: ['Selected', 'work'] },
+  index: { fr: 'Index', en: 'Index' },
+  indexTitle: { fr: ['Tous les', 'projets'], en: ['Every', 'project'] },
+  journey: { fr: 'Parcours', en: 'Journey' },
+  journeyTitle: { fr: ['Le', 'parcours'], en: ['The', 'journey'] },
+  journeyLead: {
+    fr: 'Du plus récent au tout premier projet — chaque étape a préparé la suivante.',
+    en: 'From the latest step back to the very first project — each one prepared the next.',
+  },
+};
+
+const proofs = [
+  { value: { fr: '1ᵉʳ', en: '1st' }, label: { fr: 'France — Cisco EMEA Cup', en: 'France — Cisco EMEA Cup' }, sub: { fr: '4ᵉ Europe · 5ᵉ EMEA', en: '4th Europe · 5th EMEA' } },
+  { value: { fr: 'CSNA', en: 'CSNA' }, label: { fr: 'Certifié Stormshield', en: 'Stormshield certified' }, sub: { fr: 'Administrateur réseau', en: 'Network administrator' } },
+  { value: { fr: 'CCNA 1—3', en: 'CCNA 1—3' }, label: { fr: 'Cisco Networking Academy', en: 'Cisco Networking Academy' }, sub: { fr: 'CCNP ENCOR en préparation', en: 'CCNP ENCOR in progress' } },
+  { value: { fr: 'D@TA-i', en: 'D@TA-i' }, label: { fr: 'Alternance — Police Nationale', en: 'Work-study — National Police' }, sub: { fr: 'Réseaux & systèmes', en: 'Networks & systems' } },
+];
+---
+
+<Base
+  lang={lang}
+  title={person.name}
+  description={t.description[lang]}
+  current="home"
+  altPath={path('home', lang === 'fr' ? 'en' : 'fr')}
+>
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <div class="hero__meta mono" data-reveal-group>
+      <span data-reveal>{ui.role[lang]}</span>
+      <span data-reveal class="hero__meta-loc">{ui.location[lang]}</span>
+      <span data-reveal class="hero__meta-coords muted">{person.coords}</span>
+    </div>
+
+    <h1 id="hero-title" class="hero__name display" data-reveal="line" data-delay="0.1">
+      <span class="line"><span>Mattéo</span></span>
+      <span class="line hero__last"><span class="it">Canada</span></span>
+    </h1>
+
+    <figure class="hero__portrait" data-reveal data-delay="0.35">
+      <div class="plate hover-color" data-parallax="-40">
+        <Image
+          src={portrait}
+          alt={t.portraitAlt[lang]}
+          widths={[320, 480, 640, 787]}
+          sizes="(max-width: 760px) 46vw, 26vw"
+          format="webp"
+          quality={82}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <figcaption class="hero__facts mono">
+        {t.facts[lang].map((f) => <span>{f}</span>)}
+        <span class="hero__status"><i aria-hidden="true"></i>{t.status[lang]}</span>
+      </figcaption>
+    </figure>
+
+    <div class="hero__intro">
+      <p class="hero__lead" data-reveal data-delay="0.45" set:html={typo(t.statement[lang], lang)} />
+      <div class="hero__cta" data-reveal data-delay="0.55">
+        <a class="btn btn--down" href="#travaux">
+          {t.seeWork[lang]}
+          <span class="btn__icon btn__icon--down" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M3 9l5 5 5-5" /></svg>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M3 9l5 5 5-5" /></svg>
+          </span>
+        </a>
+        <a class="btn btn--ghost" href="#contact-cta">{t.contact[lang]}</a>
+      </div>
+    </div>
+
+    <div class="hero__proofs">
+      <Trace nodes={4} live />
+      <ul role="list" class="proofs" data-reveal-group>
+        {proofs.map((p, i) => (
+          <li class="proof" data-reveal>
+            <span class="proof__i mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="proof__value" set:html={typo(p.value[lang], lang)} />
+            <span class="proof__label">{p.label[lang]}</span>
+            <span class="proof__sub mono" set:html={typo(p.sub[lang], lang)} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="travaux" class="section wrap" aria-labelledby="selected-title">
+    <header class="section-head">
+      <p class="section-head__index mono" data-reveal>(01) — {t.selected[lang]}</p>
+      <h2 id="selected-title" class="section-head__title h2" data-reveal="line">
+        <span class="line"><span>{t.selectedTitle[lang][0]} <span class="it">{t.selectedTitle[lang][1]}</span></span></span>
+      </h2>
+    </header>
+    <div>
+      {featured.map((p, i) => <Featured project={p} lang={lang} variant={(['a', 'b', 'c'] as const)[i]} />)}
+    </div>
+  </section>
+
+  <section id="index" class="section wrap index-section" aria-labelledby="index-title">
+    <header class="section-head">
+      <p class="section-head__index mono" data-reveal>(02) — {t.index[lang]} · {total}</p>
+      <h2 id="index-title" class="section-head__title h2" data-reveal="line">
+        <span class="line"><span>{t.indexTitle[lang][0]} <span class="it">{t.indexTitle[lang][1]}</span></span></span>
+      </h2>
+    </header>
+    <div data-reveal>
+      <ProjectIndex client:visible items={items} viewLabel={ui.view[lang]} />
+    </div>
+  </section>
+
+  <section id="parcours" class="section wrap" aria-labelledby="journey-title">
+    <header class="section-head">
+      <p class="section-head__index mono" data-reveal>(03) — {t.journey[lang]}</p>
+      <div class="section-head__title">
+        <h2 id="journey-title" class="h2" data-reveal="line">
+          <span class="line"><span>{t.journeyTitle[lang][0]} <span class="it">{t.journeyTitle[lang][1]}</span></span></span>
+        </h2>
+        <p class="journey-lead" data-reveal>{t.journeyLead[lang]}</p>
+      </div>
+    </header>
+    <Timeline lang={lang} />
+  </section>
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    align-content: end;
+    min-height: 100svh;
+    padding-top: calc(var(--nav-h) + clamp(28px, 5vh, 64px));
+    padding-bottom: clamp(28px, 4vh, 48px);
+  }
+  .hero__meta {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    color: var(--ink-2);
+    padding-bottom: clamp(20px, 4vh, 48px);
+  }
+  .hero__meta > :first-child { grid-column: 1 / span 5; }
+  .hero__meta-loc { grid-column: 7 / span 3; }
+  .hero__meta-coords { grid-column: 10 / -1; text-align: right; }
+
+  .hero__name {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: var(--fs-display);
+    position: relative;
+    z-index: 1;
+  }
+  .hero__last { padding-left: calc((100% - 11 * var(--col-gap)) / 12 * 2 + var(--col-gap) * 2); }
+  .hero__last > span { padding-right: 0.06em; }
+
+  .hero__portrait {
+    grid-column: 10 / -1;
+    grid-row: 2 / span 2;
+    align-self: start;
+    margin-top: 0.4rem;
+    width: 100%;
+  }
+  .hero__portrait .plate { aspect-ratio: 4 / 5; }
+  .hero__portrait .plate :global(img) { object-position: 50% 12%; }
+  .hero__facts { display: grid; gap: 2px; margin-top: 14px; color: var(--ink-2); }
+  .hero__status { display: inline-flex; align-items: center; gap: 10px; }
+  .hero__status i {
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    animation: pulse 2.4s var(--ease-in-out) infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.25; } }
+
+  .hero__intro {
+    grid-column: 3 / span 6;
+    grid-row: 3;
+    padding-top: clamp(28px, 4.5vh, 56px);
+  }
+  .hero__lead {
+    font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 46ch;
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(24px, 3.5vh, 40px); }
+
+  .hero__proofs { grid-column: 1 / -1; grid-row: 4; padding-top: clamp(40px, 7vh, 88px); }
+  .proofs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    margin: 18px 0 0;
+  }
+  .proof { display: grid; gap: 4px; align-content: start; }
+  .proof__i { color: var(--ink-3); margin-bottom: 6px; }
+  .proof__value {
+    font-family: var(--f-display);
+    font-weight: 350;
+    font-size: clamp(1.7rem, 1rem + 2vw, 2.7rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .proof__label { font-size: var(--fs-sm); color: var(--ink); margin-top: 6px; }
+  .proof__sub { color: var(--ink-3); font-size: 0.68rem; }
+
+  .journey-lead { margin-top: 20px; max-width: 44ch; color: var(--ink-2); font-size: var(--fs-lead); line-height: 1.45; }
+  .index-section { padding-top: 0; }
+
+  @media (max-width: 1100px) {
+    .hero__intro { grid-column: 1 / span 8; }
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      --fs-display: 30vw;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      min-height: auto;
+      padding-top: calc(var(--nav-h) + 28px);
+    }
+    .hero__meta { grid-template-columns: 1fr auto; row-gap: 4px; }
+    .hero__meta > :first-child { grid-column: 1 / -1; }
+    .hero__meta-loc { grid-column: 1; }
+    .hero__meta-coords { grid-column: 2; }
+    .hero__last { padding-left: 9vw; }
+    .hero__portrait {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: end;
+    }
+    .hero__facts { margin-top: 0; gap: 6px; }
+    .hero__intro { grid-column: 1 / -1; grid-row: 4; }
+    .hero__proofs { grid-row: 5; padding-top: 48px; }
+    .proofs { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+  }
+</style>

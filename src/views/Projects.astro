@@ -1,0 +1,69 @@
+---
+import Base from '@/layouts/Base.astro';
+import ProjectIndex from '@/components/ProjectIndex';
+import { projects } from '@/data/projects';
+import { domainFilters, indexItems } from '@/lib/index-items';
+import { otherLang, path, ui, type Lang } from '@/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const items = await indexItems(lang);
+const t = {
+  title: { fr: ['Projets', '& études de cas'], en: ['Work', '& case studies'] },
+  intro: {
+    fr: 'Découvrez mes réalisations académiques et personnelles dans les domaines des réseaux, de la cybersécurité et du développement.',
+    en: 'Discover my academic and personal achievements in networking, cybersecurity and development.',
+  },
+  hint: {
+    fr: 'Classés du plus récent au plus ancien. Chaque projet ouvre une étude de cas détaillée.',
+    en: 'Ordered from latest to earliest. Each project opens a detailed case study.',
+  },
+  all: { fr: 'Tous', en: 'All' },
+  filter: { fr: 'Filtrer par domaine', en: 'Filter by field' },
+};
+---
+
+<Base lang={lang} title={ui.nav.projects[lang]} description={t.intro[lang]} current="projects" altPath={path('projects', otherLang(lang))}>
+  <section class="wrap page-head">
+    <p class="mono page-head__index" data-reveal>{String(projects.length).padStart(2, '0')} — {ui.nav.projects[lang]}</p>
+    <h1 class="h1" data-reveal="line">
+      <span class="line"><span>{t.title[lang][0]}</span></span>
+      <span class="line"><span class="it">{t.title[lang][1]}</span></span>
+    </h1>
+    <div class="page-head__text">
+      <p class="page-head__lead" data-reveal>{t.intro[lang]}</p>
+      <p class="mono muted" data-reveal>{t.hint[lang]}</p>
+    </div>
+  </section>
+
+  <section class="wrap projects-list" aria-label={ui.nav.projects[lang]} data-reveal>
+    <ProjectIndex
+      client:load
+      items={items}
+      filters={domainFilters(lang)}
+      allLabel={t.all[lang]}
+      filterLabel={t.filter[lang]}
+      viewLabel={ui.view[lang]}
+    />
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    padding-top: calc(var(--nav-h) + clamp(48px, 9vw, 140px));
+    padding-bottom: clamp(56px, 8vw, 112px);
+  }
+  .page-head__index { grid-column: 1 / -1; color: var(--ink-3); margin-bottom: 24px; }
+  .page-head h1 { grid-column: 1 / -1; }
+  .page-head h1 .line:last-child { padding-left: calc((100% - 11 * var(--col-gap)) / 12 * 3 + var(--col-gap) * 3); }
+  .page-head__text { grid-column: 7 / -1; display: grid; gap: 18px; margin-top: clamp(32px, 5vw, 64px); }
+  .page-head__lead { font-size: var(--fs-lead); line-height: 1.45; color: var(--ink-2); max-width: 40ch; }
+  .projects-list { padding-bottom: 0; }
+  @media (max-width: 760px) {
+    .page-head h1 .line:last-child { padding-left: 0; }
+    .page-head__text { grid-column: 1 / -1; }
+  }
+</style>

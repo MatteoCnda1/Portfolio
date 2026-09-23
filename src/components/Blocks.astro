@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import { img, type Block } from '@/data/projects';
+import type { Lang } from '@/i18n';
+import { typo } from '@/lib/typo';
+import DocLink from '@/components/DocLink.astro';
+
+interface Props { blocks: Block[]; lang: Lang }
+const { blocks, lang } = Astro.props;
+const h = (s: string) => typo(s, lang);
+---
+
+{blocks.map((b) => {
+  switch (b.type) {
+    case 'p':
+      return <p class="cs-p" set:html={h(b[lang])} />;
+    case 'list':
+      return (
+        <ul class="cs-list" role="list">
+          {b.items.map((it) => <li set:html={h(it[lang])} />)}
+        </ul>
+      );
+    case 'skills':
+      return (
+        <dl class="cs-skills">
+          {b.items.map((it) => (
+            <div>
+              <dt set:html={h(it.title[lang])} />
+              <dd set:html={h(it.text[lang])} />
+            </div>
+          ))}
+        </dl>
+      );
+    case 'gallery':
+      return (
+        <div class:list={['cs-gallery', { 'cs-gallery--single': b.items.length === 1 }]}>
+          {b.items.map((f) => (
+            <figure>
+              {f.src && (
+                <div class="plate plate--contain plate--color">
+                  <Image src={img(f.src)} alt={f.alt} widths={[400, 700, 1000]} sizes="(max-width: 760px) 100vw, 45vw" format="webp" quality={80} />
+                </div>
+              )}
+              <figcaption class="mono" set:html={h(f.caption[lang])} />
+            </figure>
+          ))}
+        </div>
+      );
+    case 'doc':
+      return <DocLink doc={b} lang={lang} />;
+  }
+})}
+
+<style>
+  .cs-p { color: var(--ink-2); max-width: 66ch; }
+  .cs-p :global(strong), .cs-list :global(strong), .cs-skills :global(strong) { color: var(--ink); font-weight: 500; }
+  .cs-p :global(code), .cs-list :global(code) { font-family: var(--f-mono); font-size: 0.86em; padding: 1px 5px; background: var(--paper-sunk); border-radius: 2px; }
+  * + .cs-p, * + .cs-list, * + .cs-skills, * + .cs-gallery { margin-top: 1.2em; }
+
+  .cs-list { max-width: 66ch; margin-block: 0; }
+  .cs-list li {
+    position: relative;
+    padding-left: 28px;
+    color: var(--ink-2);
+  }
+  .cs-list li + li { margin-top: 0.6em; }
+  .cs-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: 14px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .cs-skills {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    margin-block: 0;
+  }
+  .cs-skills > div { padding-block: 18px 20px; border-top: 1px solid var(--line-2); }
+  .cs-skills dt {
+    font-family: var(--f-display);
+    font-weight: 420;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cs-skills dd { margin: 0; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+
+  .cs-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--col-gap);
+    margin-block: 2em;
+  }
+  .cs-gallery--single { grid-template-columns: minmax(0, 1fr); max-width: 760px; }
+  .cs-gallery figure { margin: 0; }
+  .cs-gallery .plate { aspect-ratio: 4 / 3; }
+  .cs-gallery figcaption { margin-top: 10px; color: var(--ink-3); text-transform: none; letter-spacing: 0.02em; }
+
+  @media (max-width: 640px) {
+    .cs-skills, .cs-gallery { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

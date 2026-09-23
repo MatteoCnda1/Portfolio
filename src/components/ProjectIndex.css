@@ -1,0 +1,129 @@
+.pindex { position: relative; }
+
+/* Filtres */
+.pindex__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+.pindex__filter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  color: var(--ink-2);
+  isolation: isolate;
+  transition: color var(--t-base) var(--ease-out), border-color var(--t-base) var(--ease-out);
+}
+.pindex__filter:hover { border-color: var(--ink); color: var(--ink); }
+.pindex__filter[aria-pressed='true'] { color: var(--paper-raised); border-color: var(--ink); }
+.pindex__filter-bg { position: absolute; inset: -1px; z-index: -1; border-radius: inherit; background: var(--ink); }
+.pindex__filter sup { font-size: 0.62rem; opacity: 0.7; transform: translateY(-2px); }
+
+/* Liste */
+.pindex__list { margin: 0; border-top: 1px solid var(--ink); }
+.pindex__list > li { border-bottom: 1px solid var(--line-2); }
+.pindex__row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: baseline;
+  padding-block: clamp(20px, 2.4vw, 32px);
+  transition: color 350ms var(--ease-out);
+}
+.pindex__num { grid-column: 1; color: var(--ink-3); }
+.pindex__title {
+  grid-column: 2 / span 6;
+  font-family: var(--f-display);
+  font-weight: 350;
+  font-size: clamp(1.45rem, 0.9rem + 1.9vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  transition: transform 600ms var(--ease-out), color 350ms var(--ease-out);
+}
+.pindex__cat { grid-column: 8 / span 2; color: var(--ink-2); }
+.pindex__ctx { grid-column: 10 / span 2; color: var(--ink-3); }
+.pindex__arrow {
+  grid-column: 12;
+  justify-self: end;
+  font-size: 1.25rem;
+  transition: transform 500ms var(--ease-out), color 350ms var(--ease-out);
+}
+.pindex__thumb { display: none; }
+
+@media (hover: hover) {
+  .pindex__list:hover .pindex__row:not(:hover):not(:focus-visible) { color: var(--ink-3); }
+  .pindex__list:hover .pindex__row:not(:hover):not(:focus-visible) .pindex__cat { color: var(--ink-3); }
+  .pindex__row:hover .pindex__title, .pindex__row:focus-visible .pindex__title { transform: translateX(14px); font-style: italic; }
+  .pindex__row:hover .pindex__arrow, .pindex__row:focus-visible .pindex__arrow { transform: translateX(-6px) rotate(-45deg); color: var(--accent); }
+}
+.pindex[data-fine] .pindex__row { cursor: none; }
+.pindex__row:focus-visible { outline-offset: -2px; }
+
+/* Aperçu flottant + curseur contextuel (desktop, pointeur fin uniquement) */
+.pindex__preview, .pindex__cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+.pindex__preview-frame {
+  position: absolute;
+  width: clamp(260px, 24vw, 380px);
+  aspect-ratio: 4 / 3;
+  translate: -50% -50%;
+  overflow: hidden;
+  background: var(--paper-raised);
+  box-shadow: 0 30px 60px -30px rgb(20 19 15 / 0.45);
+}
+.pindex__preview-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+.pindex__preview-frame img[data-fit='contain'] { object-fit: contain; padding: 14px; }
+.pindex__cursor span {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper-raised);
+  font-size: 0.68rem;
+}
+
+/* Mobile / tactile : une composition propre, pas une réduction du desktop */
+@media (max-width: 760px), (hover: none) {
+  .pindex__row {
+    grid-template-columns: auto 1fr 72px;
+    grid-template-areas:
+      'num title thumb'
+      'num meta thumb';
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 8px;
+    padding-block: 18px;
+  }
+  .pindex__num { grid-area: num; padding-top: 0.35em; }
+  .pindex__title { grid-area: title; font-size: clamp(1.35rem, 5.6vw, 1.9rem); }
+  .pindex__cat { grid-area: meta; }
+  .pindex__ctx, .pindex__arrow { display: none; }
+  .pindex__thumb {
+    grid-area: thumb;
+    display: block;
+    width: 72px;
+    aspect-ratio: 1;
+  }
+}

@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import { timeline } from '@/data/about';
+import { img } from '@/data/projects';
+import { projectPath, type Lang } from '@/i18n';
+import { typo } from '@/lib/typo';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const logo = img('assets/police-nationale.png');
+const see = { fr: 'Voir le projet', en: 'See the project' };
+---
+
+<div class="tl">
+<span class="tl__rail" aria-hidden="true"><span class="tl__fill" data-progress-line></span></span>
+<ol class="tl__list" role="list">
+  {timeline.map((item, i) => (
+    <li class="tl__item" data-reveal>
+      <span class:list={['tl__node', { 'tl__node--live': i === 0 }]} aria-hidden="true" />
+      <p class="tl__when mono">{item.when[lang]}</p>
+      <div class="tl__head">
+        <p class="tl__kind mono">{item.kind[lang]}</p>
+        <h3 class="tl__title" set:html={typo(item.title[lang], lang)} />
+      </div>
+      <div class="tl__text">
+        <p set:html={typo(item.text[lang], lang)} />
+        {item.href && (
+          <a class="arrow-link" href={projectPath(item.href, lang)}><span>{see[lang]}</span><span>→</span></a>
+        )}
+      </div>
+      {item.logo && (
+        <Image class="tl__logo" src={logo} alt="Logo D@TA-i — Police Nationale" width={96} format="webp" />
+      )}
+    </li>
+  ))}
+</ol>
+</div>
+
+<style>
+  .tl {
+    --rail-x: calc((100% - 11 * var(--col-gap)) / 12 * 2 + var(--col-gap) * 1.5);
+    position: relative;
+  }
+  .tl__list { margin: 0; padding: 0; }
+  .tl__rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--rail-x);
+    width: 1px;
+    background: var(--line-2);
+  }
+  .tl__fill {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform-origin: top;
+  }
+  .tl__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    padding-block: clamp(26px, 3.2vw, 44px);
+    border-bottom: 1px solid var(--line);
+  }
+  .tl__item:first-of-type { border-top: 1px solid var(--line); }
+  .tl__node {
+    position: absolute;
+    top: calc(clamp(26px, 3.2vw, 44px) + 0.45em);
+    left: var(--rail-x);
+    width: 9px;
+    height: 9px;
+    translate: -4px 0;
+    background: var(--paper);
+    border: 1px solid var(--ink-3);
+  }
+  .tl__node--live { background: var(--accent); border-color: var(--accent); }
+  .tl__when { grid-column: 1 / span 2; color: var(--ink); padding-top: 0.2em; }
+  .tl__head { grid-column: 3 / span 5; padding-left: 12px; }
+  .tl__kind { color: var(--ink-3); margin-bottom: 8px; }
+  .tl__title {
+    font-family: var(--f-display);
+    font-weight: 380;
+    font-size: var(--fs-h4);
+    letter-spacing: -0.015em;
+  }
+  .tl__text { grid-column: 8 / span 5; color: var(--ink-2); display: grid; gap: 10px; justify-items: start; }
+  .tl__logo {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 64px;
+    height: auto;
+    translate: 0 -50%;
+    mix-blend-mode: multiply;
+    filter: grayscale(1);
+    opacity: 0.85;
+  }
+  .tl__item:has(.tl__logo) .tl__text { padding-right: 88px; }
+
+  @media (max-width: 760px) {
+    .tl { --rail-x: 4px; }
+    .tl__item { grid-template-columns: 1fr; row-gap: 8px; padding-left: 30px; }
+    .tl__when, .tl__head, .tl__text { grid-column: 1; padding-left: 0; }
+    .tl__node { left: 4px; top: calc(clamp(26px, 3.2vw, 44px) + 0.3em); }
+    .tl__logo { position: static; translate: none; width: 52px; margin-top: 6px; }
+    .tl__item:has(.tl__logo) .tl__text { padding-right: 0; }
+  }
+</style>

@@ -1,0 +1,244 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import Blocks from '@/components/Blocks.astro';
+import DocLink from '@/components/DocLink.astro';
+import CaseToc from '@/components/CaseToc';
+import { projects, tagLabel, type Project } from '@/data/projects';
+import { domains } from '@/data/projects';
+import { otherLang, path, projectPath, ui, type Lang } from '@/i18n';
+import { typo, typoText } from '@/lib/typo';
+
+interface Props { project: Project; lang: Lang }
+const { project: p, lang } = Astro.props;
+const next = projects[(p.index + 1) % projects.length]!;
+const total = String(projects.length).padStart(2, '0');
+const sections = p.sections.map((s, i) => ({ ...s, id: `s${i + 1}`, num: String(i + 1).padStart(2, '0') }));
+const t = {
+  project: { fr: 'Projet', en: 'Project' },
+  context: { fr: 'Cadre', en: 'Context' },
+  domain: { fr: 'Domaine', en: 'Field' },
+  stack: { fr: 'Outils & technologies', en: 'Tools & technologies' },
+  docs: { fr: 'Documents', en: 'Documents' },
+  toc: { fr: 'Sommaire', en: 'Contents' },
+};
+const domainLabels = p.domains.map((d) => domains.find((x) => x.id === d)!.label[lang]).join(' · ');
+---
+
+<Base
+  lang={lang}
+  title={p.short[lang]}
+  description={p.subtitle[lang]}
+  current="projects"
+  altPath={projectPath(p.slug, otherLang(lang))}
+>
+  <div class="reading" data-reading="#case" aria-hidden="true"></div>
+
+  <article id="case" class="case">
+    <header class="case__head wrap">
+      <a class="arrow-link case__back" href={path('projects', lang)}><span aria-hidden="true">←</span><span>{ui.allProjects[lang]}</span></a>
+      <p class="case__meta mono" data-reveal>
+        <span>{t.project[lang]} {p.number} / {total}</span>
+        <span>{p.category[lang]}</span>
+      </p>
+      <h1 class="case__title h1" data-reveal="line">
+        <span class="line"><span set:html={typo(p.title[lang], lang)} /></span>
+      </h1>
+      <div class="case__intro">
+        <p class="case__lead" data-reveal set:html={typo(p.subtitle[lang], lang)} />
+        <dl class="case__facts" data-reveal-group>
+          <div data-reveal><dt class="mono">{t.context[lang]}</dt><dd>{p.context[lang]}</dd></div>
+          <div data-reveal><dt class="mono">{t.domain[lang]}</dt><dd>{domainLabels}</dd></div>
+          <div data-reveal>
+            <dt class="mono">{t.stack[lang]}</dt>
+            <dd><ul class="tags">{p.tags.map((tag) => <li class="tag">{tagLabel(tag, lang)}</li>)}</ul></dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="wrap" data-reveal>
+      <div class:list={['case__cover', 'plate', 'plate--color', { 'plate--contain': p.fit === 'contain' }]}>
+        <Image
+          src={p.image}
+          alt={p.short[lang]}
+          widths={[640, 1000, 1400, 1900]}
+          sizes="(max-width: 1360px) 100vw, 1300px"
+          format="webp"
+          quality={82}
+          loading="eager"
+          style={p.position ? `object-position:${p.position}` : undefined}
+        />
+      </div>
+    </div>
+
+    <div class="case__body wrap">
+      <aside class="case__aside">
+        <CaseToc client:idle items={sections.map((s) => ({ id: s.id, label: typoText(s.title[lang], lang), num: s.num }))} label={t.toc[lang]} />
+      </aside>
+      <div class="case__content">
+        {sections.map((s) => (
+          <section id={s.id} class="cs-section" aria-labelledby={`${s.id}-h`}>
+            <p class="cs-section__num mono" data-reveal>{s.num}</p>
+            <h2 id={`${s.id}-h`} class="cs-section__title" data-reveal set:html={typo(s.title[lang], lang)} />
+            <div data-reveal><Blocks blocks={s.blocks} lang={lang} /></div>
+          </section>
+        ))}
+        {p.docs.length > 0 && (
+          <section class="cs-section" aria-labelledby="docs-h">
+            <p class="cs-section__num mono">PDF</p>
+            <h2 id="docs-h" class="cs-section__title">{t.docs[lang]}</h2>
+            {p.docs.map((d) => <DocLink doc={d} lang={lang} />)}
+          </section>
+        )}
+      </div>
+    </div>
+  </article>
+
+  <nav class="next wrap" aria-label={ui.nextProject[lang]}>
+    <a class="next__link hover-color" href={projectPath(next.slug, lang)}>
+      <span class="next__label mono">{ui.nextProject[lang]} — {next.number}</span>
+      <span class="next__title">{next.short[lang]}</span>
+      <span class="next__arrow" aria-hidden="true">→</span>
+      <span class:list={['next__thumb', 'plate', { 'plate--contain': next.fit === 'contain' }]} aria-hidden="true">
+        <Image src={next.image} alt="" width={420} format="webp" quality={72} />
+      </span>
+    </a>
+  </nav>
+</Base>
+
+<style>
+  .reading {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 60;
+    height: 2px;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @media (prefers-reduced-motion: reduce) { .reading { display: none; } }
+
+  .case__head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    padding-top: calc(var(--nav-h) + clamp(32px, 6vw, 80px));
+    padding-bottom: clamp(40px, 6vw, 80px);
+  }
+  .case__back { grid-column: 1 / -1; justify-self: start; margin-bottom: clamp(36px, 6vw, 80px); color: var(--ink-2); }
+  .case__back:hover span:first-child { transform: translateX(-5px); }
+  .case__back span:first-child { transition: transform var(--t-base) var(--ease-out); }
+  .case__back:hover span:last-child { transform: none; }
+  .case__meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 20px; color: var(--ink-2); margin-bottom: 22px; }
+  .case__title { grid-column: 1 / span 11; font-size: clamp(2.6rem, 1.2rem + 5.2vw, 7rem); max-width: 17ch; }
+  .case__intro {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    margin-top: clamp(32px, 5vw, 64px);
+  }
+  .case__lead { grid-column: 1 / span 6; font-size: var(--fs-lead); line-height: 1.45; color: var(--ink-2); max-width: 44ch; }
+  .case__facts { grid-column: 8 / -1; margin: 0; }
+  .case__facts > div { display: grid; grid-template-columns: 9rem 1fr; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line-2); }
+  .case__facts dt { color: var(--ink-3); padding-top: 3px; }
+  .case__facts dd { margin: 0; }
+
+  .case__cover { aspect-ratio: 16 / 8; }
+
+  .case__body {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    padding-block: clamp(64px, 9vw, 140px) 0;
+  }
+  .case__aside { grid-column: 1 / span 3; }
+  .case__aside :global(.toc) { position: sticky; top: calc(60px + 32px); }
+  .case__content { grid-column: 4 / span 8; }
+
+  .cs-section + .cs-section { margin-top: clamp(64px, 8vw, 112px); }
+  .cs-section__num { color: var(--accent); margin-bottom: 10px; }
+  .cs-section__title {
+    font-family: var(--f-display);
+    font-weight: 360;
+    font-size: var(--fs-h3);
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    margin-bottom: 26px;
+    max-width: 22ch;
+  }
+
+  /* Sommaire */
+  :global(.toc__label) { color: var(--ink-3); margin-bottom: 14px; }
+  :global(.toc ol) { margin: 0; border-left: 1px solid var(--line-2); }
+  :global(.toc a) {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    padding: 7px 0 7px 16px;
+    font-size: var(--fs-sm);
+    line-height: 1.35;
+    color: var(--ink-3);
+    transition: color var(--t-fast) var(--ease-out);
+  }
+  :global(.toc a:hover), :global(.toc a[aria-current]) { color: var(--ink); }
+  :global(.toc a .mono) { font-size: 0.68rem; padding-top: 2px; }
+  :global(.toc__marker) { position: absolute; left: -1px; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+
+  /* Projet suivant */
+  .next { padding-top: var(--section); }
+  .next__link {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 12px var(--col-gap);
+    padding-block: clamp(28px, 4vw, 56px);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .next__label { grid-column: 1 / -1; color: var(--ink-3); }
+  .next__title {
+    font-family: var(--f-display);
+    font-variation-settings: 'opsz' 144;
+    font-weight: 320;
+    font-size: clamp(2.2rem, 1rem + 5vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    max-width: 16ch;
+    transition: color var(--t-base) var(--ease-out), transform 700ms var(--ease-out);
+  }
+  .next__arrow { font-size: clamp(2rem, 4vw, 4rem); line-height: 1; transition: transform 600ms var(--ease-out); }
+  .next__thumb {
+    position: absolute;
+    right: clamp(80px, 10vw, 160px);
+    top: 50%;
+    width: clamp(180px, 20vw, 300px);
+    aspect-ratio: 4 / 3;
+    translate: 0 -50%;
+    opacity: 0;
+    scale: 0.9;
+    rotate: 3deg;
+    transition: opacity 450ms var(--ease-out), scale 700ms var(--ease-out), rotate 700ms var(--ease-out);
+    pointer-events: none;
+  }
+  @media (hover: hover) {
+    .next__link:hover .next__title { color: var(--accent); font-style: italic; transform: translateX(12px); }
+    .next__link:hover .next__arrow { transform: translateX(10px); }
+    .next__link:hover .next__thumb { opacity: 1; scale: 1; rotate: 0deg; }
+  }
+
+  @media (max-width: 1000px) {
+    .case__aside { display: none; }
+    .case__content { grid-column: 1 / -1; }
+    .case__lead, .case__facts { grid-column: 1 / -1; }
+    .case__facts { margin-top: 32px; }
+    .case__title { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .case__cover { aspect-ratio: 4 / 3; }
+    .case__facts > div { grid-template-columns: 1fr; gap: 6px; }
+    .next__thumb { display: none; }
+  }
+</style>
