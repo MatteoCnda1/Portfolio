@@ -2,11 +2,13 @@
 import { Image } from 'astro:assets';
 import { img, tagLabel, type Project } from '@/data/projects';
 import { projectPath, type Lang } from '@/i18n';
+import FeaturedMedia from '@/components/ui/FeaturedMedia';
 
 interface Props { project: Project; lang: Lang; variant: 'a' | 'b' | 'c' }
 const { project: p, lang, variant } = Astro.props;
 const href = projectPath(p.slug, lang);
 const read = { fr: 'Lire l’étude de cas', en: 'Read the case study' };
+const effects = { a: 'curtain', b: 'wipe', c: 'diagonal' } as const;
 
 // Le stage a sa propre signature : une bande de trois visuels techniques.
 const strip = p.slug === 'stage-steami-ble'
@@ -17,15 +19,25 @@ const sizes = variant === 'c' ? '(max-width: 760px) 100vw, 1320px' : '(max-width
 
 <article class:list={['feat', `feat--${variant}`, 'hover-color', 'hover-zoom']} data-reveal-group>
   <div class:list={['feat__media', 'plate', { 'plate--contain': p.fit === 'contain' }]} data-reveal>
-    <Image
-      src={p.image}
-      alt=""
-      sizes={sizes}
-      widths={[480, 800, 1200, 1600]}
-      format="webp"
-      quality={78}
-      style={p.position ? `object-position:${p.position}` : undefined}
-    />
+    <FeaturedMedia
+      client:visible
+      number={p.number}
+      category={p.category[lang]}
+      title={p.short[lang]}
+      readLabel={read[lang]}
+      effect={effects[variant]}
+      fit={p.fit === 'contain' ? 'contain' : 'cover'}
+    >
+      <Image
+        src={p.image}
+        alt=""
+        sizes={sizes}
+        widths={[480, 800, 1200, 1600]}
+        format="webp"
+        quality={78}
+        style={p.position ? `object-position:${p.position}` : undefined}
+      />
+    </FeaturedMedia>
   </div>
 
   <div class="feat__body">

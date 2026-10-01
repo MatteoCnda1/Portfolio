@@ -2,9 +2,10 @@
 import Base from '@/layouts/Base.astro';
 import CopyButton from '@/components/CopyButton';
 import Trace from '@/components/Trace.astro';
+import TextMorph from '@/components/ui/text-morph';
+import KineticTextReveal from '@/components/ui/kinetic-text-reveal';
 import { otherLang, path, ui, type Lang } from '@/i18n';
 import { person } from '@/data/site';
-import { typo } from '@/lib/typo';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -33,16 +34,27 @@ const links = [
   { label: 'GitHub', href: person.github },
   { label: t.kb[lang], href: person.knowledgeBase },
 ];
+
+const contactTopics = {
+  fr: ['infrastructure.', 'cybersécurité.', 'automatisation.', 'collaborations.'],
+  en: ['infrastructure.', 'cybersecurity.', 'automation.', 'collaborations.'],
+};
 ---
 
 <Base lang={lang} title={ui.nav.contact[lang]} description={t.description[lang]} current="contact" altPath={path('contact', otherLang(lang))} compactFooter>
   <section class="wrap contact">
     <p class="mono contact__index" data-reveal>{ui.nav.contact[lang]}</p>
-    <h1 class="contact__title display" data-reveal="line">
-      <span class="line"><span>{t.title[lang][0]}</span></span>
-      <span class="line"><span class="it">{t.title[lang][1]}</span></span>
+    <h1 class="contact__title display">
+      <span class="line" style="display: block;"><span>{t.title[lang][0]}</span></span>
+      <span class="line" style="display: block;">
+        <span class="it">
+          <TextMorph client:load words={contactTopics[lang]} interval={2600} morphDuration={600} />
+        </span>
+      </span>
     </h1>
-    <p class="contact__intro" data-reveal set:html={typo(t.intro[lang], lang)} />
+    <p class="contact__intro">
+      <KineticTextReveal client:load text={t.intro[lang]} splitBy="words" delay={0.2} stagger={0.02} />
+    </p>
 
     <div class="rows" data-reveal-group>
       <div class="row row--mail" data-reveal>

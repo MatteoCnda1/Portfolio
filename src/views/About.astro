@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import Trace from '@/components/Trace.astro';
+import KineticTextReveal from '@/components/ui/kinetic-text-reveal';
 import { beyond, bio, certifications, cup, origin, skills, vision, work } from '@/data/about';
 import { img, projects } from '@/data/projects';
 import { otherLang, path, projectPath, ui, type Lang } from '@/i18n';
@@ -43,10 +44,20 @@ const t = {
 <Base lang={lang} title={ui.nav.about[lang]} description={t.description[lang]} current="about" altPath={path('about', otherLang(lang))}>
   <header class="wrap about-head">
     <p class="mono about-head__index" data-reveal>{ui.nav.about[lang]}</p>
-    <h1 class="about-head__title h1" data-reveal="line">
-      <span class="line"><span>{t.statement[lang][0]}</span></span>
-      <span class="line"><span>{t.statement[lang][1]} <span class="it">{t.statement[lang][2]}</span></span></span>
-      <span class="line about-head__tail"><span>{t.statement[lang][3]}</span></span>
+    <h1 class="about-head__title h1">
+      <span class="line" style="display: block;">
+        <KineticTextReveal client:load text={t.statement[lang][0]} splitBy="words" delay={0.1} />
+      </span>
+      <span class="line" style="display: block;">
+        <KineticTextReveal client:load text={t.statement[lang][1]} splitBy="words" delay={0.25} />
+        {' '}
+        <span class="it">
+          <KineticTextReveal client:load text={t.statement[lang][2]} splitBy="words" delay={0.35} />
+        </span>
+      </span>
+      <span class="line about-head__tail" style="display: block;">
+        <KineticTextReveal client:load text={t.statement[lang][3]} splitBy="words" delay={0.45} />
+      </span>
     </h1>
   </header>
 
