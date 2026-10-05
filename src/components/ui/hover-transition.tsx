@@ -220,17 +220,13 @@ export function HoverTransition({
         <>
           <Layer
             style={{
-              clipPath: active
-                ? 'inset(0)'
-                : half === 'vertical'
-                  ? 'inset(0 0 50% 0)'
-                  : 'inset(0 50% 0 0)',
+              clipPath: half === 'vertical' ? 'inset(0 0 50% 0)' : 'inset(0 50% 0 0)',
               transform: active
-                ? 'scale(1)'
+                ? 'translate3d(0, 0, 0)'
                 : half === 'vertical'
-                  ? 'translateY(-6%)'
-                  : 'translateX(-6%)',
-              opacity: active ? 1 : 0.85,
+                  ? 'translate3d(0, -100%, 0)'
+                  : 'translate3d(-100%, 0, 0)',
+              opacity: active ? 1 : 0,
               transition: transitionFor(['clip-path', 'transform', 'opacity']),
             }}
           >
@@ -238,17 +234,13 @@ export function HoverTransition({
           </Layer>
           <Layer
             style={{
-              clipPath: active
-                ? 'inset(0)'
-                : half === 'vertical'
-                  ? 'inset(50% 0 0 0)'
-                  : 'inset(0 0 0 50%)',
+              clipPath: half === 'vertical' ? 'inset(50% 0 0 0)' : 'inset(0 0 0 50%)',
               transform: active
-                ? 'scale(1)'
+                ? 'translate3d(0, 0, 0)'
                 : half === 'vertical'
-                  ? 'translateY(6%)'
-                  : 'translateX(6%)',
-              opacity: active ? 1 : 0.85,
+                  ? 'translate3d(0, 100%, 0)'
+                  : 'translate3d(100%, 0, 0)',
+              opacity: active ? 1 : 0,
               transition: transitionFor(['clip-path', 'transform', 'opacity']),
             }}
           >
@@ -265,6 +257,7 @@ export function HoverTransition({
           ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)'
           : 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
         transform: active ? 'scale(1)' : 'scale(1.04) translateY(4%)',
+        opacity: active ? 1 : 0,
       });
       break;
 
@@ -272,6 +265,7 @@ export function HoverTransition({
       animatedLayers = hoverLayer({
         clipPath: active ? 'circle(150% at 50% 50%)' : `circle(0% at ${rippleOrigins[direction]})`,
         transform: active ? 'scale(1)' : 'scale(0.96)',
+        opacity: active ? 1 : 0,
       });
       break;
 
@@ -293,6 +287,7 @@ export function HoverTransition({
         filter: active ? 'blur(0px)' : 'blur(1.5px)',
         transform: active ? 'scale(1)' : 'scale(1.025)',
         transformOrigin: rippleOrigins[direction],
+        opacity: active ? 1 : 0,
       });
       break;
   }
