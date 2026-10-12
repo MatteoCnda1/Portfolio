@@ -22,11 +22,11 @@ const t = {
   home: { fr: 'Accueil', en: 'Home' },
   nav: { fr: 'Navigation principale', en: 'Main navigation' },
   write: { fr: 'Écrire', en: 'Write' },
+  status: { fr: 'Disponible', en: 'Available' },
 };
 
 export default function Nav({ lang, current, links, homeHref, altHref, altLang, altLabel, email, socials }: Props) {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [hovered, setHovered] = useState<RouteKey | null>(null);
   const reduce = useReducedMotion();
@@ -36,7 +36,6 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const prev = scrollY.getPrevious() ?? 0;
-    setScrolled(y > 24);
     // Se retire quand on descend (plus de place pour le contenu), revient dès qu'on remonte.
     setHidden(!open && y > 480 && y > prev + 4);
     if (y < prev - 4) setHidden(false);
@@ -79,17 +78,20 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
   return (
     <header
       className="nav"
-      data-scrolled={scrolled || open ? '' : undefined}
       data-hidden={hidden ? '' : undefined}
       data-open={open ? '' : undefined}
     >
-      <div className="nav__bar wrap">
-        <a className="nav__brand" href={homeHref} aria-current={current === 'home' ? 'page' : undefined}>
-          <span>Mattéo Canada</span>
-          <span className="nav__node" aria-hidden="true" />
+      <div className="nav__bar">
+        <a
+          className="nav__brand glass"
+          href={homeHref}
+          aria-label={`Mattéo Canada — ${t.home[lang]}`}
+          aria-current={current === 'home' ? 'page' : undefined}
+        >
+          mc
         </a>
 
-        <nav className="nav__links" aria-label={t.nav[lang]} onMouseLeave={() => setHovered(null)}>
+        <nav className="nav__links glass" aria-label={t.nav[lang]} onMouseLeave={() => setHovered(null)}>
           <ul role="list">
             {links.map((l) => (
               <li key={l.key}>
@@ -100,7 +102,6 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
                   onFocus={() => setHovered(l.key)}
                   onBlur={() => setHovered(null)}
                 >
-                  {l.label}
                   {marker === l.key && (
                     <motion.span
                       className="nav__marker"
@@ -108,28 +109,34 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
                       transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 34 }}
                     />
                   )}
+                  <span className="nav__label">{l.label}</span>
                 </a>
               </li>
             ))}
           </ul>
-          <a className="nav__lang mono" href={altHref} hrefLang={altLang} lang={altLang} aria-label={altLabel}>
+        </nav>
+
+        <div className="nav__end">
+          <span className="nav__status glass">
+            <span className="glow-dot" aria-hidden="true" />
+            {t.status[lang]}
+          </span>
+          <a className="nav__lang glass" href={altHref} hrefLang={altLang} lang={altLang} aria-label={altLabel}>
             <span aria-hidden="true" className={lang === 'fr' ? 'is-on' : ''}>FR</span>
             <span aria-hidden="true">/</span>
             <span aria-hidden="true" className={lang === 'en' ? 'is-on' : ''}>EN</span>
           </a>
-        </nav>
-
-        <button
-          ref={menuBtn}
-          type="button"
-          className="nav__toggle mono"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span className="nav__toggle-label">{open ? t.close[lang] : t.menu[lang]}</span>
-          <span className="nav__toggle-icon" aria-hidden="true"><i /><i /></span>
-        </button>
+          <button
+            ref={menuBtn}
+            type="button"
+            className="nav__toggle glass"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? t.close[lang] : t.menu[lang]}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -146,7 +153,7 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
             exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE }}
           >
-            <nav className="nav__panel-inner wrap" aria-label={t.nav[lang]}>
+            <nav className="nav__panel-inner" aria-label={t.nav[lang]}>
               <ul role="list" className="nav__panel-links">
                 {allLinks.map((l, i) => (
                   <li key={l.key} className="line">
@@ -159,7 +166,6 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
                       exit={reduce ? undefined : { y: '-40%', opacity: 0 }}
                       transition={{ duration: 0.7, ease: EASE, delay: reduce ? 0 : 0.12 + i * 0.06 }}
                     >
-                      <span className="mono">{String(i + 1).padStart(2, '0')}</span>
                       {l.label}
                     </motion.a>
                   </li>
@@ -176,7 +182,7 @@ export default function Nav({ lang, current, links, homeHref, altHref, altLang, 
                   <span className="mono muted">{t.write[lang]}</span>
                   {email}
                 </a>
-                <div className="nav__panel-row mono">
+                <div className="nav__panel-row">
                   {socials.map((s) => (
                     <a key={s.href} href={s.href} target="_blank" rel="noopener">{s.label} ↗</a>
                   ))}

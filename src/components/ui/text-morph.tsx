@@ -300,6 +300,7 @@ export function TextMorph({
             position: 'absolute',
             left: '50%',
             top: 0,
+            transform: 'translateX(-50%)',
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
           }}
@@ -312,6 +313,8 @@ export function TextMorph({
             position: 'absolute',
             left: '50%',
             top: 0,
+            transform: 'translateX(-50%)',
+            opacity: 0,
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
           }}

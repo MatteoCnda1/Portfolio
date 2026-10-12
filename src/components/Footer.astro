@@ -1,12 +1,11 @@
 ---
 import CopyButton from '@/components/CopyButton';
-import Trace from '@/components/Trace.astro';
-import { path, ui, otherLang, type Lang } from '@/i18n';
+import { ui, type Lang } from '@/i18n';
 import { person, socials } from '@/data/site';
 import { typo } from '@/lib/typo';
 
-interface Props { lang: Lang; altPath: string; compact?: boolean }
-const { lang, altPath, compact = false } = Astro.props;
+interface Props { lang: Lang; compact?: boolean }
+const { lang, compact = false } = Astro.props;
 const year = new Date().getFullYear();
 const t = {
   index: { fr: 'Contact', en: 'Contact' },
@@ -17,152 +16,128 @@ const t = {
   },
   univ: { fr: 'Email universitaire', en: 'University email' },
   main: { fr: 'Email', en: 'Email' },
-  elsewhere: { fr: 'Ailleurs', en: 'Elsewhere' },
 };
+const mails = [
+  { label: t.main[lang], addr: person.email },
+  { label: t.univ[lang], addr: person.emailUniv },
+];
 ---
 
 <footer class="footer" id="contact-cta">
   {!compact && (
-    <div class="footer__cta wrap">
-      <p class="footer__index mono" data-reveal>(↳) {t.index[lang]}</p>
-      <h2 class="footer__title display" data-reveal="line">
-        <span class="line"><span>{t.title[lang][0]}</span></span>
-        <span class="line"><span class="it">{t.title[lang][1]}</span></span>
-      </h2>
-      <p class="footer__intro" data-reveal set:html={typo(t.intro[lang], lang)} />
-
-      <div class="footer__mails" data-reveal-group>
-        <div class="mail-row" data-reveal>
-          <span class="mono muted">{t.main[lang]}</span>
-          <a class="mail-row__link" href={`mailto:${person.email}`} set:html={person.email.replace('@', '@<wbr>')} />
-          <CopyButton client:visible value={person.email} label={ui.copyLabel[lang]} copyText={ui.copy[lang]} copiedText={ui.copied[lang]} />
-        </div>
-        <div class="mail-row" data-reveal>
-          <span class="mono muted">{t.univ[lang]}</span>
-          <a class="mail-row__link" href={`mailto:${person.emailUniv}`} set:html={person.emailUniv.replace('@', '@<wbr>')} />
-          <CopyButton client:visible value={person.emailUniv} label={ui.copyLabel[lang]} copyText={ui.copy[lang]} copiedText={ui.copied[lang]} />
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="wrap">
+        <p class="cta__index mono">{t.index[lang]}</p>
+        <h2 id="cta-title" class="cta__title display" data-reveal>
+          {t.title[lang][0]}<br /><em>{t.title[lang][1]}</em>
+        </h2>
+        <div class="cta__row">
+          <p class="cta__intro" set:html={typo(t.intro[lang], lang)} />
+          <div class="cta__list">
+            {mails.map((m) => (
+              <div class="mail">
+                <div class="mail__text">
+                  <span class="mail__label">{m.label}</span>
+                  <a class="mail__addr" href={`mailto:${m.addr}`} set:html={m.addr.replace('@', '@<wbr>')} />
+                </div>
+                <CopyButton client:visible value={m.addr} label={ui.copyLabel[lang]} copyText={ui.copy[lang]} copiedText={ui.copied[lang]} />
+              </div>
+            ))}
+            <ul class="cta__links" role="list">
+              {socials.map((s) => (
+                <li>
+                  <a href={s.href} target="_blank" rel="noopener">
+                    {typeof s.label === 'string' ? s.label : s.label[lang]} <span aria-hidden="true">↗</span>
+                    <span class="sr-only">{ui.newTab[lang]}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   )}
 
-  <div class="footer__base wrap">
-    <Trace nodes={3} />
-    <div class="footer__grid">
-      <p class="footer__brand">
-        <span class="footer__name">{person.name}</span>
-        <span class="mono muted">{ui.role[lang]}</span>
-      </p>
-      <nav class="footer__col" aria-label={lang === 'fr' ? 'Pied de page' : 'Footer'}>
-        <a href={path('home', lang)}>{ui.nav.home[lang]}</a>
-        <a href={path('projects', lang)}>{ui.nav.projects[lang]}</a>
-        <a href={path('about', lang)}>{ui.nav.about[lang]}</a>
-        <a href={path('contact', lang)}>{ui.nav.contact[lang]}</a>
-      </nav>
-      <div class="footer__col">
-        {socials.map((s) => (
-          <a href={s.href} target="_blank" rel="noopener">
-            {typeof s.label === 'string' ? s.label : s.label[lang]} <span aria-hidden="true">↗</span>
-            <span class="sr-only">{ui.newTab[lang]}</span>
-          </a>
-        ))}
-      </div>
-      <div class="footer__col footer__meta mono">
-        <span>{ui.location[lang]}</span>
-        <span>{person.coords}</span>
-        <a href={altPath} hreflang={otherLang(lang)} lang={otherLang(lang)}>{ui.nav.switchTo[lang]}</a>
-      </div>
-    </div>
-    <div class="footer__legal mono">
-      <span>© {year} {person.name}</span>
-      <span class="muted">{ui.rights[lang]}</span>
-      <a href="#main" class="footer__top">{ui.backToTop[lang]} ↑</a>
-    </div>
+  <div class="base wrap">
+    <span>© {year} {person.name} · {ui.rights[lang]}</span>
+    <span>{ui.location[lang]} · {person.coords}</span>
+    <a href="#main" class="base__top">{ui.backToTop[lang]} ↑</a>
   </div>
 </footer>
 
 <style>
   .footer { margin-top: auto; }
-  .footer__cta { padding-block: var(--section) clamp(72px, 10vw, 140px); }
-  .footer__index { color: var(--ink-3); margin-bottom: clamp(24px, 3vw, 40px); }
-  .footer__title { font-size: clamp(3.4rem, 1rem + 10.5vw, 11.5rem); }
-  .footer__intro {
-    max-width: 44ch;
-    margin: clamp(28px, 4vw, 48px) 0 clamp(40px, 6vw, 80px) auto;
-    color: var(--ink-2);
-    font-size: var(--fs-lead);
-    line-height: 1.45;
-  }
-  .footer__mails { border-top: 1px solid var(--ink); }
-  .mail-row {
-    display: grid;
-    grid-template-columns: minmax(150px, 3fr) 7fr auto;
-    align-items: center;
-    gap: 8px 24px;
-    padding-block: clamp(18px, 2.4vw, 30px);
-    border-bottom: 1px solid var(--line-2);
-  }
-  .mail-row__link {
-    font-family: var(--f-display);
-    font-weight: 350;
-    font-size: clamp(1.35rem, 0.8rem + 2.4vw, 3rem);
-    letter-spacing: -0.025em;
-    line-height: 1.1;
-    transition: color var(--t-fast) var(--ease-out), transform 500ms var(--ease-out);
-  }
-  .mail-row__link:hover { color: var(--accent); transform: translateX(6px); }
-  .mail-row :global(.copy) {
-    min-height: 44px;
-    padding: 0 16px;
-    border: 1px solid var(--line-2);
-    border-radius: 999px;
-    color: var(--ink-2);
-    transition: border-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
-  }
-  .mail-row :global(.copy:hover) { border-color: var(--ink); color: var(--ink); }
-  .mail-row :global(.copy__slot) { display: inline-grid; min-width: 7.5ch; overflow: hidden; }
-  .mail-row :global(.copy__slot > span) { grid-area: 1 / 1; white-space: nowrap; }
 
-  .footer__base { padding-block: 28px 32px; }
-  .footer__grid {
-    display: grid;
-    grid-template-columns: 5fr 2fr 3fr 2fr;
-    gap: 32px var(--col-gap);
-    padding-block: 36px 56px;
+  /* La seule lueur de la page, en bas à gauche, comme l'écran dans l'illustration. */
+  .cta {
+    padding-block: clamp(72px, 10vw, 140px) clamp(48px, 6vw, 80px);
+    border-top: 1px solid var(--filet);
+    background: radial-gradient(ellipse 60% 75% at 12% 100%, rgb(242 194 123 / 0.16), rgb(242 194 123 / 0) 70%);
   }
-  .footer__brand { display: grid; gap: 6px; align-content: start; }
-  .footer__name {
-    font-family: var(--f-display);
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
+  .cta__index { color: var(--lueur); }
+  .cta__title {
+    margin: 20px 0 clamp(36px, 5vw, 64px);
+    font-size: clamp(4rem, 13vw, 13rem);
   }
-  .footer__col { display: grid; align-content: start; gap: 2px; }
-  .footer__col a { padding-block: 5px; color: var(--ink-2); transition: color var(--t-fast) var(--ease-out); width: fit-content; }
-  .footer__col a:hover { color: var(--accent); }
-  .footer__meta { gap: 8px; color: var(--ink-3); }
-  .footer__meta a { padding: 0; }
-  .footer__legal {
+  .cta__row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 8px 24px;
-    padding-top: 22px;
-    border-top: 1px solid var(--line);
-    color: var(--ink-2);
+    align-items: flex-end;
+    gap: 40px;
   }
-  .footer__top { padding-block: 4px; }
-  .footer__top:hover { color: var(--accent); }
+  .cta__intro { flex: 0 1 380px; color: var(--creme-2); }
+  .cta__list { flex: 1 1 460px; max-width: 660px; display: grid; }
+  .mail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    padding-block: 18px;
+    border-top: 1px solid var(--filet);
+  }
+  .mail__text { display: grid; gap: 4px; min-width: 0; }
+  .mail__label {
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--creme-3);
+  }
+  .mail__addr {
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    transition: color var(--t-fast) var(--ease-out);
+  }
+  .mail__addr:hover { color: var(--lueur); }
+  .cta__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--filet);
+    font-size: 0.9375rem;
+  }
+  .cta__links a { transition: color var(--t-fast) var(--ease-out); }
+  .cta__links a:hover { color: var(--lueur); }
 
-  @media (max-width: 900px) {
-    .footer__grid { grid-template-columns: 1fr 1fr; }
-    .footer__brand { grid-column: 1 / -1; }
+  .base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-block: 24px 32px;
+    border-top: 1px solid var(--filet);
+    font-family: var(--f-mono);
+    font-size: var(--fs-mono);
+    letter-spacing: 0.04em;
+    color: var(--creme-3);
   }
-  @media (max-width: 640px) {
-    .mail-row { grid-template-columns: 1fr auto; grid-template-areas: 'label copy' 'value value'; row-gap: 6px; }
-    .mail-row > .mono { grid-area: label; }
-    .mail-row :global(.copy) { grid-area: copy; }
-    .mail-row__link { grid-area: value; font-size: clamp(1.2rem, 5.6vw, 2rem); overflow-wrap: normal; }
-    .footer__intro { margin-left: 0; }
-    .footer__meta { grid-column: 1 / -1; }
-  }
+  .base__top { color: var(--creme-2); transition: color var(--t-fast) var(--ease-out); }
+  .base__top:hover { color: var(--lueur); }
 </style>
