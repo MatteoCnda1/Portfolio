@@ -1,9 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import Featured from '@/components/Featured.astro';
 import Timeline from '@/components/Timeline.astro';
 import ProjectIndex from '@/components/ProjectIndex';
-import HeroGeometric from '@/components/ui/hero-geometric';
 import { featured, img, projects } from '@/data/projects';
 import { indexItems } from '@/lib/index-items';
 import { path, ui, type Lang } from '@/i18n';
@@ -11,9 +11,8 @@ import { person } from '@/data/site';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const portrait = img('assets/matteo.jpg');
+const night = img('assets/nuit-laptop.jpg');
 const items = await indexItems(lang);
-const total = String(projects.length).padStart(2, '0');
 
 const t = {
   description: {
@@ -24,16 +23,17 @@ const t = {
     fr: 'Étudiant en 3ᵉ année de BUT Réseaux & Télécoms, parcours cybersécurité, et alternant au D@TA-i — Police Nationale. Je conçois, sécurise et automatise des infrastructures, du routage OSPF au bastion Teleport.',
     en: 'Third-year Networks & Telecoms student on the cybersecurity track, and work-study apprentice at D@TA-i — French National Police. I design, secure and automate infrastructure, from OSPF routing to a Teleport bastion.',
   },
+  heroAlt: {
+    fr: 'De nuit, sur une crête au-dessus des nuages, une silhouette assise travaille sur un ordinateur portable, seule source de lumière.',
+    en: 'At night, on a ridge above the clouds, a seated figure works on a laptop, the only source of light.',
+  },
   seeWork: { fr: 'Voir les travaux', en: 'See the work' },
   contact: { fr: 'Me contacter', en: 'Get in touch' },
-  status: { fr: 'Disponible pour collaborer', en: 'Open to collaborate' },
-  facts: { fr: ['BUT 3 — R&T Cyber', 'Alternant D@TA-i'], en: ['Year 3 — Networks & Security', 'Work-study at D@TA-i'] },
-  portraitAlt: { fr: 'Portrait de Mattéo Canada', en: 'Portrait of Mattéo Canada' },
-  selected: { fr: 'Travaux choisis', en: 'Selected work' },
+  proofsLabel: { fr: 'Repères', en: 'Highlights' },
   selectedTitle: { fr: ['Travaux', 'choisis'], en: ['Selected', 'work'] },
-  index: { fr: 'Index', en: 'Index' },
+  allCount: { fr: `Les ${projects.length} projets →`, en: `All ${projects.length} projects →` },
   indexTitle: { fr: ['Tous les', 'projets'], en: ['Every', 'project'] },
-  journey: { fr: 'Parcours', en: 'Journey' },
+  indexCount: { fr: `${projects.length} projets`, en: `${projects.length} projects` },
   journeyTitle: { fr: ['Le', 'parcours'], en: ['The', 'journey'] },
   journeyLead: {
     fr: 'Du plus récent au tout premier projet — chaque étape a préparé la suivante.',
@@ -47,12 +47,6 @@ const proofs = [
   { value: { fr: 'CCNA 1—3', en: 'CCNA 1—3' }, label: { fr: 'Cisco Networking Academy', en: 'Cisco Networking Academy' }, sub: { fr: 'CCNP ENCOR en préparation', en: 'CCNP ENCOR in progress' } },
   { value: { fr: 'D@TA-i', en: 'D@TA-i' }, label: { fr: 'Alternance — Police Nationale', en: 'Work-study — National Police' }, sub: { fr: 'Réseaux & systèmes', en: 'Networks & systems' } },
 ];
-
-const heroProofs = proofs.map((p) => ({
-  value: p.value[lang],
-  label: p.label[lang],
-  sub: p.sub[lang],
-}));
 ---
 
 <Base
@@ -62,58 +56,74 @@ const heroProofs = proofs.map((p) => ({
   current="home"
   altPath={path('home', lang === 'fr' ? 'en' : 'fr')}
 >
-  <HeroGeometric
-    client:load
-    lang={lang}
-    role={ui.role[lang]}
-    location={ui.location[lang]}
-    coords={person.coords}
-    status={t.status[lang]}
-    facts={t.facts[lang]}
-    nameFirst="Mattéo"
-    nameLast="Canada"
-    statement={t.statement[lang]}
-    seeWorkLabel={t.seeWork[lang]}
-    contactLabel={t.contact[lang]}
-    proofs={heroProofs}
-    portraitSrc={portrait.src}
-    portraitAlt={t.portraitAlt[lang]}
-  />
+  <!-- Hero : l'illustration couvre le premier écran, le nom se pose en bas. Rendu côté serveur, visible sans JS. -->
+  <section id="top" class="hero" aria-labelledby="hero-name">
+    <div class="hero__media" data-hero-media>
+      <Image
+        src={night}
+        alt={t.heroAlt[lang]}
+        widths={[640, 960, 1280, 1703]}
+        sizes="114vw"
+        format="webp"
+        quality={74}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="hero__content">
+      <div class="hero__row">
+        <p class="hero__meta mono">
+          <span class="hero__role">{ui.role[lang]}</span>
+          <span>{ui.location[lang]} — {person.coords.replace(' — ', ' ')}</span>
+        </p>
+        <div class="hero__intro">
+          <p>{t.statement[lang]}</p>
+          <div class="hero__cta">
+            <a class="btn" href="#travaux">{t.seeWork[lang]}<span class="btn__icon" aria-hidden="true">↓</span></a>
+            <a class="btn btn--ghost" href="#contact-cta">{t.contact[lang]}</a>
+          </div>
+        </div>
+      </div>
+      <h1 id="hero-name" class="hero__name">{person.name}</h1>
+    </div>
+  </section>
+
+  <section class="wrap proofs" aria-label={t.proofsLabel[lang]}>
+    <dl class="proofs__grid" data-reveal>
+      {proofs.map((p) => (
+        <div class="proof">
+          <dt class="proof__value">{p.value[lang]}</dt>
+          <dd class="proof__label">{p.label[lang]}</dd>
+          <dd class="proof__sub">{p.sub[lang]}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
 
   <section id="travaux" class="section wrap" aria-labelledby="selected-title">
-    <header class="section-head">
-      <p class="section-head__index mono" data-reveal>(01) — {t.selected[lang]}</p>
-      <h2 id="selected-title" class="section-head__title h2" data-reveal="line">
-        <span class="line"><span>{t.selectedTitle[lang][0]} <span class="it">{t.selectedTitle[lang][1]}</span></span></span>
-      </h2>
+    <header class="section-head" data-reveal>
+      <h2 id="selected-title" class="section-head__title h2">{t.selectedTitle[lang][0]} <em>{t.selectedTitle[lang][1]}</em></h2>
+      <a class="section-head__aside" href="#index">{t.allCount[lang]}</a>
     </header>
     <div>
-      {featured.map((p, i) => <Featured project={p} lang={lang} variant={(['a', 'b', 'c'] as const)[i]} />)}
+      {featured.map((p) => <Featured project={p} lang={lang} />)}
     </div>
   </section>
 
-  <section id="index" class="section wrap index-section" aria-labelledby="index-title">
-    <header class="section-head">
-      <p class="section-head__index mono" data-reveal>(02) — {t.index[lang]} · {total}</p>
-      <h2 id="index-title" class="section-head__title h2" data-reveal="line">
-        <span class="line"><span>{t.indexTitle[lang][0]} <span class="it">{t.indexTitle[lang][1]}</span></span></span>
-      </h2>
+  <section id="index" class="section wrap" aria-labelledby="index-title">
+    <header class="section-head" data-reveal>
+      <h2 id="index-title" class="section-head__title h2">{t.indexTitle[lang][0]} <em>{t.indexTitle[lang][1]}</em></h2>
+      <span class="section-head__index mono">{t.indexCount[lang]}</span>
     </header>
-    <div data-reveal>
-      <ProjectIndex client:visible items={items} viewLabel={ui.view[lang]} />
-    </div>
+    <ProjectIndex client:visible items={items} />
   </section>
 
-  <section id="parcours" class="section wrap" aria-labelledby="journey-title">
-    <header class="section-head">
-      <p class="section-head__index mono" data-reveal>(03) — {t.journey[lang]}</p>
-      <div class="section-head__title">
-        <h2 id="journey-title" class="h2" data-reveal="line">
-          <span class="line"><span>{t.journeyTitle[lang][0]} <span class="it">{t.journeyTitle[lang][1]}</span></span></span>
-        </h2>
-        <p class="journey-lead" data-reveal>{t.journeyLead[lang]}</p>
-      </div>
-    </header>
+  <section id="parcours" class="section wrap journey" aria-labelledby="journey-title">
+    <div class="journey__head">
+      <h2 id="journey-title" class="h2">{t.journeyTitle[lang][0]} <em>{t.journeyTitle[lang][1]}</em></h2>
+      <p class="journey__lead">{t.journeyLead[lang]}</p>
+    </div>
     <Timeline lang={lang} />
   </section>
 </Base>
@@ -121,118 +131,86 @@ const heroProofs = proofs.map((p) => ({
 <style>
   /* ---------- Hero ---------- */
   .hero {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--col-gap);
-    align-content: end;
-    min-height: 100svh;
-    padding-top: calc(var(--nav-h) + clamp(28px, 5vh, 64px));
-    padding-bottom: clamp(28px, 4vh, 48px);
-  }
-  .hero__meta {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--col-gap);
-    color: var(--ink-2);
-    padding-bottom: clamp(20px, 4vh, 48px);
-  }
-  .hero__meta > :first-child { grid-column: 1 / span 5; }
-  .hero__meta-loc { grid-column: 7 / span 3; }
-  .hero__meta-coords { grid-column: 10 / -1; text-align: right; }
-
-  .hero__name {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    font-size: var(--fs-display);
     position: relative;
-    z-index: 1;
+    height: 100svh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--nuit);
   }
-  .hero__last { padding-left: calc((100% - 11 * var(--col-gap)) / 12 * 2 + var(--col-gap) * 2); }
-  .hero__last > span { padding-right: 0.06em; }
-
-  .hero__portrait {
-    grid-column: 10 / -1;
-    grid-row: 2 / span 2;
-    align-self: start;
-    margin-top: 0.4rem;
+  /* Débord de 7 % : la parallaxe (défilement + souris, voir motion.ts) ne découvre jamais les bords. */
+  .hero__media {
+    position: absolute;
+    inset: -7%;
+    will-change: transform;
+  }
+  .hero__media :global(img) {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 55%;
   }
-  .hero__portrait .plate { aspect-ratio: 4 / 5; }
-  .hero__portrait .plate :global(img) { object-position: 50% 12%; }
-  .hero__facts { display: grid; gap: 2px; margin-top: 14px; color: var(--ink-2); }
-  .hero__status { display: inline-flex; align-items: center; gap: 10px; }
-  .hero__status i {
-    width: 7px;
-    height: 7px;
-    background: var(--accent);
-    animation: pulse 2.4s var(--ease-in-out) infinite;
+  /* Le texte reste dans les zones sombres ; le dernier tiers rejoint --nuit et assoit le nom. */
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgb(11 15 23 / 0.6) 0%, rgb(11 15 23 / 0) 20%, rgb(11 15 23 / 0) 44%, rgb(11 15 23 / 0.8) 78%, var(--nuit) 100%);
   }
-  @keyframes pulse { 50% { opacity: 0.25; } }
-
-  .hero__intro {
-    grid-column: 3 / span 6;
-    grid-row: 3;
-    padding-top: clamp(28px, 4.5vh, 56px);
+  .hero__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 var(--gutter) clamp(10px, 1.4vw, 22px);
   }
-  .hero__lead {
-    font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.3rem);
-    line-height: 1.5;
-    color: var(--ink-2);
-    max-width: 46ch;
+  .hero__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px 48px;
+    margin-bottom: clamp(10px, 1.6vw, 24px);
   }
-  .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(24px, 3.5vh, 40px); }
-
-  .hero__proofs { grid-column: 1 / -1; grid-row: 4; padding-top: clamp(40px, 7vh, 88px); }
-  .proofs {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: var(--col-gap);
-    margin: 18px 0 0;
-  }
-  .proof { display: grid; gap: 4px; align-content: start; }
-  .proof__i { color: var(--ink-3); margin-bottom: 6px; }
-  .proof__value {
+  .hero__meta { display: grid; gap: 6px; color: var(--creme-2); }
+  .hero__role { color: var(--creme); }
+  .hero__intro { max-width: 400px; display: grid; gap: 18px; }
+  .hero__intro p { font-size: 0.9375rem; line-height: 1.55; }
+  .hero__cta { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .hero__name {
+    margin-left: -0.03em;
     font-family: var(--f-display);
-    font-weight: 350;
-    font-size: clamp(1.7rem, 1rem + 2vw, 2.7rem);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-  .proof__label { font-size: var(--fs-sm); color: var(--ink); margin-top: 6px; }
-  .proof__sub { color: var(--ink-3); font-size: 0.68rem; }
-
-  .journey-lead { margin-top: 20px; max-width: 44ch; color: var(--ink-2); font-size: var(--fs-lead); line-height: 1.45; }
-  .index-section { padding-top: 0; }
-
-  @media (max-width: 1100px) {
-    .hero__intro { grid-column: 1 / span 8; }
+    font-style: italic;
+    font-size: var(--fs-display);
+    line-height: 0.82;
+    letter-spacing: -0.02em;
   }
 
-  @media (max-width: 760px) {
-    .hero {
-      --fs-display: 30vw;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      min-height: auto;
-      padding-top: calc(var(--nav-h) + 28px);
-    }
-    .hero__meta { grid-template-columns: 1fr auto; row-gap: 4px; }
-    .hero__meta > :first-child { grid-column: 1 / -1; }
-    .hero__meta-loc { grid-column: 1; }
-    .hero__meta-coords { grid-column: 2; }
-    .hero__last { padding-left: 9vw; }
-    .hero__portrait {
-      grid-column: 1 / -1;
-      grid-row: 3;
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      align-items: end;
-    }
-    .hero__facts { margin-top: 0; gap: 6px; }
-    .hero__intro { grid-column: 1 / -1; grid-row: 4; }
-    .hero__proofs { grid-row: 5; padding-top: 48px; }
-    .proofs { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+  /* ---------- Repères ---------- */
+  .proofs { padding-top: clamp(56px, 8vw, 112px); }
+  .proofs__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 32px 28px;
+    margin: 0;
+  }
+  .proof { display: grid; gap: 8px; align-content: start; padding-top: 20px; border-top: 1px solid var(--filet); }
+  .proof dd { margin: 0; }
+  .proof__value { font-family: var(--f-display); font-size: clamp(2.75rem, 4vw, 3.75rem); line-height: 1; }
+  .proof__label { font-size: 0.9375rem; }
+  .proof__sub { font-family: var(--f-mono); font-size: var(--fs-mono); letter-spacing: 0.04em; color: var(--creme-3); }
+
+  /* ---------- Parcours : titre collant à gauche, étapes à droite ---------- */
+  .journey {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 40px clamp(32px, 6vw, 96px);
+  }
+  .journey__head { flex: 1 1 300px; display: grid; gap: 20px; }
+  .journey__lead { max-width: 34ch; color: var(--creme-2); }
+  .journey > :global(.tl) { flex: 2 1 520px; }
+  @media (min-width: 761px) {
+    .journey__head { position: sticky; top: 110px; }
   }
 </style>

@@ -52,16 +52,16 @@ const h = (s: string) => typo(s, lang);
 })}
 
 <style>
-  .cs-p { color: var(--ink-2); max-width: 66ch; }
-  .cs-p :global(strong), .cs-list :global(strong), .cs-skills :global(strong) { color: var(--ink); font-weight: 500; }
-  .cs-p :global(code), .cs-list :global(code) { font-family: var(--f-mono); font-size: 0.86em; padding: 1px 5px; background: var(--paper-sunk); border-radius: 2px; }
+  .cs-p { color: var(--creme-2); max-width: 66ch; }
+  .cs-p :global(strong), .cs-list :global(strong), .cs-skills :global(strong) { color: var(--creme); font-weight: 500; }
+  .cs-p :global(code), .cs-list :global(code) { font-family: var(--f-mono); font-size: 0.86em; padding: 1px 5px; background: var(--nuit-2); border-radius: 2px; }
   * + .cs-p, * + .cs-list, * + .cs-skills, * + .cs-gallery { margin-top: 1.2em; }
 
   .cs-list { max-width: 66ch; margin-block: 0; }
   .cs-list li {
     position: relative;
     padding-left: 28px;
-    color: var(--ink-2);
+    color: var(--creme-2);
   }
   .cs-list li + li { margin-top: 0.6em; }
   .cs-list li::before {
@@ -71,7 +71,7 @@ const h = (s: string) => typo(s, lang);
     top: 0.8em;
     width: 14px;
     height: 1px;
-    background: var(--accent);
+    background: var(--lueur);
   }
 
   .cs-skills {
@@ -80,7 +80,7 @@ const h = (s: string) => typo(s, lang);
     column-gap: var(--col-gap);
     margin-block: 0;
   }
-  .cs-skills > div { padding-block: 18px 20px; border-top: 1px solid var(--line-2); }
+  .cs-skills > div { padding-block: 18px 20px; border-top: 1px solid var(--filet-2); }
   .cs-skills dt {
     font-family: var(--f-display);
     font-weight: 420;
@@ -88,7 +88,7 @@ const h = (s: string) => typo(s, lang);
     letter-spacing: -0.01em;
     margin-bottom: 6px;
   }
-  .cs-skills dd { margin: 0; color: var(--ink-2); font-size: var(--fs-sm); line-height: 1.55; }
+  .cs-skills dd { margin: 0; color: var(--creme-2); font-size: var(--fs-sm); line-height: 1.55; }
 
   .cs-gallery {
     display: grid;
@@ -99,7 +99,7 @@ const h = (s: string) => typo(s, lang);
   .cs-gallery--single { grid-template-columns: minmax(0, 1fr); max-width: 760px; }
   .cs-gallery figure { margin: 0; }
   .cs-gallery .plate { aspect-ratio: 4 / 3; }
-  .cs-gallery figcaption { margin-top: 10px; color: var(--ink-3); text-transform: none; letter-spacing: 0.02em; }
+  .cs-gallery figcaption { margin-top: 10px; color: var(--creme-3); text-transform: none; letter-spacing: 0.02em; }
 
   @media (max-width: 640px) {
     .cs-skills, .cs-gallery { grid-template-columns: minmax(0, 1fr); }

@@ -33,12 +33,12 @@ try {
     column-gap: var(--col-gap);
     align-items: baseline;
     padding-block: 22px;
-    border-top: 1px solid var(--ink);
-    border-bottom: 1px solid var(--line-2);
+    border-top: 1px solid var(--filet);
+    border-bottom: 1px solid var(--filet-2);
     margin-top: 2em;
   }
   .doc + .doc { margin-top: 0; border-top: 0; }
-  .doc__type { grid-area: type; color: var(--ink-3); }
+  .doc__type { grid-area: type; color: var(--creme-3); }
   .doc__title {
     grid-area: title;
     font-family: var(--f-display);
@@ -46,9 +46,9 @@ try {
     letter-spacing: -0.015em;
     transition: color var(--t-fast) var(--ease-out);
   }
-  .doc__text { grid-area: text; color: var(--ink-2); font-size: var(--fs-sm); }
+  .doc__text { grid-area: text; color: var(--creme-2); font-size: var(--fs-sm); }
   .doc__arrow { grid-area: arrow; align-self: center; font-size: 1.4rem; transition: transform 450ms var(--ease-out); }
-  .doc:hover .doc__title { color: var(--accent); }
+  .doc:hover .doc__title { color: var(--lueur); }
   .doc:hover .doc__arrow { transform: translate(4px, -4px); }
   @media (max-width: 640px) {
     .doc { grid-template-columns: 1fr auto; grid-template-areas: 'type arrow' 'title arrow' 'text arrow'; row-gap: 4px; }

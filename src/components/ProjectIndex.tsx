@@ -20,12 +20,11 @@ interface Props {
   filters?: { id: string; label: string }[];
   allLabel?: string;
   filterLabel?: string;
-  viewLabel: string;
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export default function ProjectIndex({ items, filters, allLabel = 'Tous', filterLabel = 'Filtrer', viewLabel }: Props) {
+export default function ProjectIndex({ items, filters, allLabel = 'Tous', filterLabel = 'Filtrer' }: Props) {
   const [filter, setFilter] = useState<string>('all');
   const [active, setActive] = useState<string | null>(null);
   const [fine, setFine] = useState(false);
@@ -33,15 +32,12 @@ export default function ProjectIndex({ items, filters, allLabel = 'Tous', filter
   const [armed, setArmed] = useState(false);
   const reduce = useReducedMotion();
 
-  // Aperçu flottant : position brute + ressorts (l'image traîne un peu, le curseur suit de près).
+  // Vignette flottante : position brute + ressort (l'image traîne un peu derrière le curseur).
   const px = useMotionValue(0);
   const py = useMotionValue(0);
   const soft = reduce ? { stiffness: 2000, damping: 100 } : { stiffness: 170, damping: 22, mass: 0.6 };
-  const tight = reduce ? soft : { stiffness: 520, damping: 38, mass: 0.4 };
   const imgX = useSpring(px, soft);
   const imgY = useSpring(py, soft);
-  const curX = useSpring(px, tight);
-  const curY = useSpring(py, tight);
 
   useEffect(() => {
     const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 761px)');
@@ -69,7 +65,7 @@ export default function ProjectIndex({ items, filters, allLabel = 'Tous', filter
   function onFocusRow(slug: string, el: HTMLElement) {
     // Au clavier : on ancre l'aperçu à droite de la ligne focalisée.
     const r = el.getBoundingClientRect();
-    px.set(r.right - 200);
+    px.set(r.right - 360);
     py.set(r.top + r.height / 2);
     setActive(slug);
   }
@@ -126,6 +122,7 @@ export default function ProjectIndex({ items, filters, allLabel = 'Tous', filter
               <a
                 href={item.href}
                 className="pindex__row"
+                data-curtain={item.title}
                 data-active={active === item.slug ? '' : undefined}
                 onMouseEnter={() => setActive(item.slug)}
                 onFocus={(e) => onFocusRow(item.slug, e.currentTarget)}
@@ -133,7 +130,7 @@ export default function ProjectIndex({ items, filters, allLabel = 'Tous', filter
               >
                 <span className="pindex__num mono">{item.number}</span>
                 <span className="pindex__title">{item.title}</span>
-                <span className="pindex__cat mono">{item.category}</span>
+                <span className="pindex__cat">{item.category}</span>
                 <span className="pindex__ctx mono">{item.context}</span>
                 <span className="pindex__arrow" aria-hidden="true">→</span>
                 <span className="pindex__thumb plate" aria-hidden="true">
@@ -146,38 +143,27 @@ export default function ProjectIndex({ items, filters, allLabel = 'Tous', filter
       </ul>
 
       {fine && (
-        <>
-          <motion.div className="pindex__preview" style={{ x: imgX, y: imgY }} aria-hidden="true">
-            <motion.div
-              className="pindex__preview-frame"
-              initial={false}
-              animate={activeItem ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: reduce ? 1 : 0.86, rotate: reduce ? 0 : -2 }}
-              transition={{ duration: 0.45, ease: EASE }}
-            >
-              {armed && items.map((i) => (
-                <motion.img
-                  key={i.slug}
-                  src={i.preview}
-                  alt=""
-                  decoding="async"
-                  data-fit={i.fit}
-                  initial={false}
-                  animate={{ opacity: active === i.slug ? 1 : 0, scale: active === i.slug || reduce ? 1 : 1.08 }}
-                  transition={{ duration: 0.5, ease: EASE }}
-                />
-              ))}
-            </motion.div>
+        <motion.div className="pindex__preview" style={{ x: imgX, y: imgY }} aria-hidden="true">
+          <motion.div
+            className="pindex__preview-frame"
+            initial={false}
+            animate={activeItem ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: reduce ? 1 : 0.86, rotate: reduce ? 0 : -2 }}
+            transition={{ duration: 0.45, ease: EASE }}
+          >
+            {armed && items.map((i) => (
+              <motion.img
+                key={i.slug}
+                src={i.preview}
+                alt=""
+                decoding="async"
+                data-fit={i.fit}
+                initial={false}
+                animate={{ opacity: active === i.slug ? 1 : 0, scale: active === i.slug || reduce ? 1 : 1.08 }}
+                transition={{ duration: 0.5, ease: EASE }}
+              />
+            ))}
           </motion.div>
-          <motion.div className="pindex__cursor mono" style={{ x: curX, y: curY }} aria-hidden="true">
-            <motion.span
-              initial={false}
-              animate={activeItem ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-              transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 28 }}
-            >
-              {viewLabel}
-            </motion.span>
-          </motion.div>
-        </>
+        </motion.div>
       )}
     </div>
   );
